@@ -10,7 +10,7 @@ class termsConditionsPage extends StatefulWidget {
 
 class _termsConditionsPageState extends State<termsConditionsPage> {
   bool _checked = false;
-
+  //hi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
