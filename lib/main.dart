@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login/widget/base_map_page.dart';
 import 'screen/login_page.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home: LoginPage(),
+      home: BaseMapPage(),
     );
   }
 }
