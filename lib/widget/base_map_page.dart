@@ -67,21 +67,18 @@ class _BaseMapPageState extends State<BaseMapPage> {
       body: Stack(
         children: <Widget>[
           NaverMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(37.566570, 126.978442),
-              zoom: 15,
-            ),
+            initLocationTrackingMode: LocationTrackingMode.Follow,
             onMapCreated: onMapCreated,
             mapType: _mapType,
-            initLocationTrackingMode: _trackingMode,
+            //initLocationTrackingMode: _trackingMode,
             locationButtonEnable: true,
             indoorEnable: true,
-            onCameraChange: _onCameraChange,
-            onCameraIdle: _onCameraIdle,
-            onMapTap: _onMapTap,
-            onMapLongTap: _onMapLongTap,
-            onMapDoubleTap: _onMapDoubleTap,
-            onMapTwoFingerTap: _onMapTwoFingerTap,
+            // onCameraChange: _onCameraChange,
+            // onCameraIdle: _onCameraIdle,
+            // onMapTap: _onMapTap,
+            // onMapLongTap: _onMapLongTap,
+            // onMapDoubleTap: _onMapDoubleTap,
+            // onMapTwoFingerTap: _onMapTwoFingerTap,
             onSymbolTap: _onSymbolTap,
 
           ),

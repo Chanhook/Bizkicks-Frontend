@@ -3,6 +3,8 @@
    <application
         android:label="login"
         android:icon="@mipmap/ic_launcher">
+        android:label="login"
+        android:usesCleartextTraffic="true"
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

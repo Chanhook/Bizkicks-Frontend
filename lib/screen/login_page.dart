@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:login/manager_page.dart';
 import 'package:login/screen/create_account_page.dart';
 import 'package:login/screen/forgot_page.dart';
+import 'package:login/widget/base_map_page.dart';
+import 'package:login/widget/marker_map_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -19,9 +21,9 @@ class _LoginPageState extends State<LoginPage> {
       length: 2,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Column(
+        body: ListView(
           children: [
-            SizedBox(height: 50,),
+            SizedBox(height: 30,),
             Container(
               height: 150.0,
               width: 190.0,
@@ -35,20 +37,24 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("기업 회원용 통합 킥보드 앱",
-                style: TextStyle(color: Colors.grey),
+              child: Center(
+                child: Text("기업 회원용 통합 킥보드 앱",
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(2.0),
-              child: Text("비즈킥스",
-              style: TextStyle(
-                fontSize: 25,
+              child: Center(
+                child: Text("비즈킥스",
+                  style: TextStyle(
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
-              ),
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
               child: DefaultTabController(
@@ -74,7 +80,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.all(10),
               child: TextField(
@@ -94,7 +99,6 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: 'Enter your secure password'),
               ),
             ),
-            SizedBox(height: 100),
             FlatButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPage()));
@@ -121,12 +125,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             SizedBox(
-              height: 130,
+              height: 60,
             ),
             Container(child: TextButton(child: Text('New User? Create Account'),
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>CreateAccountPage()));
-            },),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MarkerMapPage()));
+              },),
             )
           ],
         ),
