@@ -13,6 +13,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   static const MODE_REMOVE = 0xF2;
   static const MODE_NONE = 0xF3;
   int _currentMode = MODE_NONE;
+  late LatLng _latLng;
 
   Completer<NaverMapController> _controller = Completer();
   List<Marker> _markers = [];
@@ -166,9 +167,10 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   // ================== method ==========================
   void _onCameraChange(
       LatLng latLng, CameraChangeReason reason, bool isAnimated) {
-    print('카메라 움직임 >>> 위치 : ${latLng.latitude}, ${latLng.longitude}'
-        '\n원인: $reason'
-        '\n에니메이션 여부: $isAnimated');
+
+    setState(() {
+      _latLng=latLng;
+    });
   }
   void _markerCreated() async {
     _markers.add(Marker(
@@ -178,13 +180,13 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         captionColor: Colors.indigo,
         captionTextSize: 20.0,
         alpha: 0.8,
-        icon: await OverlayImage.fromAssetImage(assetName: 'images/logo.png', context: context),
+        icon: await OverlayImage.fromAssetImage(assetName: 'images/Lime.png', context: context),
         anchor: AnchorPoint(0.5, 1),
         width: 45,
         height: 45,
         infoWindow: '인포 윈도우',
         onMarkerTab: _onMarkerTap));
-    print(_markers);
+    print(_markers.length);
   }
 
 
