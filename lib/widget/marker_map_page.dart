@@ -47,7 +47,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   @override
   Widget build(BuildContext context) {
-    _markerCreated();
+    _markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
