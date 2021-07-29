@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/widget/base_map_page.dart';
 import 'screen/login_page.dart';
-import 'package:kakaomap_webview/kakaomap_webview.dart';
 void main() {
   runApp(MyApp());
 }

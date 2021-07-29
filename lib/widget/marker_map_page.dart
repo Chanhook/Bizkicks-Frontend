@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
@@ -14,6 +15,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   static const MODE_NONE = 0xF3;
   int _currentMode = MODE_NONE;
   late LatLng _latLng;
+
 
   Completer<NaverMapController> _controller = Completer();
   List<Marker> _markers = [];
@@ -43,7 +45,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       });
     });
     super.initState();
-
+    _get();
   }
 
   @override
@@ -165,6 +167,17 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   }
 
   // ================== method ==========================
+  void _get() async{
+    String url = "https://eunjin3786.pythonanywhere.com/question/all/";
+    var response = await http.get(Uri.parse(url));
+    var statusCode = response.statusCode;
+    var responseHeaders = response.headers;
+    var responseBody = response.body;
+
+    print("statusCode: ${statusCode}");
+    print("responseHeaders: ${responseHeaders}");
+    print("responseBody: ${responseBody}");
+  }
   void _onCameraChange(
       LatLng latLng, CameraChangeReason reason, bool isAnimated) {
 
