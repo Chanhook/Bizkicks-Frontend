@@ -1,7 +1,8 @@
 import 'dart:async';
-
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:login/model/kickboard.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class MarkerMapPage extends StatefulWidget {
@@ -15,6 +16,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   static const MODE_NONE = 0xF3;
   int _currentMode = MODE_NONE;
   late LatLng _latLng;
+  var map={'씽씽':'Xingxing.png','라임':'Lime.png','킥고잉':'Kickgoing.png'};
 
 
   Completer<NaverMapController> _controller = Completer();
@@ -45,12 +47,12 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       });
     });
     super.initState();
-    _get();
   }
 
   @override
   Widget build(BuildContext context) {
-    _markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
+    //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
+    _get();
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -59,6 +61,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         children: <Widget>[
           _controlPanel(),
           _naverMap(),
+
         ],
       ),
     );
@@ -168,15 +171,39 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   // ================== method ==========================
   void _get() async{
-    String url = "https://eunjin3786.pythonanywhere.com/question/all/";
+    String url = "http://13.125.192.78:8080/kickboard/location";
     var response = await http.get(Uri.parse(url));
     var statusCode = response.statusCode;
     var responseHeaders = response.headers;
-    var responseBody = response.body;
+    var responseBody = utf8.decode(response.bodyBytes);
 
     print("statusCode: ${statusCode}");
     print("responseHeaders: ${responseHeaders}");
     print("responseBody: ${responseBody}");
+    
+    List list = jsonDecode(responseBody);
+
+    for(var i in list){
+      var kickboard = Kickboard.fromJson(i);
+      print(kickboard.company_name);
+      //_markerCreated(kickboard);
+      var img=map[kickboard.company_name];
+      _markers.add(Marker(
+          markerId: '${kickboard.company_name}',
+          position: LatLng(kickboard.lat, kickboard.lng),
+          captionText: "커스텀 아이콘",
+          captionColor: Colors.indigo,
+          captionTextSize: 20.0,
+          alpha: 0.8,
+          icon: await OverlayImage.fromAssetImage(assetName: 'images/${img}', context: context),
+          anchor: AnchorPoint(0.5, 1),
+          width: 45,
+          height: 45,
+          infoWindow: '인포 윈도우',
+          onMarkerTab: _onMarkerTap
+      ));
+    }
+
   }
   void _onCameraChange(
       LatLng latLng, CameraChangeReason reason, bool isAnimated) {
@@ -185,20 +212,22 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       _latLng=latLng;
     });
   }
-  void _markerCreated() async {
+  void _markerCreated(Kickboard kickboard) async {
+    var img=map[kickboard.company_name];
     _markers.add(Marker(
-        markerId: 'id',
-        position: LatLng(37.55326969115973, 126.97238587375881),
+        markerId: '${kickboard.company_name}',
+        position: LatLng(kickboard.lat, kickboard.lng),
         captionText: "커스텀 아이콘",
         captionColor: Colors.indigo,
         captionTextSize: 20.0,
         alpha: 0.8,
-        icon: await OverlayImage.fromAssetImage(assetName: 'images/Lime.png', context: context),
+        icon: await OverlayImage.fromAssetImage(assetName: 'images/${img}', context: context),
         anchor: AnchorPoint(0.5, 1),
         width: 45,
         height: 45,
         infoWindow: '인포 윈도우',
-        onMarkerTab: _onMarkerTap));
+        onMarkerTab: _onMarkerTap
+    ));
     print(_markers.length);
   }
 
@@ -225,6 +254,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     int pos = _markers.indexWhere((m) => m.markerId == marker.markerId);
     setState(() {
       _markers[pos].captionText = '선택됨';
+      print(_markers[pos]);
     });
     if (_currentMode == MODE_REMOVE) {
       setState(() {
