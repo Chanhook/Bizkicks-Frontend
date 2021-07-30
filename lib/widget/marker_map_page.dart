@@ -47,12 +47,13 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       });
     });
     super.initState();
+    _get();
   }
 
   @override
   Widget build(BuildContext context) {
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
-    _get();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
@@ -176,33 +177,21 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     var statusCode = response.statusCode;
     var responseHeaders = response.headers;
     var responseBody = utf8.decode(response.bodyBytes);
-
+    /*
     print("statusCode: ${statusCode}");
     print("responseHeaders: ${responseHeaders}");
     print("responseBody: ${responseBody}");
-    
+    */
     List list = jsonDecode(responseBody);
 
     for(var i in list){
       var kickboard = Kickboard.fromJson(i);
       print(kickboard.company_name);
-      //_markerCreated(kickboard);
+      _markerCreated(kickboard);
       var img=map[kickboard.company_name];
-      _markers.add(Marker(
-          markerId: '${kickboard.company_name}',
-          position: LatLng(kickboard.lat, kickboard.lng),
-          captionText: "커스텀 아이콘",
-          captionColor: Colors.indigo,
-          captionTextSize: 20.0,
-          alpha: 0.8,
-          icon: await OverlayImage.fromAssetImage(assetName: 'images/${img}', context: context),
-          anchor: AnchorPoint(0.5, 1),
-          width: 45,
-          height: 45,
-          infoWindow: '인포 윈도우',
-          onMarkerTab: _onMarkerTap
-      ));
+
     }
+    print(_markers);
 
   }
   void _onCameraChange(
@@ -212,14 +201,11 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       _latLng=latLng;
     });
   }
-  void _markerCreated(Kickboard kickboard) async {
+  Future<void> _markerCreated(Kickboard kickboard) async {
     var img=map[kickboard.company_name];
     _markers.add(Marker(
-        markerId: '${kickboard.company_name}',
+        markerId: DateTime.now().toIso8601String(),
         position: LatLng(kickboard.lat, kickboard.lng),
-        captionText: "커스텀 아이콘",
-        captionColor: Colors.indigo,
-        captionTextSize: 20.0,
         alpha: 0.8,
         icon: await OverlayImage.fromAssetImage(assetName: 'images/${img}', context: context),
         anchor: AnchorPoint(0.5, 1),
@@ -228,6 +214,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         infoWindow: '인포 윈도우',
         onMarkerTab: _onMarkerTap
     ));
+    print(_markers);
     print(_markers.length);
   }
 
