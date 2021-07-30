@@ -16,8 +16,8 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   static const MODE_NONE = 0xF3;
   int _currentMode = MODE_NONE;
   late LatLng _latLng;
-  var map={'씽씽':'Xingxing.png','라임':'Lime.png','킥고잉':'Kickgoing.png'};
-
+  var _detailed = false;
+  var map = {'씽씽': 'Xingxing.png', '라임': 'Lime.png', '킥고잉': 'Kickgoing.png'};
 
   Completer<NaverMapController> _controller = Completer();
   List<Marker> _markers = [];
@@ -53,18 +53,56 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   @override
   Widget build(BuildContext context) {
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
-
     return Scaffold(
       appBar: AppBar(
         title: Text(""),
       ),
-      body: Column(
-        children: <Widget>[
-          _controlPanel(),
-          _naverMap(),
-
-        ],
-      ),
+      body: Stack(children: <Widget>[
+        Column(
+          children: <Widget>[
+            //_controlPanel(),
+            _naverMap(),
+          ],
+        ),
+        if(_detailed)Positioned(
+          child: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Image.asset('images/Lime.png'),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Row(children: <Widget>[
+                      Text("모델명")
+                    ],
+                    ),
+                    Text("battery")
+                  ],
+                ),
+                ElevatedButton(
+                    onPressed: (){},
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text("QR 스캔 후 이용하기",),
+                    ),
+                )
+              ],
+            ),
+            color: Colors.white,
+            width: 100,
+            height: 100,
+          ),
+          right: 0,
+          left: 0,
+          top: 500,
+          bottom:0,
+        ),
+      ]),
     );
   }
 
@@ -81,7 +119,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               child: Container(
                 decoration: BoxDecoration(
                     color:
-                    _currentMode == MODE_ADD ? Colors.black : Colors.white,
+                        _currentMode == MODE_ADD ? Colors.black : Colors.white,
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(color: Colors.black)),
                 padding: EdgeInsets.all(8),
@@ -91,7 +129,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color:
-                    _currentMode == MODE_ADD ? Colors.white : Colors.black,
+                        _currentMode == MODE_ADD ? Colors.white : Colors.black,
                     fontWeight: FontWeight.w600,
                     fontSize: 14,
                   ),
@@ -134,7 +172,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
             child: Container(
               decoration: BoxDecoration(
                   color:
-                  _currentMode == MODE_NONE ? Colors.black : Colors.white,
+                      _currentMode == MODE_NONE ? Colors.black : Colors.white,
                   borderRadius: BorderRadius.circular(6),
                   border: Border.all(color: Colors.black)),
               padding: EdgeInsets.all(4),
@@ -171,7 +209,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   }
 
   // ================== method ==========================
-  void _get() async{
+  void _get() async {
     String url = "http://13.125.192.78:8080/kickboard/location";
     var response = await http.get(Uri.parse(url));
     var statusCode = response.statusCode;
@@ -184,40 +222,38 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     */
     List list = jsonDecode(responseBody);
 
-    for(var i in list){
+    for (var i in list) {
       var kickboard = Kickboard.fromJson(i);
       print(kickboard.company_name);
       _markerCreated(kickboard);
-      var img=map[kickboard.company_name];
-
+      var img = map[kickboard.company_name];
     }
     print(_markers);
-
   }
+
   void _onCameraChange(
       LatLng latLng, CameraChangeReason reason, bool isAnimated) {
-
     setState(() {
-      _latLng=latLng;
+      _latLng = latLng;
+      _detailed=false;
     });
   }
+
   Future<void> _markerCreated(Kickboard kickboard) async {
-    var img=map[kickboard.company_name];
+    var img = map[kickboard.company_name];
     _markers.add(Marker(
         markerId: DateTime.now().toIso8601String(),
         position: LatLng(kickboard.lat, kickboard.lng),
         alpha: 0.8,
-        icon: await OverlayImage.fromAssetImage(assetName: 'images/${img}', context: context),
+        icon: await OverlayImage.fromAssetImage(
+            assetName: 'images/${img}', context: context),
         anchor: AnchorPoint(0.5, 1),
         width: 45,
         height: 45,
-        infoWindow: '인포 윈도우',
-        onMarkerTab: _onMarkerTap
-    ));
+        onMarkerTab: _onMarkerTap));
     print(_markers);
     print(_markers.length);
   }
-
 
   void _onMapCreated(NaverMapController controller) {
     _controller.complete(controller);
@@ -228,7 +264,8 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       _markers.add(Marker(
         markerId: DateTime.now().toIso8601String(),
         position: latLng,
-        icon: await OverlayImage.fromAssetImage(assetName: 'icon/marker.png', context: context),
+        icon: await OverlayImage.fromAssetImage(
+            assetName: 'icon/marker.png', context: context),
         infoWindow: '테스트',
         onMarkerTab: _onMarkerTap,
       ));
@@ -242,6 +279,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     setState(() {
       _markers[pos].captionText = '선택됨';
       print(_markers[pos]);
+      _detailed = true;
     });
     if (_currentMode == MODE_REMOVE) {
       setState(() {
