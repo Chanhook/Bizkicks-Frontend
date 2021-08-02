@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:login/screen/measured_rate_page.dart';
 
 class Contract extends StatelessWidget {
-  const Contract({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Container(
-          child: Center(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+              builder: (context)=>MeasuredRatePage()
+              ));
+            },
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -19,21 +25,21 @@ class Contract extends StatelessWidget {
               ),
             ),
           ),
-        ),
-        Container(
-          child: Center(
+          InkWell(
+            onTap:(){},
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 child: Text("정액제"),
-                color: Colors.yellowAccent,
+                color: Colors.yellow,
                 width: 250,
                 height: 250,
               ),
             ),
           ),
-        )
-      ],
+
+        ],
+      ),
     );
   }
 }
