@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   naver_map_plugin: ^0.9.6
   http: ^0.13.3
+  get: ^4.3.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

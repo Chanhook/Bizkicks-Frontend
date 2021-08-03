@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:login/manager_page.dart';
 import 'package:login/screen/create_account_page.dart';
 import 'package:login/screen/forgot_page.dart';
@@ -129,7 +130,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Container(child: TextButton(child: Text('New User? Create Account'),
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>MarkerMapPage()));
+              Get.to(MarkerMapPage());
+                //Navigator.push(context, MaterialPageRoute(builder: (context)=>MarkerMapPage()));
               },),
             )
           ],

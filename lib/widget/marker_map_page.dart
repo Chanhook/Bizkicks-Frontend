@@ -60,7 +60,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       body: Stack(children: <Widget>[
         Column(
           children: <Widget>[
-            //_controlPanel(),
+            _controlPanel(),
             _naverMap(),
           ],
         ),
@@ -75,14 +75,13 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                     Image.asset('images/Lime.png'),
                   ],
                 ),
-                Column(
-                  children: [
-                    Row(children: <Widget>[
-                      Text("모델명")
-                    ],
-                    ),
-                    Text("battery")
-                  ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                  Text("모델명 : AAAAA"),
+                  Text("battery : 100%"),
+
+                ],
                 ),
                 ElevatedButton(
                     onPressed: (){},
