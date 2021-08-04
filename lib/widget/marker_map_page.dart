@@ -15,7 +15,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   static const MODE_REMOVE = 0xF2;
   static const MODE_NONE = 0xF3;
   int _currentMode = MODE_NONE;
-  late LatLng _latLng;
+  LatLng _latLng;
   var _detailed = false;
   var map = {'씽씽': 'Xingxing.png', '라임': 'Lime.png', '킥고잉': 'Kickgoing.png'};
 
@@ -24,7 +24,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       OverlayImage.fromAssetImage(
         assetName: 'icon/logo.png',
         context: context,

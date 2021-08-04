@@ -7,7 +7,7 @@ import 'package:login/widget/base_map_page.dart';
 import 'package:login/widget/marker_map_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();

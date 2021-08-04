@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ForgotPage extends StatefulWidget {
-  const ForgotPage({Key? key}) : super(key: key);
+  const ForgotPage({Key key}) : super(key: key);
 
   @override
   _ForgotPageState createState() => _ForgotPageState();

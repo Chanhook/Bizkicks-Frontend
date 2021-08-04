@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login/screen/terms_conditions_page.dart';
 
 class CreateAccountPage extends StatefulWidget {
-  const CreateAccountPage({Key? key}) : super(key: key);
+  const CreateAccountPage({Key key}) : super(key: key);
 
   @override
   _CreateAccountPageState createState() => _CreateAccountPageState();

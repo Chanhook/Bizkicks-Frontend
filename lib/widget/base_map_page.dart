@@ -93,7 +93,7 @@ class _BaseMapPageState extends State<BaseMapPage> {
   }
 
   _onMapTap(LatLng position) async {
-    scaffoldKey.currentState!.showSnackBar(SnackBar(
+    scaffoldKey.currentState.showSnackBar(SnackBar(
       content:
       Text('[onTap] lat: ${position.latitude}, lon: ${position.longitude}'),
       duration: Duration(milliseconds: 500),
@@ -102,7 +102,7 @@ class _BaseMapPageState extends State<BaseMapPage> {
   }
 
   _onMapLongTap(LatLng position) {
-    scaffoldKey.currentState!.showSnackBar(SnackBar(
+    scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(
           '[onLongTap] lat: ${position.latitude}, lon: ${position.longitude}'),
       duration: Duration(milliseconds: 500),
@@ -111,7 +111,7 @@ class _BaseMapPageState extends State<BaseMapPage> {
   }
 
   _onMapDoubleTap(LatLng position) {
-    scaffoldKey.currentState!.showSnackBar(SnackBar(
+    scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(
           '[onDoubleTap] lat: ${position.latitude}, lon: ${position.longitude}'),
       duration: Duration(milliseconds: 500),
@@ -120,7 +120,7 @@ class _BaseMapPageState extends State<BaseMapPage> {
   }
 
   _onMapTwoFingerTap(LatLng position) {
-    scaffoldKey.currentState!.showSnackBar(SnackBar(
+    scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(
           '[onTwoFingerTap] lat: ${position.latitude}, lon: ${position.longitude}'),
       duration: Duration(milliseconds: 500),
@@ -129,7 +129,7 @@ class _BaseMapPageState extends State<BaseMapPage> {
   }
 
   _onSymbolTap(LatLng position, String caption) {
-    scaffoldKey.currentState!.showSnackBar(SnackBar(
+    scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(
           '[onSymbolTap] caption: $caption, lat: ${position.latitude}, lon: ${position.longitude}'),
       duration: Duration(milliseconds: 500),

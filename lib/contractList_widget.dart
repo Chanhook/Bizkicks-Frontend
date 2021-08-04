@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ContractList extends StatefulWidget {
-  const ContractList({Key? key}) : super(key: key);
+  const ContractList({Key key}) : super(key: key);
 
   @override
   _ContractListState createState() => _ContractListState();

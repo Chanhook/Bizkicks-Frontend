@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:login/contract_screen.dart';
+import 'package:login/controller/mrpricecontroller.dart';
 import 'package:login/dashboard_screen.dart';
 import 'package:login/mypage_screen.dart';
 
 import 'contractList_widget.dart';
 
 class ManagerPage extends StatefulWidget {
-  const ManagerPage({Key? key}) : super(key: key);
+  const ManagerPage({Key key}) : super(key: key);
 
   @override
   _ManagerPageState createState() => _ManagerPageState();
@@ -23,6 +25,8 @@ class _ManagerPageState extends State<ManagerPage> {
 
   @override
   Widget build(BuildContext context) {
+    final MRPriceController mrpController = Get.put(MRPriceController());
+
     return Scaffold(
       appBar: new AppBar(
         title: Text("manager"),
@@ -43,7 +47,7 @@ class _ManagerPageState extends State<ManagerPage> {
         onTap: (int index) {
           setState(() {
             _selectedIndex = index;
-            print(_selectedIndex);
+            //print(_selectedIndex);
           });
         },
         items: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class termsConditionsPage extends StatefulWidget {
   final String title;
-  termsConditionsPage({Key? key, required String this.title}) : super(key: key);
+  termsConditionsPage({Key key,  String this.title}) : super(key: key);
 
   @override
   _termsConditionsPageState createState() => _termsConditionsPageState();
