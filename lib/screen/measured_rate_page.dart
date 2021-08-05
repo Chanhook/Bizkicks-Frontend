@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login/widget/input_price.dart';
+import 'package:login/manager_page.dart';
+import 'package:get/get.dart';
 
 class MeasuredRatePage extends StatefulWidget {
   const MeasuredRatePage({Key key}) : super(key: key);
@@ -12,7 +13,7 @@ class MeasuredRatePage extends StatefulWidget {
 class _MeasuredRatePageState extends State<MeasuredRatePage> {
   int _currentStep = 0;
   StepperType stepperType = StepperType.horizontal;
-  final List<int> _priceAlarm = <int>[10, 11];
+  final List<int> _priceAlarm = <int>[];
   final List<int> _timeAlarm = <int>[];
   final TextEditingController _textFieldController = TextEditingController();
 
@@ -131,17 +132,58 @@ class _MeasuredRatePageState extends State<MeasuredRatePage> {
                         : StepState.disabled,
                   ),
                   Step(
-                    title: new Text('Mobile Number'),
-                    content: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          decoration:
-                              InputDecoration(labelText: 'Mobile Number'),
+                    title: new Text('계약'),
+                    content: Container(
+                      child: Center(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Text(
+                            '계약서~계약서~계약서~계약서~계약서~\n' +
+                                '계약서~계약서~계약서~계약서~계약서~\n' +
+                                '계약서~계약서~계약서~계약서~계약서~\n' +
+                                '계약서~계약서~계약서~계약서~계약서~\n' +
+                                '계약서~계약서~계약서~계약서~계약서~\n' +
+                                '계약서~계약서~계약서~계약서~계약서~',
+                          ),
                         ),
-                      ],
+                      ),
                     ),
                     isActive: _currentStep >= 0,
                     state: _currentStep >= 2
+                        ? StepState.complete
+                        : StepState.disabled,
+                  ),Step(
+                    title: new Text('계약 완료'),
+                    content: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("계약 완료!",
+                          style: TextStyle(
+                            fontSize: 40,
+                          ),
+                        ),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(child: Center(child: Text("이용 기한"))),
+                                Expanded(child: Center(child: Text("7월 17일 ~ 8월 17일")),),
+                              ],
+                          ),
+                        ),
+                        SizedBox(height: 30,),
+                        Text(
+                            "직원들을 초대해 주세요\n"
+                                "법인 코드 : abcde\n"
+                        ),
+                        ElevatedButton(onPressed: (){Get.offAll(ManagerPage());}, child: Text("계약목록으로"))
+
+                      ],
+                    ),
+                    isActive: _currentStep >= 0,
+                    state: _currentStep >= 3
                         ? StepState.complete
                         : StepState.disabled,
                   ),
@@ -233,7 +275,7 @@ class _MeasuredRatePageState extends State<MeasuredRatePage> {
   }
 
   continued() {
-    _currentStep < 2 ? setState(() => _currentStep += 1) : null;
+    _currentStep < 3 ? setState(() => _currentStep += 1) : null;
   }
 
   cancel() {
@@ -246,6 +288,7 @@ class _MeasuredRatePageState extends State<MeasuredRatePage> {
     });
     _textFieldController.clear();
   }
+
   void _addAlarmTime(String time) {
     setState(() {
       _timeAlarm.add(int.parse(time));
