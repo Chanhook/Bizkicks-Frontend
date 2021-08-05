@@ -3,7 +3,7 @@ import 'package:login/services/remote_service.dart';
 
 class MRPriceController extends GetxController{
   var isLoading = true.obs;
-  var measuredRatedPrice=10;
+  var measuredRatedPrice=10.obs;
 
   @override
   void onInit(){
@@ -15,10 +15,8 @@ class MRPriceController extends GetxController{
     try{
       isLoading(true);
       var price = await RemoteService.fetchPrice();
-      print("리모트로 받아온거${price.price}");
-      print("hi");
       if(price !=null){
-        measuredRatedPrice= price.price;
+        measuredRatedPrice.value= price.price;
         update();
       }
     }finally{

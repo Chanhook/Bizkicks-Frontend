@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/contract_screen.dart';
+import 'package:login/controller/checkContractController.dart';
 import 'package:login/controller/mrpricecontroller.dart';
+import 'package:login/controller/totalContractController.dart';
 import 'package:login/dashboard_screen.dart';
+import 'package:login/model/check_contract.dart';
 import 'package:login/mypage_screen.dart';
 
 import 'contractList_widget.dart';
@@ -26,7 +29,9 @@ class _ManagerPageState extends State<ManagerPage> {
   @override
   Widget build(BuildContext context) {
     final MRPriceController mrpController = Get.put(MRPriceController());
-
+    final TotalContractController tcController = Get.put(TotalContractController());
+    final CheckContractController ccController = Get.put(CheckContractController());
+    //print(tcController.productList);
     return Scaffold(
       appBar: new AppBar(
         title: Text("manager"),
