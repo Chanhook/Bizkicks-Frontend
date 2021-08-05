@@ -17,7 +17,6 @@ class MRPriceController extends GetxController{
       var price = await RemoteService.fetchPrice();
       if(price !=null){
         measuredRatedPrice.value= price.price;
-        update();
       }
     }finally{
       //isLoading(false);
