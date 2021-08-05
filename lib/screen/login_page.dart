@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login/controller/alarmController.dart';
 import 'package:login/manager_page.dart';
 import 'package:login/screen/create_account_page.dart';
 import 'package:login/screen/forgot_page.dart';
@@ -18,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    AlarmController alarm=Get.put(AlarmController());
     return DefaultTabController(
       length: 2,
       child: Scaffold(

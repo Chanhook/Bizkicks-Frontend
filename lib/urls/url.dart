@@ -5,3 +5,6 @@ var productsUrl="http://localhost:3000/body";
 
 //4) 계약 조회 - 현재 계약 종류, 종료 기간, 계약 중인 킥보드 업체 목록 및 요약정보
 var checkContractUrl="http://localhost:3000/contracts";
+
+//8) 알림 확인
+var alarmUrl="http://localhost:3000/alarm";
