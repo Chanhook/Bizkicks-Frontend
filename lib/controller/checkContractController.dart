@@ -17,7 +17,8 @@ class CheckContractController extends GetxController{
 
   @override
   void onInit(){
-    putContract(body);
+    deleteContract();
+    //putContract(body);
     //fetchCheckContract();
     //postContract(body);
     super.onInit();
@@ -57,6 +58,18 @@ class CheckContractController extends GetxController{
       var result = await RemoteCheckContract.putContract(body);
       if(result!=null){
         print('put contract ${result['msg']}');
+      }
+    }finally{
+      isLoading(false);
+    }
+  }
+
+  void deleteContract() async{
+    try{
+      isLoading(true);
+      var result = await RemoteCheckContract.deleteContract();
+      if(result==null){
+        print('delete success');
       }
     }finally{
       isLoading(false);
