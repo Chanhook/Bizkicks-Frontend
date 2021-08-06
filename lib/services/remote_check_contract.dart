@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:login/model/check_contract.dart';
 import 'package:login/urls/url.dart';
@@ -6,7 +8,7 @@ class RemoteCheckContract{
   static var client = http.Client();
 
   static Future<CheckContract> fetchCheckContract() async {
-      var response = await client.get(Uri.parse(checkContractUrl));
+      var response = await client.get(Uri.parse(contractsUrl));
 
       if(response.statusCode==200){
         var jsonString = response.body;
@@ -14,6 +16,31 @@ class RemoteCheckContract{
       }else{
         return null;
       }
+  }
+
+
+  static Future<Map<String, dynamic>> postContract(body) async{
+    var response = await client.post(Uri.parse(contractsUrl),body: body);
+    print(response.statusCode);
+    if(response.statusCode==201){
+      var jsonString = response.body;
+      Map<String, dynamic> result = jsonDecode(jsonString);
+      return result;
+    }else{
+      return null;
+    }
+  }
+
+  static Future<Map<String, dynamic>> putContract(body) async{
+    var response = await client.put(Uri.parse(contractsUrl),body: body);
+    print(response.statusCode);
+    if(response.statusCode==200){
+      var jsonString = response.body;
+      Map<String, dynamic> result = jsonDecode(jsonString);
+      return result;
+    }else{
+      return null;
+    }
   }
 
 }
