@@ -9,16 +9,23 @@ import 'package:login/services/remote_check_contract.dart';
 class CheckContractController extends GetxController{
   var isLoading=true.obs;
   var checkContract=Rx<CheckContract>(null);
-  var body=jsonEncode('{'+
-  '"type" : "measuredRate",'+
-  '"company_list" : ["씽씽", "킥고잉"],'+
-  '"duedate" : "2020-12-31"'+
-  '}');
+
+  var type="measuredRate".obs;
+  var company_list=["씽씽","킥고잉"].obs;
+  var duedate=DateTime.now();
+
 
   @override
   void onInit(){
+    var body=jsonEncode('{'+
+        '"type" : "${type.value}",'+
+        '"company_list" : ${company_list},'+
+        '"duedate" : "${duedate}"'+
+        '}');
+    print("body: ${body}");
+    print("${duedate} as");
     deleteContract();
-    //putContract(body);
+    putContract(body);
     //fetchCheckContract();
     //postContract(body);
     super.onInit();
