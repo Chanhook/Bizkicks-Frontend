@@ -31,6 +31,8 @@ dependencies:
   naver_map_plugin: ^0.9.6
   http: ^0.13.3
   get: ^4.3.4
+  flutter_svg: ^0.22.0
+  google_fonts: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,7 +52,26 @@ flutter:
   assets:
     - images/
     - icon/
+    - fonts/
   #   - images/a_dot_ham.jpeg
+
+#  fonts:
+#    - family: IBM Plex Sans
+#      fonts:
+#        - asset: assets/fonts/IBMPlexSans-SemiBold.ttf
+#          weight: 400
+#
+#
+#    - family: NotoSansKR
+#      fonts:
+#        - asset: assets/fonts/NotoSansKR-Bold.ttf
+#          weight: 700
+#
+#
+#    - family: Roboto
+#      fonts:
+#        - asset: assets/fonts/Roboto-Medium.ttf
+#          weight: 400
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
