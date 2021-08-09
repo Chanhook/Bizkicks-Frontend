@@ -27,7 +27,22 @@ class ManagerController extends GetxController{
 
   ];
 
+  var test=0.obs;
+
+  final List<int> timeAlarm = <int>[].obs;
+  final List<int> priceAlarm = <int>[];
+
   void originalState() => step.value=0;
   void prevStep()=>step.value--;
   void nextStep() => step.value++;
+
+  void addTimeAlarm(time) {
+  timeAlarm.add(int.parse(time));
+  test.value++;
+  }
+  void addPriceAlarm(price){
+    priceAlarm.add(int.parse(price));
+    update();
+  }
+
 }
