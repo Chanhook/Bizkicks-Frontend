@@ -296,3 +296,4 @@ class _MeasuredRatePageState extends State<MeasuredRatePage> {
     _textFieldController.clear();
   }
 }
+
