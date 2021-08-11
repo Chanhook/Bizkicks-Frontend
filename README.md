@@ -1,5 +1,4 @@
 
-
 # Frontend Project
 
 비즈킥스는 Getx를 사용하여 생성한 flutter 프로젝트 입니다. 비즈킥스는 모바일을 지원합니다.  
@@ -116,8 +115,8 @@ lib/
 <이용자 화면> 
 
 ![스플래시](/uploads/7283b5b2e05bbffe4003bce592f2634d/스플래시.png)
-![로그인](/uploads/139ab32a030971a9fb0063acebbadef3/로그인.png)
 
+![로그인](/uploads/139ab32a030971a9fb0063acebbadef3/로그인.png)
 
 ![아이디찾기-1](/uploads/13dfa86e87488a6c8202db72dfa92166/아이디찾기-1.png)
 
