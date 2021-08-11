@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:login/screen/measured_rate_page.dart';
 
-import '../contract_screen.dart';
-import '../dashboard_screen.dart';
-import '../manager_page.dart';
-import '../mypage_screen.dart';
+import '../screen/contract_screen.dart';
+import '../screen/dashboard_screen.dart';
+import '../screen/manager_page.dart';
+import '../screen/mypage_screen.dart';
 
 class ManagerController extends GetxController{
   var title="계약 목록".obs;

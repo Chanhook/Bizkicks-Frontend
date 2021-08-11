@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-import 'package:login/contract_screen.dart';
+import 'package:login/screen/contract_screen.dart';
 import 'package:login/controller/checkContractController.dart';
 import 'package:login/controller/managerController.dart';
 import 'package:login/controller/mrpricecontroller.dart';
 import 'package:login/controller/totalContractController.dart';
-import 'package:login/dashboard_screen.dart';
+import 'package:login/screen/dashboard_screen.dart';
 import 'package:login/model/check_contract.dart';
-import 'package:login/mypage_screen.dart';
+import 'package:login/screen/mypage_screen.dart';
 import 'package:login/widget/contractSelectOne.dart';
 import 'package:login/widget/test.dart';
 
-import 'contractList_widget.dart';
+import '../widget/contractList_widget.dart';
 
 class ManagerPage extends StatefulWidget {
   const ManagerPage({Key key}) : super(key: key);

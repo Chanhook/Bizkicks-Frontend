@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login/manager_page.dart';
+import 'package:login/screen/manager_page.dart';
 import 'package:get/get.dart';
 
 class MeasuredRatePage extends StatefulWidget {
