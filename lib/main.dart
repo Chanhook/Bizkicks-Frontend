@@ -59,41 +59,49 @@ class Init {
     // This is where you can initialize the resources needed by your app while
     // the splash screen is displayed.  Remove the following example because
     // delaying the user experience is a bad design practice!
-    await Future.delayed(Duration(seconds: 0));
+    await Future.delayed(Duration(seconds: 1));
   }
 }
 
-
 class Test extends StatelessWidget {
-  final TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _idFieldController = TextEditingController();
+  final TextEditingController _pwFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: Get.width,
-      height: Get.height,
-      color: Colors.white,
+    return SingleChildScrollView(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:[
+        children: [
           Container(
             width: Get.width,
             height: Get.height,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xb54f32c3), Color(0xff1a2e99)], ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xb54f32c3), Color(0xff1a2e99)],
+              ),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
-                SizedBox(height: 200,),
-                Center(child: Image.asset('images/logo.png',
-                width: 200,)),
-                SizedBox(height: 50,),
+              children: [
+                SizedBox(
+                  height: 200,
+                ),
+                Center(
+                    child: Image.asset(
+                  'images/logo.png',
+                  width: 200,
+                )),
+                SizedBox(
+                  height: 50,
+                ),
                 Container(
                   width: 298,
                   height: 60,
@@ -101,27 +109,37 @@ class Test extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children:[
+                    children: [
                       Container(
                         width: 298,
                         height: 60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(80),
-                          border: Border.all(color: Color(0xd87ac0eb), width: 1.50, ),
+                          border: Border.all(
+                            color: Color(0xd87ac0eb),
+                            width: 1.50,
+                          ),
                           color: Color(0x00000000),
                         ),
-                        padding: const EdgeInsets.only(left: 21, right: 163, ),
+                        padding: const EdgeInsets.only(
+                          left: 21,
+                          right: 163,
+                        ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children:[
+                          children: [
                             SizedBox(
                               width: 94,
                               child: TextField(
-                                controller: _textFieldController,
-                                decoration: const InputDecoration(hintText: "이용자아이디",
-                                hintStyle: TextStyle(color: Color(0xffb8b8b8))),
+                                onSubmitted: (value){print(value);},
+                                controller: _idFieldController,
+                                decoration: const InputDecoration(
+                                    hintText: "이용자아이디",
+                                    border: InputBorder.none,
+                                    hintStyle:
+                                        TextStyle(color: Color(0xffb8b8b8))),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -142,29 +160,40 @@ class Test extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children:[
+                    children: [
                       Container(
                         width: 298,
                         height: 60,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(80),
-                          border: Border.all(color: Color(0xd87ac0eb), width: 1.50, ),
+                          border: Border.all(
+                            color: Color(0xd87ac0eb),
+                            width: 1.50,
+                          ),
                           color: Color(0x00000000),
                         ),
-                        padding: const EdgeInsets.only(left: 21, right: 163, ),
+                        padding: const EdgeInsets.only(
+                          left: 21,
+                          right: 163,
+                        ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children:[
+                          children: [
                             SizedBox(
                               width: 94,
                               child: TextField(
+                                onSubmitted: (value){print(value);},
+                                obscureText: true,
                                 enableSuggestions: false,
                                 autocorrect: false,
-                                controller: _textFieldController,
-                                decoration: const InputDecoration(hintText: "비밀번호",
-                                    hintStyle: TextStyle(color: Color(0xffb8b8b8))),
+                                controller: _pwFieldController,
+                                decoration: const InputDecoration(
+                                    hintText: "비밀번호",
+                                    border: InputBorder.none,
+                                    hintStyle:
+                                        TextStyle(color: Color(0xffb8b8b8))),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
@@ -178,7 +207,10 @@ class Test extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 23.79),
-                LoginButton(),
+                LoginButton(
+                  idFieldController: _idFieldController,
+                  pwFieldController: _pwFieldController,
+                ),
                 SizedBox(height: 23.79),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -189,7 +221,7 @@ class Test extends StatelessWidget {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: (){},
+                        onTap: () {},
                         child: Text(
                           "아이디 찾기",
                           textAlign: TextAlign.center,
@@ -204,7 +236,7 @@ class Test extends StatelessWidget {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: (){},
+                        onTap: () {},
                         child: Text(
                           "비밀번호 찾기",
                           textAlign: TextAlign.center,
@@ -219,7 +251,7 @@ class Test extends StatelessWidget {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: (){},
+                        onTap: () {},
                         child: Text(
                           "회원가입",
                           textAlign: TextAlign.center,
@@ -232,8 +264,31 @@ class Test extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 23.79),
-
+                SizedBox(height: 123.79),
+                SizedBox(
+                  width: 70,
+                  height: 18,
+                  child: Text(
+                    "간편 로그인",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.ibmPlexSans(
+                      color: Color(0xfff4f4f4),
+                      fontSize: 11,
+                      fontWeight: FontWeight.w200,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset("images/google.png",width: 50,height: 50,),
+                    Image.asset("images/kakao.png",width: 50,height: 50,),
+                    Image.asset("images/naver.png",width: 50,height: 50,),
+                    Image.asset("images/facebook.png",width: 50,height: 50,),
+                  ],
+                ),
               ],
             ),
           ),
@@ -246,7 +301,11 @@ class Test extends StatelessWidget {
 class LoginButton extends StatelessWidget {
   const LoginButton({
     Key key,
+    this.idFieldController,
+    this.pwFieldController,
   }) : super(key: key);
+  final TextEditingController idFieldController;
+  final TextEditingController pwFieldController;
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +313,11 @@ class LoginButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(80),
       color: Colors.white.withOpacity(0.0),
       child: InkWell(
-        onTap: (){},
+        onTap: () {
+          print(idFieldController.text);
+          print(pwFieldController.text);
+
+        },
         child: Container(
           width: 298,
           height: 60,
@@ -262,7 +325,7 @@ class LoginButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
+            children: [
               Container(
                 width: 298,
                 height: 60,
@@ -270,12 +333,17 @@ class LoginButton extends StatelessWidget {
                   borderRadius: BorderRadius.circular(80),
                   color: Color(0xb282e3f8),
                 ),
-                padding: const EdgeInsets.only(left: 108, right: 109, top: 15, bottom: 14, ),
+                padding: const EdgeInsets.only(
+                  left: 108,
+                  right: 109,
+                  top: 15,
+                  bottom: 14,
+                ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children:[
+                  children: [
                     SizedBox(
                       width: 81,
                       child: Text(
