@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/screen/sign_up_page.dart';
+import 'package:login/widget/LoginButton.dart';
 import 'screen/login_page.dart';
 
 void main() {
@@ -59,7 +61,7 @@ class Init {
     // This is where you can initialize the resources needed by your app while
     // the splash screen is displayed.  Remove the following example because
     // delaying the user experience is a bad design practice!
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 0));
   }
 }
 
@@ -251,7 +253,7 @@ class Test extends StatelessWidget {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {Get.to(()=>SignUpPage());},
                         child: Text(
                           "회원가입",
                           textAlign: TextAlign.center,
@@ -293,75 +295,6 @@ class Test extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class LoginButton extends StatelessWidget {
-  const LoginButton({
-    Key key,
-    this.idFieldController,
-    this.pwFieldController,
-  }) : super(key: key);
-  final TextEditingController idFieldController;
-  final TextEditingController pwFieldController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      borderRadius: BorderRadius.circular(80),
-      color: Colors.white.withOpacity(0.0),
-      child: InkWell(
-        onTap: () {
-          print(idFieldController.text);
-          print(pwFieldController.text);
-
-        },
-        child: Container(
-          width: 298,
-          height: 60,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: 298,
-                height: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(80),
-                  color: Color(0xb282e3f8),
-                ),
-                padding: const EdgeInsets.only(
-                  left: 108,
-                  right: 109,
-                  top: 15,
-                  bottom: 14,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 81,
-                      child: Text(
-                        "로그인",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.ibmPlexSans(
-                          color: Color(0xfff4f4f4),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
