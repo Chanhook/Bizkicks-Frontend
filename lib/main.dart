@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/screen/sign_up_page.dart';
 import 'package:login/widget/LoginButton.dart';
-import 'screen/login_page.dart';
 
 void main() {
   runApp(MyApp());

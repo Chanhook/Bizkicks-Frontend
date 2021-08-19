@@ -9,7 +9,11 @@ class SignUpController extends GetxController {
   var id = "".obs;
   var pw = "".obs;
   var pw2 = "".obs;
-  var companyCode="".obs;
+  var companyCode = "".obs;
+  var name = "".obs;
+  var dateBirth = "".obs;
+  var licenseNumber = "".obs;
+  var identificationNumber = "".obs;
 
   var phonecolorIndex = 0.obs;
   var authenticationColorIndex = 0.obs;
@@ -17,29 +21,34 @@ class SignUpController extends GetxController {
   var idColorIndex = 0.obs;
   var pwColorIndex = 0.obs;
   var pw2ColorIndex = 0.obs;
-  var accountSettingColorIndex=0.obs;
-  var companyCodeColorIndex=0.obs;
+  var accountSettingColorIndex = 0.obs;
+  var companyCodeColorIndex = 0.obs;
+  var nameColorIndex = 0.obs;
+  var dateBirthColorIndex = 0.obs;
+  var licenseNumberColorIndex = 0.obs;
+  var identificationNumberColorIndex = 0.obs;
 
   var isSendingMsg = false.obs;
   var isRightAuthentication = false.obs;
   var successAuthentication = false.obs;
   var isDuplicated = false.obs;
-  var isSamePassword=false.obs;
-  var accountSetting=false.obs;
-  var isRightCompanyCode=false.obs;
+  var isSamePassword = false.obs;
+  var accountSetting = false.obs;
+  var isRightCompanyCode = false.obs;
 
   List<dynamic> colorList = [Color(0x5982e3f8), Color(0xb282e3f8)];
   List<dynamic> fontList = [Color(0xffb5b5b5), Color(0xf4f4f4f4)];
   List<String> title = ["휴대폰 번호 인증하기", "계정 설정하기", "회사 코드 입력하기", "운전면허증 등록하기"];
 
-  void onInit(){
+  @override
+  void onInit() {
     step = 0.obs;
     phoneNumber = "".obs;
     authenticationNumber = "".obs;
     id = "".obs;
     pw = "".obs;
     pw2 = "".obs;
-    companyCode="".obs;
+    companyCode = "".obs;
 
     phonecolorIndex = 0.obs;
     authenticationColorIndex = 0.obs;
@@ -47,20 +56,19 @@ class SignUpController extends GetxController {
     idColorIndex = 0.obs;
     pwColorIndex = 0.obs;
     pw2ColorIndex = 0.obs;
-    accountSettingColorIndex=0.obs;
-    companyCodeColorIndex=0.obs;
+    accountSettingColorIndex = 0.obs;
+    companyCodeColorIndex = 0.obs;
 
     isSendingMsg = false.obs;
     isRightAuthentication = false.obs;
     successAuthentication = false.obs;
     isDuplicated = false.obs;
-    isSamePassword=false.obs;
-    accountSetting=false.obs;
-    isRightCompanyCode=false.obs;
+    isSamePassword = false.obs;
+    accountSetting = false.obs;
+    isRightCompanyCode = false.obs;
 
     super.onInit();
   }
-
 
   void next() => step.value++;
 
@@ -84,21 +92,22 @@ class SignUpController extends GetxController {
     }
   }
 
-  void checkDuplicated(){
-    if(isDuplicated.value==false){
-      isDuplicated.value=true;
-    }
-  }
-  void checkPassword(){
-    if(pw.value==pw2.value){
-      isSamePassword.value=true;
-      accountSetting.value=true;
-      accountSettingColorIndex.value=changeColor(accountSettingColorIndex.value);
+  void checkDuplicated() {
+    if (isDuplicated.value == false) {
+      isDuplicated.value = true;
     }
   }
 
-  void checkCompanyCode(){
-    if(isRightCompanyCode.value=false) isRightCompanyCode.value=true;
+  void checkPassword() {
+    if (pw.value == pw2.value) {
+      isSamePassword.value = true;
+      accountSetting.value = true;
+      accountSettingColorIndex.value =
+          changeColor(accountSettingColorIndex.value);
+    }
   }
 
+  void checkCompanyCode() {
+    if (isRightCompanyCode.value = false) isRightCompanyCode.value = true;
+  }
 }
