@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/controller/signUpController.dart';
 import 'package:login/widget/Step1.dart';
 import 'package:login/widget/Step2.dart';
+import 'package:login/widget/Step3.dart';
 
 class SignUpPage extends StatelessWidget {
   final TextEditingController phoneNumberFieldController =
@@ -116,7 +117,7 @@ class SignUpPage extends StatelessWidget {
                   if (mySignUpController.step.value == 1)
                     Step2(mySignUpController: mySignUpController, idFieldController: idFieldController, pwFieldController: pwFieldController, pw2FieldController: pw2FieldController),
                   if (mySignUpController.step.value == 2)
-                    Container(),
+                    Step3(mySignUpController: mySignUpController, companyCodeFieldController: companyCodeFieldController),
                 ]),
               ),
             )
@@ -126,6 +127,7 @@ class SignUpPage extends StatelessWidget {
     ));
   }
 }
+
 
 
 

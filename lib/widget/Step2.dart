@@ -457,7 +457,7 @@ class Step2 extends StatelessWidget {
                             "계정 설정 완료",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Color(0xffcdcdcd),
+                              color: mySignUpController.fontList[mySignUpController.accountSettingColorIndex.value],
                               fontSize: 16,
                               fontFamily: "IBM Plex Sans",
                               fontWeight: FontWeight.w600,

@@ -9,6 +9,7 @@ class SignUpController extends GetxController {
   var id = "".obs;
   var pw = "".obs;
   var pw2 = "".obs;
+  var companyCode="".obs;
 
   var phonecolorIndex = 0.obs;
   var authenticationColorIndex = 0.obs;
@@ -17,6 +18,7 @@ class SignUpController extends GetxController {
   var pwColorIndex = 0.obs;
   var pw2ColorIndex = 0.obs;
   var accountSettingColorIndex=0.obs;
+  var companyCodeColorIndex=0.obs;
 
   var isSendingMsg = false.obs;
   var isRightAuthentication = false.obs;
@@ -24,7 +26,7 @@ class SignUpController extends GetxController {
   var isDuplicated = false.obs;
   var isSamePassword=false.obs;
   var accountSetting=false.obs;
-
+  var isRightCompanyCode=false.obs;
 
   List<dynamic> colorList = [Color(0x5982e3f8), Color(0xb282e3f8)];
   List<dynamic> fontList = [Color(0xffb5b5b5), Color(0xf4f4f4f4)];
@@ -37,6 +39,7 @@ class SignUpController extends GetxController {
     id = "".obs;
     pw = "".obs;
     pw2 = "".obs;
+    companyCode="".obs;
 
     phonecolorIndex = 0.obs;
     authenticationColorIndex = 0.obs;
@@ -45,6 +48,7 @@ class SignUpController extends GetxController {
     pwColorIndex = 0.obs;
     pw2ColorIndex = 0.obs;
     accountSettingColorIndex=0.obs;
+    companyCodeColorIndex=0.obs;
 
     isSendingMsg = false.obs;
     isRightAuthentication = false.obs;
@@ -52,6 +56,7 @@ class SignUpController extends GetxController {
     isDuplicated = false.obs;
     isSamePassword=false.obs;
     accountSetting=false.obs;
+    isRightCompanyCode=false.obs;
 
     super.onInit();
   }
@@ -91,4 +96,9 @@ class SignUpController extends GetxController {
       accountSettingColorIndex.value=changeColor(accountSettingColorIndex.value);
     }
   }
+
+  void checkCompanyCode(){
+    if(isRightCompanyCode.value=false) isRightCompanyCode.value=true;
+  }
+
 }
