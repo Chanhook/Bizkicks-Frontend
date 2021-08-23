@@ -13,6 +13,8 @@ class MarkerMapPage extends StatefulWidget {
 }
 
 class _MarkerMapPageState extends State<MarkerMapPage> {
+  GlobalKey<ScaffoldState> _scaffoldKey=GlobalKey<ScaffoldState>();
+
   static const MODE_ADD = 0xF1;
   static const MODE_REMOVE = 0xF2;
   static const MODE_NONE = 0xF3;
@@ -56,6 +58,12 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   Widget build(BuildContext context) {
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: Drawer(child: ListView(
+        children: [
+          DrawerHeader(child: (null))
+        ],
+      ),),
       body: SafeArea(
         child: Stack(children: <Widget>[
           Column(
@@ -69,7 +77,8 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SearchBox(),
+              //Remove(scaffoldKey: _scaffoldKey),
+              SearchBox(scaffoldKey: _scaffoldKey),
             ],
           ),
         ]),
@@ -257,5 +266,19 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         _markers.removeWhere((m) => m.markerId == marker.markerId);
       });
     }
+  }
+}
+
+class Remove extends StatelessWidget {
+  const Remove({
+    Key key,
+    @required GlobalKey<ScaffoldState> scaffoldKey,
+  }) : _scaffoldKey = scaffoldKey, super(key: key);
+
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(onPressed: ()=>_scaffoldKey.currentState.openDrawer(), icon: Icon(Icons.menu));
   }
 }

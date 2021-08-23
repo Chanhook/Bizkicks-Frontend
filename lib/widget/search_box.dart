@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SearchBox extends StatelessWidget {
+  const SearchBox({
+    Key key,
+    @required GlobalKey<ScaffoldState> scaffoldKey,
+  }) : _scaffoldKey = scaffoldKey, super(key: key);
+
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +24,7 @@ class SearchBox extends StatelessWidget {
               width: 45,
               child: FloatingActionButton(
                   child: Icon(Icons.view_list,color:Color(0xff4a50b3),size: 20,),
-                  onPressed: () {},
+                  onPressed: () {_scaffoldKey.currentState.openDrawer();},
                   backgroundColor: Colors.white,
               )),
           Container(
