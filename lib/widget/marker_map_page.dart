@@ -13,7 +13,7 @@ class MarkerMapPage extends StatefulWidget {
 }
 
 class _MarkerMapPageState extends State<MarkerMapPage> {
-  GlobalKey<ScaffoldState> _scaffoldKey=GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   static const MODE_ADD = 0xF1;
   static const MODE_REMOVE = 0xF2;
@@ -59,11 +59,107 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
       key: _scaffoldKey,
-      drawer: Drawer(child: ListView(
-        children: [
-          DrawerHeader(child: (null))
-        ],
-      ),),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+                child: Container(
+              child: Row(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 42.98,
+                    child: FlutterLogo(size: 42.981502532958984),
+                  ),
+                  SizedBox(
+                    width: 162,
+                    child: Text(
+                      "SWM 김찬혁님,\n안녕하세요.",
+                      style: TextStyle(
+                        color: Color(0xff0d0d0d),
+                        fontSize: 16,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )),
+            Divider(
+              thickness: 4,
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text(
+                "이용내역",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
+            Divider(
+              thickness: 2,
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text(
+                "이용방법",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
+            Divider(
+              thickness: 2,
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text(
+                "안전교육",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
+            Divider(
+              thickness: 2,
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text(
+                "로그아웃",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
+            Divider(
+              thickness: 2,
+            ),
+            ListTile(
+              onTap: () {},
+              title: Text(
+                "설정",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
+            Divider(
+              thickness: 2,
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Stack(children: <Widget>[
           Column(
@@ -72,7 +168,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               _naverMap(),
             ],
           ),
-          if(_detailed)UseKickboardOverlay(),
+          if (_detailed) UseKickboardOverlay(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -273,12 +369,15 @@ class Remove extends StatelessWidget {
   const Remove({
     Key key,
     @required GlobalKey<ScaffoldState> scaffoldKey,
-  }) : _scaffoldKey = scaffoldKey, super(key: key);
+  })  : _scaffoldKey = scaffoldKey,
+        super(key: key);
 
   final GlobalKey<ScaffoldState> _scaffoldKey;
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(onPressed: ()=>_scaffoldKey.currentState.openDrawer(), icon: Icon(Icons.menu));
+    return IconButton(
+        onPressed: () => _scaffoldKey.currentState.openDrawer(),
+        icon: Icon(Icons.menu));
   }
 }
