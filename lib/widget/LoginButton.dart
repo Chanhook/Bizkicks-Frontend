@@ -1,7 +1,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/widget/marker_map_page.dart';
 
 class LoginButton extends StatelessWidget {
   const LoginButton({
@@ -21,6 +23,7 @@ class LoginButton extends StatelessWidget {
         onTap: () {
           print(idFieldController.text);
           print(pwFieldController.text);
+          Get.off(()=>MarkerMapPage());
 
         },
         child: Container(

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:login/model/kickboard.dart';
+import 'package:login/widget/search_box.dart';
+import 'package:login/widget/useKickboardOverlay.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class MarkerMapPage extends StatefulWidget {
@@ -54,54 +56,24 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   Widget build(BuildContext context) {
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-      ),
-      body: Stack(children: <Widget>[
-        Column(
-          children: <Widget>[
-            _controlPanel(),
-            _naverMap(),
-          ],
-        ),
-        if(_detailed)Positioned(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Image.asset('images/Lime.png'),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                  Text("모델명 : AAAAA"),
-                  Text("battery : 100%"),
-
-                ],
-                ),
-                ElevatedButton(
-                    onPressed: (){},
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text("QR 스캔 후 이용하기",),
-                    ),
-                )
-              ],
-            ),
-            color: Colors.white,
-            width: 100,
-            height: 100,
+      body: SafeArea(
+        child: Stack(children: <Widget>[
+          Column(
+            children: <Widget>[
+              //_controlPanel(),
+              _naverMap(),
+            ],
           ),
-          right: 0,
-          left: 0,
-          top: 500,
-          bottom:0,
-        ),
-      ]),
+          if(_detailed)UseKickboardOverlay(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SearchBox(),
+            ],
+          ),
+        ]),
+      ),
     );
   }
 
@@ -234,7 +206,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       LatLng latLng, CameraChangeReason reason, bool isAnimated) {
     setState(() {
       _latLng = latLng;
-      _detailed=false;
+      _detailed = false;
     });
   }
 

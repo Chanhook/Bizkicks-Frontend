@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/screen/sign_up_page.dart';
 import 'package:login/widget/LoginButton.dart';
+import 'package:login/widget/marker_map_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primaryColor: Colors.white,
               ),
-              home: NewLoginPage(),
+              home: MarkerMapPage(),
             );
           }
         });
