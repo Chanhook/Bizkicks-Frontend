@@ -12,7 +12,6 @@ class UseKickboardOverlay extends StatelessWidget {
       child: Stack(
         children: [
           Column(
-
             children: [
               SizedBox(
                 height: 20,
@@ -33,7 +32,9 @@ class UseKickboardOverlay extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 130,),
+                    SizedBox(
+                      height: 130,
+                    ),
                     UseButton(),
                   ],
                 ),
@@ -87,10 +88,21 @@ class UseKickboardOverlay extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Container(
-                      child: Image.asset("images/naver.png",width: 50,height: 50,),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
+                    GestureDetector(
+                      onTap: (){Get.to(()=>DetailScreen());},
+                      child: Hero(
+                        tag: 'kickboard',
+                        child: Container(
+                          width: 50.0,
+                          height: 50.0,
+                          decoration: new BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: new DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage("images/afterUsingKickboard.png"),
+                              ),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -123,3 +135,26 @@ class UseKickboardOverlay extends StatelessWidget {
     );
   }
 }
+
+class DetailScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: 'kickboard',
+            child: Image.asset(
+              "images/afterUsingKickboard.png",
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+}
+

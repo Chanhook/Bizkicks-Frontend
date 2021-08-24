@@ -164,11 +164,12 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         child: Stack(children: <Widget>[
           Column(
             children: <Widget>[
-              //_controlPanel(),
+              _controlPanel(),
               _naverMap(),
             ],
           ),
-          if (_detailed) UseKickboardOverlay(),
+          //if (_detailed) UseKickboardOverlay(),
+          UseKickboardOverlay(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
