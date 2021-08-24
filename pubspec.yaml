@@ -33,6 +33,8 @@ dependencies:
   get: ^4.3.4
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
+  qr_code_scanner: ^0.5.2
+
 
 dev_dependencies:
   flutter_native_splash: ^1.2.1

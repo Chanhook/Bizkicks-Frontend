@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/widget/use_button.dart';
 
+import 'detailScreen.dart';
+
 class UseKickboardOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
       top: Get.height - 300,
-      left: 40,
+      left: 10,
       child: Stack(
         children: [
           Column(
@@ -135,26 +137,3 @@ class UseKickboardOverlay extends StatelessWidget {
     );
   }
 }
-
-class DetailScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        child: Center(
-          child: Hero(
-            tag: 'kickboard',
-            child: Image.asset(
-              "images/afterUsingKickboard.png",
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        onTap: () {
-          Navigator.pop(context);
-        },
-      ),
-    );
-  }
-}
-
