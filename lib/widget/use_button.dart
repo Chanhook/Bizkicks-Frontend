@@ -86,6 +86,49 @@ class _QRViewExampleState extends State<QRViewExample> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  Announcement(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        width: 140,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color(0x2d000000),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "ID 직접입력",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              letterSpacing: 1.04,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 2,),
+                      Container(
+                        width: 140,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: Color(0x2d000000),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "손전등 켜기",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              letterSpacing: 1.04,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   if (result != null)
                     // if qrcode is recognized
                     //later will be changed Get.to
@@ -132,30 +175,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                       )
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        child: RaisedButton(
-                          onPressed: () async {
-                            await controller?.pauseCamera();
-                          },
-                          child: Text('pause', style: TextStyle(fontSize: 20)),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(8),
-                        child: RaisedButton(
-                          onPressed: () async {
-                            await controller?.resumeCamera();
-                          },
-                          child: Text('resume', style: TextStyle(fontSize: 20)),
-                        ),
-                      )
-                    ],
-                  ),
+
                 ],
               ),
             ),
@@ -181,7 +201,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       // Choose formats you want to scan. Defaults to all formats.
       // formatsAllowed: [BarcodeFormat.qrcode],
       overlay: QrScannerOverlayShape(
-        borderColor: Colors.red,
+        borderColor: Colors.blue,
         borderRadius: 10,
         borderLength: 30,
         borderWidth: 10,
@@ -205,6 +225,57 @@ class _QRViewExampleState extends State<QRViewExample> {
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+}
+
+class Announcement extends StatelessWidget {
+  const Announcement({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 286,
+      height: 27,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:[
+          Container(
+            width: 286,
+            height: 27,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Color(0x7f8c8c8c),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children:[
+                SizedBox(
+                  width: 286,
+                  height: 27,
+                  child: Center(
+                    child: Text(
+                      "킥보드의 QR 코드를 찍어주세요.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        letterSpacing: 0.78,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
