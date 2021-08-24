@@ -169,15 +169,22 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
             ],
           ),
           //if (_detailed) UseKickboardOverlay(),
-          UseKickboardOverlay(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //Remove(scaffoldKey: _scaffoldKey),
-              SearchBox(scaffoldKey: _scaffoldKey),
+              Column(
+                children: [
+                  SearchBox(scaffoldKey: _scaffoldKey),
+                  SizedBox(height: 430,),
+                  UseKickboardOverlay(),
+
+                ],
+              ),
             ],
           ),
+
         ]),
       ),
     );
