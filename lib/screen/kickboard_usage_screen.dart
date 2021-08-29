@@ -66,7 +66,9 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
               zoom: 15,
             ),
             initLocationTrackingMode: LocationTrackingMode.Follow,
-            //locationButtonEnable: true,
+            locationButtonEnable: false,
+            onMapCreated: onMapCreated,
+            onCameraChange: _onCameraChange,
           ),
         ],
       ),
@@ -78,7 +80,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   void onMapCreated(NaverMapController controller) {
     if (_controller.isCompleted) _controller = Completer();
     _controller.complete(controller);
-  }
+  } //컨트롤러가 종료가 되지 않아서 await에서 계속 기다리고 있었구나...!
 
   /// 지도 유형 선택시
   // void _onTapTypeSelector(MapType type) async {
@@ -93,6 +95,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   void _onTapLocation() async {
     final controller = await _controller.future;
     controller.setLocationTrackingMode(LocationTrackingMode.Follow);
+
   }
 
   void _onCameraChange(
