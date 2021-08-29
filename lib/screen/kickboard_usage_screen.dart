@@ -5,9 +5,14 @@ import 'package:login/controller/kickboardUsageController.dart';
 import 'package:login/widget/use_button.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
-class KickboardUsageScreen extends StatelessWidget {
+class KickboardUsageScreen extends StatefulWidget {
   const KickboardUsageScreen({Key key}) : super(key: key);
 
+  @override
+  _KickboardUsageScreenState createState() => _KickboardUsageScreenState();
+}
+
+class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   @override
   Widget build(BuildContext context) {
     final KickboardUsageController c=Get.put(KickboardUsageController());
@@ -39,6 +44,7 @@ class KickboardUsageScreen extends StatelessWidget {
       ),
     );
   }
+
   _naverMap() {
     return Expanded(
       child: Stack(
@@ -55,7 +61,6 @@ class KickboardUsageScreen extends StatelessWidget {
       ),
     );
   }
-
 }
 class UseKickboardOverlay extends StatelessWidget {
   final KickboardUsageController c=Get.find();
