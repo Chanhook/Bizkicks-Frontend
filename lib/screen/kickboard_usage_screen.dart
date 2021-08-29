@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,7 +69,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
             initLocationTrackingMode: LocationTrackingMode.Follow,
             locationButtonEnable: false,
             onMapCreated: onMapCreated,
-            onCameraChange: _onCameraChange,
+            onCameraIdle: _onCameraIdle,
           ),
         ],
       ),
@@ -106,7 +107,11 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   }
 
   void _onCameraIdle() {
+    sleep(const Duration(milliseconds:200));
+
     print('카메라 움직임 멈춤');
+
+    _onTapLocation();
   }
 
   /// 지도 스냅샷
