@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -13,9 +15,11 @@ class KickboardUsageScreen extends StatefulWidget {
 }
 
 class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
+  Completer<NaverMapController> _controller = Completer();
+
   @override
   Widget build(BuildContext context) {
-    final KickboardUsageController c=Get.put(KickboardUsageController());
+    final KickboardUsageController c = Get.put(KickboardUsageController());
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -32,13 +36,20 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
                 //Remove(scaffoldKey: _scaffoldKey),
                 Column(
                   children: [
-                    SizedBox(height: Get.height-350,),
+                    SizedBox(
+                      height: Get.height - 350,
+                    ),
                     UseKickboardOverlay(),
                   ],
                 ),
               ],
             ),
-
+            Align(
+              alignment: Alignment.centerRight,
+              child: IconButton(
+                  onPressed: () {_onTapLocation();
+                  print(1);}, icon: Icon(Icons.location_on_rounded)),
+            ),
           ],
         ),
       ),
@@ -55,196 +66,264 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
               zoom: 15,
             ),
             initLocationTrackingMode: LocationTrackingMode.Follow,
-            locationButtonEnable: true,
+            //locationButtonEnable: true,
           ),
         ],
       ),
     );
   }
+
+  //method
+  /// 지도 생성 완료시
+  void onMapCreated(NaverMapController controller) {
+    if (_controller.isCompleted) _controller = Completer();
+    _controller.complete(controller);
+  }
+
+  /// 지도 유형 선택시
+  // void _onTapTypeSelector(MapType type) async {
+  //   if (_mapType != type) {
+  //     setState(() {
+  //       _mapType = type;
+  //     });
+  //   }
+  // }
+
+  // my location button
+  void _onTapLocation() async {
+    final controller = await _controller.future;
+    controller.setLocationTrackingMode(LocationTrackingMode.Follow);
+  }
+
+  void _onCameraChange(
+      LatLng latLng, CameraChangeReason reason, bool isAnimated) {
+    print('카메라 움직임 >>> 위치 : ${latLng.latitude}, ${latLng.longitude}'
+        '\n원인: $reason'
+        '\n에니메이션 여부: $isAnimated');
+  }
+
+  void _onCameraIdle() {
+    print('카메라 움직임 멈춤');
+  }
+
+  /// 지도 스냅샷
+// void _onTapTakeSnapShot() async {
+//   final controller = await _controller.future;
+//   controller.takeSnapshot((path) {
+//     showDialog(
+//         context: context,
+//         builder: (context) {
+//           return AlertDialog(
+//             contentPadding: EdgeInsets.zero,
+//             content: path != null
+//                 ? Image.file(
+//               File(path),
+//             )
+//                 : Text('path is null!'),
+//             titlePadding: EdgeInsets.zero,
+//           );
+//         });
+//   });
 }
+
 class UseKickboardOverlay extends StatelessWidget {
-  final KickboardUsageController c=Get.find();
+  final KickboardUsageController c = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(()=>Stack(
-      children: [
-        Column(
+    return Obx(() => Stack(
           children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 339,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x3f000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-                color: Color(0xfff9f9f9),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 130,
-                  ),
-                  GestureDetector(
-                    onTap: (){},
-                    child: Container(
-                      width: 147,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(80),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x2d000000),
-                            blurRadius: 10,
-                            offset: Offset(1, 5),
-                          ),
-                        ],
-                        gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [Color(0xff25349f), Color(0xff826ed5), Color(0xff826ed5)], ),
+            Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  width: 339,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color(0x3f000000),
+                        blurRadius: 4,
+                        offset: Offset(0, 4),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 15, ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children:[
-                          InkWell(
-                            onTap: (){c.stop();},
-                            child: Text(
-                              "반납하기",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xfff4f4f4),
-                                fontSize: 15,
-                                fontFamily: "IBM Plex Sans",
-                                fontWeight: FontWeight.w600,
+                    ],
+                    color: Color(0xfff9f9f9),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 130,
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: 147,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(80),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x2d000000),
+                                blurRadius: 10,
+                                offset: Offset(1, 5),
                               ),
+                            ],
+                            gradient: LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                Color(0xff25349f),
+                                Color(0xff826ed5),
+                                Color(0xff826ed5)
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 44,
+                            vertical: 15,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  c.stop();
+                                },
+                                child: Text(
+                                  "반납하기",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xfff4f4f4),
+                                    fontSize: 15,
+                                    fontFamily: "IBM Plex Sans",
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+                left: 30,
+                child: Column(
+                  children: [
+                    Container(
+                        width: 58,
+                        height: 58,
+                        decoration: BoxDecoration(
+                          color: Color(0xfff9f9f9),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Image.asset(
+                          "images/Xingxing.png",
+                        )),
+                  ],
+                )),
+            Positioned(
+              top: 50,
+              left: 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "AAAAA",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xffb0b0b0),
+                      fontSize: 14,
+                    ),
+                  ),
+                  SizedBox(
+                    child: Row(
+                      children: [
+                        Image.asset("images/battery.png"),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "100% 충전",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontFamily: "IBM Plex Sans",
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.timer,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "${(c.timer.value / 60).toInt()}분 ${c.timer.value % 60}초 이용중",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontFamily: "IBM Plex Sans",
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
               ),
             ),
-          ],
-        ),
-        Positioned(
-            left: 30,
-            child: Column(
-              children: [
-                Container(
-                    width: 58,
-                    height: 58,
-                    decoration: BoxDecoration(
-                      color: Color(0xfff9f9f9),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Image.asset(
-                      "images/Xingxing.png",
-                    )),
-
-              ],
-            )),
-        Positioned(
-          top: 50,
-          left: 40,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "AAAAA",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color(0xffb0b0b0),
-                  fontSize: 14,
-                ),
-              ),
-              SizedBox(
-                child: Row(
-                  children: [
-                    Image.asset("images/battery.png"),
-                    SizedBox(width: 10,),
-                    Text(
-                      "100% 충전",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: "IBM Plex Sans",
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                child: Row(
-                  children: [
-                    Icon(Icons.timer,size: 20,),
-                    SizedBox(width: 10,),
-                    Text(
-                      "${(c.timer.value/60).toInt()}분 ${c.timer.value%60}초 이용중",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontFamily: "IBM Plex Sans",
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-
-        Positioned(
-          top: 30,
-          left: 250,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Column(
+            Positioned(
+              top: 30,
+              left: 250,
+              child: Column(
                 children: [
                   SizedBox(
-                    width: 83,
-                    child: Text(
-                      "고장났어요",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xff4246b0),
-                        fontSize: 12,
-                        decoration: TextDecoration.underline,
-                        fontFamily: "IBM Plex Sans",
-                        fontWeight: FontWeight.w600,
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: 83,
+                        child: Text(
+                          "고장났어요",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xff4246b0),
+                            fontSize: 12,
+                            decoration: TextDecoration.underline,
+                            fontFamily: "IBM Plex Sans",
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
-        ),
-      ],
-    ));
+            ),
+          ],
+        ));
   }
-
 }
-
-

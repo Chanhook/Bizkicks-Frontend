@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - location (0.0.1):
+    - Flutter
   - MTBBarcodeScanner (5.0.11)
   - naver_map_plugin (0.9.4):
     - Flutter
@@ -13,6 +15,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - location (from `.symlinks/plugins/location/ios`)
   - naver_map_plugin (from `.symlinks/plugins/naver_map_plugin/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
@@ -25,6 +28,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  location:
+    :path: ".symlinks/plugins/location/ios"
   naver_map_plugin:
     :path: ".symlinks/plugins/naver_map_plugin/ios"
   path_provider:
@@ -34,6 +39,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   naver_map_plugin: d1d67733c56b20b88270d9da51218e18fa916232
   NMapsMap: 88b5bdac7087bfa99ab058ff5cdd95fb766e0e95
