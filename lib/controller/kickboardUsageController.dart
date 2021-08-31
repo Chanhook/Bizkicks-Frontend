@@ -23,6 +23,7 @@ class KickboardUsageController extends GetxController{
   }
   getLocation(){
     location_list.forEach((position) {print(position);});
+    print(cycle);
   }
 
   @override
