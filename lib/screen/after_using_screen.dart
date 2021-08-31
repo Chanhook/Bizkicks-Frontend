@@ -6,8 +6,24 @@ import 'package:get/get.dart';
 import 'package:login/controller/kickboardUsageController.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
-class AfterUsingScreen extends StatelessWidget {
+class AfterUsingScreen extends StatefulWidget {
+  @override
+  _AfterUsingScreenState createState() => _AfterUsingScreenState();
+}
+
+class _AfterUsingScreenState extends State<AfterUsingScreen> {
   Completer<NaverMapController> _controller = Completer();
+  final KickboardUsageController c = Get.put(KickboardUsageController());
+  List<LatLng> coordinates=[];
+
+  @override
+  void initState(){
+    super.initState();
+    getCoordinates();
+  }
+  void getCoordinates(){
+    c.coordinates.forEach((element) {coordinates.add(element);});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +83,7 @@ class AfterUsingScreen extends StatelessWidget {
                               print(1);
                               c.getLocation();
                             },
-                            icon: Icon(Icons.location_on_rounded)),
+                            icon: Icon(Icons.location_on_rounded,color: Color(0xff4246b0),)),
                       ),
                     ],
                   ),
@@ -83,6 +99,15 @@ class AfterUsingScreen extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           NaverMap(
+            pathOverlays: {
+              PathOverlay(
+                PathOverlayId('path'),
+                coordinates,
+                width: 10,
+                color: Colors.red,
+                outlineColor: Colors.white,
+              )
+            },
             initialCameraPosition: CameraPosition(
               target: LatLng(37.55326969115973, 126.97238587375881),
               zoom: 15,
@@ -101,9 +126,7 @@ class AfterUsingScreen extends StatelessWidget {
   void onMapCreated(NaverMapController controller) {
     if (_controller.isCompleted) _controller = Completer();
     _controller.complete(controller);
-  } //컨트롤러가 종료가 되지 않아서 await에서 계속 기다리고 있었구나...!
-
-  // my location button
+  }
   void _onTapLocation() async {
     final controller = await _controller.future;
     controller.setLocationTrackingMode(LocationTrackingMode.Follow);

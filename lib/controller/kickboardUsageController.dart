@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:get/state_manager.dart';
+import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class KickboardUsageController extends GetxController{
   var timer=0.obs;
@@ -14,7 +15,7 @@ class KickboardUsageController extends GetxController{
   List location_list=[].obs;
 
   var distanceInMeters=0.0.obs;
-
+  var coordinates = [].obs;
 
   callIncrement() {
     timer.value += 1;
@@ -37,6 +38,7 @@ class KickboardUsageController extends GetxController{
     }
     print(distanceInMeters.value);
   }
+
 
   @override
   void onInit() {

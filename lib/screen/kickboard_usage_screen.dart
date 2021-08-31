@@ -43,6 +43,8 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
     c.longitude.value = position.longitude.toDouble();
     c.location_list
         .add([position.latitude.toDouble(), position.longitude.toDouble()]);
+    c.coordinates
+        .add(LatLng(position.latitude.toDouble(), position.longitude.toDouble()));
     c.cycle.value++;
   });
 
@@ -122,7 +124,8 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
                               print(1);
                               c.getLocation();
                             },
-                            icon: Icon(Icons.location_on_rounded)),
+                            icon: Icon(Icons.location_on_rounded,color: Color(0xff4246b0),)
+                        ),
                       ),
                     ],
                   ),
