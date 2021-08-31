@@ -104,7 +104,7 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
                 PathOverlayId('path'),
                 coordinates,
                 width: 10,
-                color: Colors.red,
+                color: Color(0xff6d61c9),
                 outlineColor: Colors.white,
               )
             },
