@@ -3,9 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:login/controller/kickboardUsageController.dart';
-import 'package:login/widget/use_button.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class KickboardUsageScreen extends StatefulWidget {
@@ -17,6 +18,33 @@ class KickboardUsageScreen extends StatefulWidget {
 
 class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   Completer<NaverMapController> _controller = Completer();
+  double _currentLat;
+  double _currentLng;
+  var _loading=true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loading = true;
+    getPosition();
+  }
+
+  getPosition() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    try {
+      setState(() {
+        _currentLng = position.longitude;
+        _currentLat = position.latitude;
+        _loading = false;
+      });
+    } on PlatformException catch (e) {
+      print(e);
+    }
+    print("현재 위도 ${_currentLat}");
+    print("현재 경도 ${_currentLng}");
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +76,12 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
             Align(
               alignment: Alignment.centerRight,
               child: IconButton(
-                  onPressed: () {_onTapLocation();
-                  print(1);}, icon: Icon(Icons.location_on_rounded)),
+                  onPressed: () {
+                    _onTapLocation();
+                    print(1);
+
+                  },
+                  icon: Icon(Icons.location_on_rounded)),
             ),
           ],
         ),
@@ -77,6 +109,8 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   }
 
   //method
+
+
   /// 지도 생성 완료시
   void onMapCreated(NaverMapController controller) {
     if (_controller.isCompleted) _controller = Completer();
@@ -96,7 +130,6 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   void _onTapLocation() async {
     final controller = await _controller.future;
     controller.setLocationTrackingMode(LocationTrackingMode.Follow);
-
   }
 
   void _onCameraChange(
@@ -107,7 +140,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   }
 
   void _onCameraIdle() {
-    sleep(const Duration(milliseconds:200));
+    sleep(const Duration(milliseconds: 200));
 
     print('카메라 움직임 멈춤');
 
