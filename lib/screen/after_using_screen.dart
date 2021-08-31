@@ -136,6 +136,39 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
 class UseKickboardOverlay extends StatelessWidget {
   final KickboardUsageController c = Get.find();
 
+  Future<AlertDialog> _displayTimeDialog(
+      BuildContext context, KickboardUsageController c) async {
+    // alter the app state to show a dialog
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('알림을 받을 시간을 입력하세요.'),
+            content: TextField(
+              //controller: _textFieldController,
+              decoration: const InputDecoration(hintText: '숫자만 입력하세요'),
+            ),
+            actions: <Widget>[
+              // add button
+              FlatButton(
+                child: const Text('ADD'),
+                onPressed: () {
+                  //_addAlarmTime(_textFieldController.text, c);
+                  Get.back();
+                },
+              ),
+              // cancel button
+              FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Get.back();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -198,7 +231,7 @@ class UseKickboardOverlay extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              c.stop();
+                              _displayTimeDialog(context, c);
                             },
                             child: Text(
                               "반납 완료하기",
