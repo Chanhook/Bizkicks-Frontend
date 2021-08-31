@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:login/controller/kickboardUsageController.dart';
+import 'package:login/screen/after_using_screen.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 class KickboardUsageScreen extends StatefulWidget {
@@ -91,15 +92,41 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
               ],
             ),
             Align(
-              alignment: Alignment.centerRight,
-              child: IconButton(
-                  onPressed: () {
-                    _onTapLocation();
-                    print(1);
-                    c.getLocation();
-                  },
-                  icon: Icon(Icons.location_on_rounded)),
-            ),
+                alignment: Alignment.centerRight,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all(
+                            color: Color(0x7fb7b7b7),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3f000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: Colors.white,
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                              _onTapLocation();
+                              print(1);
+                              c.getLocation();
+                            },
+                            icon: Icon(Icons.location_on_rounded)),
+                      ),
+                    ],
+                  ),
+                )),
           ],
         ),
       ),
@@ -215,7 +242,7 @@ class UseKickboardOverlay extends StatelessWidget {
                       GestureDetector(
                         onTap: () {},
                         child: Container(
-                          width: 147,
+                          width: 200,
                           height: 50,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(80),
@@ -248,6 +275,9 @@ class UseKickboardOverlay extends StatelessWidget {
                               InkWell(
                                 onTap: () {
                                   c.stop();
+                                  c.getDistance();
+                                  Get.off(()=>AfterUsingScreen());
+
                                 },
                                 child: Text(
                                   "반납하기",
