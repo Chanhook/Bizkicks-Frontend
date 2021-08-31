@@ -18,32 +18,49 @@ class KickboardUsageScreen extends StatefulWidget {
 
 class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   Completer<NaverMapController> _controller = Completer();
-  double _currentLat;
-  double _currentLng;
-  var _loading=true;
+  Position position;
+  double _currentLat = 0.0;
+  double _currentLng = 0.0;
+  var _loading = true;
 
   @override
   void initState() {
     super.initState();
     _loading = true;
-    getPosition();
+    //getPosition();
+    positionStream;
   }
+
+  StreamSubscription<Position> positionStream =
+      Geolocator.getPositionStream(desiredAccuracy: LocationAccuracy.best)
+          .listen((Position position) {
+    final KickboardUsageController c = Get.put(KickboardUsageController());
+    print(position == null
+        ? 'Unknown'
+        : position.latitude.toString() + ', ' + position.longitude.toString());
+    c.latitude.value = position.latitude.toDouble();
+    c.longitude.value = position.longitude.toDouble();
+    c.location_list
+        .add([position.latitude.toDouble(), position.longitude.toDouble()]);
+    c.cycle.value++;
+  });
 
   getPosition() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     try {
-      setState(() {
-        _currentLng = position.longitude;
-        _currentLat = position.latitude;
-        _loading = false;
-      });
+      if (this.mounted) {
+        setState(() {
+          _currentLng = position.longitude;
+          _currentLat = position.latitude;
+          _loading = false;
+        });
+      }
     } on PlatformException catch (e) {
       print(e);
     }
     print("현재 위도 ${_currentLat}");
     print("현재 경도 ${_currentLng}");
-
   }
 
   @override
@@ -79,7 +96,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
                   onPressed: () {
                     _onTapLocation();
                     print(1);
-
+                    c.getLocation();
                   },
                   icon: Icon(Icons.location_on_rounded)),
             ),
@@ -101,7 +118,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
             initLocationTrackingMode: LocationTrackingMode.Follow,
             locationButtonEnable: false,
             onMapCreated: onMapCreated,
-            onCameraIdle: _onCameraIdle,
+            //onCameraIdle: _onCameraIdle,
           ),
         ],
       ),
@@ -109,7 +126,6 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   }
 
   //method
-
 
   /// 지도 생성 완료시
   void onMapCreated(NaverMapController controller) {
@@ -140,11 +156,9 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   }
 
   void _onCameraIdle() {
-    sleep(const Duration(milliseconds: 200));
-
     print('카메라 움직임 멈춤');
 
-    _onTapLocation();
+    //_onTapLocation();
   }
 
   /// 지도 스냅샷
