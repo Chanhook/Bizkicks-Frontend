@@ -63,7 +63,7 @@ class Contract extends StatelessWidget {
                         width: 164.26,
                         height: 39.51,
                         child: Text(
-                          "종량제 모델",
+                          "비즈킥스 멤버십",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.ibmPlexSans(
                             color: Color(0xff715cc8),
@@ -107,7 +107,7 @@ class Contract extends StatelessWidget {
                       width: 164.26,
                       height: 39.51,
                       child: Text(
-                        "정액제 모델",
+                        "비즈킥스 플랜",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.ibmPlexSans(
                           color: Color(0xff715cc8),
@@ -195,230 +195,299 @@ class ContractSecond extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
-    var test=mc.test.value;
-    return Container(
-      child: Column(
-        children: [
-          MyStepper(mc: mc),
-          Container(
-            height: 600,
-            width: Get.width - 60,
+
+    return Obx(() => Container(
+          child: SingleChildScrollView(
             child: Column(
               children: [
+                MyStepper(mc: mc),
                 Container(
+                  height: 600,
+                  width: Get.width - 60,
                   child: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 83,
-                            height: 18,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                      Container(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 15,
-                                  height: 15,
-                                  child: Icon(
-                                    Icons.access_time_outlined,
-                                    size: 15,
-                                    color: Color(0xff4a50b3),
+                                  width: 83,
+                                  height: 18,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        child: Icon(
+                                          Icons.access_time_outlined,
+                                          size: 15,
+                                          color: Color(0xff4a50b3),
+                                        ),
+                                      ),
+                                      SizedBox(width: 9),
+                                      Text(
+                                        "시간 알림",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.roboto(
+                                          color: Color(0xff4a50b3),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(width: 9),
-                                Text(
-                                  "시간 알림",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.roboto(
-                                    color: Color(0xff4a50b3),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              _displayTimeDialog(context, mc);
-                              print(mc.timeAlarm);
-                            },
-                            child: Container(
-                              width: 34,
-                              height: 34,
-                              child: Stack(
-                                children: [
-                                  Container(
+                                InkWell(
+                                  onTap: () {
+                                    _displayTimeDialog(context, mc);
+                                    print(mc.timeAlarm);
+                                  },
+                                  child: Container(
                                     width: 34,
                                     height: 34,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(80),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0x1e000000),
-                                          blurRadius: 2,
-                                          offset: Offset(0, -1),
-                                        ),
-                                        BoxShadow(
-                                          color: Color(0x1e000000),
-                                          blurRadius: 4,
-                                          offset: Offset(0, 4),
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: 34,
+                                          height: 34,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(80),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0x1e000000),
+                                                blurRadius: 2,
+                                                offset: Offset(0, -1),
+                                              ),
+                                              BoxShadow(
+                                                color: Color(0x1e000000),
+                                                blurRadius: 4,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Icon(Icons.add),
                                         ),
                                       ],
-                                      color: Colors.white,
                                     ),
-                                    child: Icon(Icons.add),
                                   ),
-                                ],
-                              ),
+                                )
+                              ],
                             ),
-                          )
-                        ],
+                            SizedBox(height: 20,),
+                            mc.timeAlarm.length != 0
+                                ? Container(
+                                    height: 200,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: mc.timeAlarm.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            width: 341,
+                                            height: 54,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(80),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0x19000000),
+                                                  blurRadius: 2,
+                                                  offset: Offset(0, -1),
+                                                ),
+                                                BoxShadow(
+                                                  color: Color(0x19000000),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                ),
+                                              ],
+                                              color: Colors.white,
+                                            ),
+                                            child: ListTile(
+                                              title: Text(
+                                                "${mc.timeAlarm[index]}시간 이상 도달 시 알림",
+                                                style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              trailing: IconButton(
+                                                iconSize: 24,
+                                                icon: Icon(Icons.delete),
+                                                onPressed: (){mc.timeAlarm.removeAt(index);},
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : Container(
+                                    height: 150,
+                                  ),
+                          ],
+                        ),
                       ),
-                      mc.timeAlarm.length != 0?
-                        Container(
-                          height: 150,
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: mc.timeAlarm.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                child: ListTile(
-                                  title: Text(
-                                    "${mc.timeAlarm[index]}시간 이상 도달 시 알림",
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
+                      Divider(
+                        thickness: 1,
+                        color: Color(0xffdddddd),
+                      ),
+                      //금액
+                      Container(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 83,
+                                  height: 18,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 15,
+                                        height: 15,
+                                        child: Text(
+                                          "₩",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            color: Color(0xff4a50b3),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 9),
+                                      Text(
+                                        "금액 알림",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.roboto(
+                                          color: Color(0xff4a50b3),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    _displayPriceDialog(context, mc);
+                                  },
+                                  child: Container(
+                                    width: 34,
+                                    height: 34,
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          width: 34,
+                                          height: 34,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(80),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Color(0x1e000000),
+                                                blurRadius: 2,
+                                                offset: Offset(0, -1),
+                                              ),
+                                              BoxShadow(
+                                                color: Color(0x1e000000),
+                                                blurRadius: 4,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Icon(Icons.add),
+                                        ),
+                                      ],
                                     ),
                                   ),
-
-                                ),
-                              );
-                            },
-                          ),
-                        ):Container(height: 150,),
-
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 20,),
+                            mc.priceAlarm.length != 0
+                                ? Container(
+                                    height: 200,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                      itemCount: mc.priceAlarm.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            width: 341,
+                                            height: 54,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(80),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0x19000000),
+                                                  blurRadius: 2,
+                                                  offset: Offset(0, -1),
+                                                ),
+                                                BoxShadow(
+                                                  color: Color(0x19000000),
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 4),
+                                                ),
+                                              ],
+                                              color: Colors.white,
+                                            ),
+                                            child: ListTile(
+                                              title: Text(
+                                                "${mc.priceAlarm[index]}원 이상 도달 시 알림",
+                                                style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              trailing: IconButton(
+                                                iconSize: 24,
+                                                icon: Icon(Icons.delete),
+                                                onPressed: (){mc.priceAlarm.removeAt(index);},
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : Container(
+                                    height: 150,
+                                  ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
-                Divider(
-                  thickness: 1,
-                  color: Color(0xffdddddd),
-                ),
-                //금액
-                Container(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 83,
-                            height: 18,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 15,
-                                  height: 15,
-                                  child: Text(
-                                    "₩",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xff4a50b3),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 9),
-                                Text(
-                                  "금액 알림",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.roboto(
-                                    color: Color(0xff4a50b3),
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              _displayPriceDialog(context, mc);
-                            },
-                            child: Container(
-                              width: 34,
-                              height: 34,
-                              child: Stack(
-                                children: [
-                                  Container(
-                                    width: 34,
-                                    height: 34,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(80),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Color(0x1e000000),
-                                          blurRadius: 2,
-                                          offset: Offset(0, -1),
-                                        ),
-                                        BoxShadow(
-                                          color: Color(0x1e000000),
-                                          blurRadius: 4,
-                                          offset: Offset(0, 4),
-                                        ),
-                                      ],
-                                      color: Colors.white,
-                                    ),
-                                    child: Icon(Icons.add),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      mc.priceAlarm.length != 0?
-                        Container(
-                          height: 150,
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: mc.priceAlarm.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                child: ListTile(
-                                  title: Text(
-                                    "${mc.priceAlarm[index]}원 이상 도달 시 알림",
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ):Container(height: 150,),
-                    ],
-                  ),
+                PrevNextBtns(
+                  mc: mc,
                 ),
               ],
             ),
           ),
-          PrevNextBtns(
-            mc: mc,
-          ),
-        ],
-      ),
-    );
+        ));
   }
+
   Future<AlertDialog> _displayTimeDialog(
       BuildContext context, ManagerController mc) async {
     // alter the app state to show a dialog
@@ -451,6 +520,7 @@ class ContractSecond extends StatelessWidget {
           );
         });
   }
+
   Future<AlertDialog> _displayPriceDialog(
       BuildContext context, ManagerController mc) async {
     // alter the app state to show a dialog

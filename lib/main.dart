@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/screen/after_using_screen.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
+import 'package:login/screen/manager_page.dart';
 import 'package:login/screen/sign_up_page.dart';
 import 'package:login/widget/LoginButton.dart';
 import 'package:login/widget/marker_map_page.dart';
@@ -28,8 +29,8 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primaryColor: Colors.white,
               ),
-              home: //KickboardUsageScreen(),
-              NewLoginPage(),
+              home: ManagerPage(),
+              //NewLoginPage(),
             );
           }
         });

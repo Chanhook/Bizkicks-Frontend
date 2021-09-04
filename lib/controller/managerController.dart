@@ -7,42 +7,40 @@ import '../screen/dashboard_screen.dart';
 import '../screen/manager_page.dart';
 import '../screen/mypage_screen.dart';
 
-class ManagerController extends GetxController{
-  var title="계약 목록".obs;
+class ManagerController extends GetxController {
+  var title = "계약 목록".obs;
   dynamic selectedIndex = 0.obs;
   final RxMap<dynamic, dynamic> ui = {
-    0:ContractListBackground(),
-    1:Contract(),
-    2:DashBoard(),
-    3:MyPage(),
-    'measuredModel':MeasuredModelContract(),
-
+    0: ContractListBackground(),
+    1: Contract(),
+    2: DashBoard(),
+    3: MyPage(),
+    'measuredModel': MeasuredModelContract(),
   }.obs;
 
-  var step=0.obs;
-  final List<dynamic> stepList=[
+  var step = 0.obs;
+  final List<dynamic> stepList = [
     Contractfirst(),
     ContractSecond(),
     ContractThird(),
-
   ];
 
-  var test=0.obs;
-
   final List<int> timeAlarm = <int>[].obs;
-  final List<int> priceAlarm = <int>[];
+  final List<int> priceAlarm = <int>[].obs;
 
-  void originalState() => step.value=0;
-  void prevStep()=>step.value--;
+  void originalState() => step.value = 0;
+
+  void prevStep() => step.value--;
+
   void nextStep() => step.value++;
 
   void addTimeAlarm(time) {
-  timeAlarm.add(int.parse(time));
-  test.value++;
-  }
-  void addPriceAlarm(price){
-    priceAlarm.add(int.parse(price));
-    update();
+    timeAlarm.add(int.parse(time));
+    timeAlarm.sort();
   }
 
+  void addPriceAlarm(price) {
+    priceAlarm.add(int.parse(price));
+    priceAlarm.sort();
+  }
 }
