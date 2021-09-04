@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login/screen/login_page.dart';
+
+import '../main.dart';
 
 class MyPage extends StatelessWidget {
   const MyPage({Key key}) : super(key: key);
@@ -38,7 +39,7 @@ class MyPage extends StatelessWidget {
               onTap: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => NewLoginPage()),
                     (route) => false);
               }),
           SizedBox(

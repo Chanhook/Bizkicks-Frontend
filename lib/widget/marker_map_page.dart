@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:login/model/kickboard.dart';
+import 'package:login/screen/manager_page.dart';
 import 'package:login/widget/search_box.dart';
 import 'package:login/widget/useKickboardOverlay.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -147,6 +149,22 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               onTap: () {},
               title: Text(
                 "설정",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                ),
+              ),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
+            Divider(
+              thickness: 2,
+            ),
+            ListTile(
+              onTap: () {
+                Get.to(()=>ManagerPage());
+              },
+              title: Text(
+                "관리자페이지",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
