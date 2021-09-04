@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login/controller/kickboardUsageController.dart';
+import 'package:login/widget/marker_map_page.dart';
+import 'package:login/widget/starRating.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class AfterUsingScreen extends StatefulWidget {
   @override
@@ -14,15 +17,18 @@ class AfterUsingScreen extends StatefulWidget {
 class _AfterUsingScreenState extends State<AfterUsingScreen> {
   Completer<NaverMapController> _controller = Completer();
   final KickboardUsageController c = Get.put(KickboardUsageController());
-  List<LatLng> coordinates=[];
+  List<LatLng> coordinates = [];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getCoordinates();
   }
-  void getCoordinates(){
-    c.coordinates.forEach((element) {coordinates.add(element);});
+
+  void getCoordinates() {
+    c.coordinates.forEach((element) {
+      coordinates.add(element);
+    });
   }
 
   @override
@@ -42,13 +48,15 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 //Remove(scaffoldKey: _scaffoldKey),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: Get.height - 350,
-                    ),
-                    UseKickboardOverlay(),
-                  ],
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: Get.height - 350,
+                      ),
+                      UseKickboardOverlay(),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -83,7 +91,10 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
                               print(1);
                               c.getLocation();
                             },
-                            icon: Icon(Icons.location_on_rounded,color: Color(0xff4246b0),)),
+                            icon: Icon(
+                              Icons.location_on_rounded,
+                              color: Color(0xff4246b0),
+                            )),
                       ),
                     ],
                   ),
@@ -127,47 +138,20 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
     if (_controller.isCompleted) _controller = Completer();
     _controller.complete(controller);
   }
+
   void _onTapLocation() async {
     final controller = await _controller.future;
     controller.setLocationTrackingMode(LocationTrackingMode.Follow);
   }
 }
 
-class UseKickboardOverlay extends StatelessWidget {
-  final KickboardUsageController c = Get.find();
+class UseKickboardOverlay extends StatefulWidget {
+  @override
+  _UseKickboardOverlayState createState() => _UseKickboardOverlayState();
+}
 
-  Future<AlertDialog> _displayTimeDialog(
-      BuildContext context, KickboardUsageController c) async {
-    // alter the app state to show a dialog
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('알림을 받을 시간을 입력하세요.'),
-            content: TextField(
-              //controller: _textFieldController,
-              decoration: const InputDecoration(hintText: '숫자만 입력하세요'),
-            ),
-            actions: <Widget>[
-              // add button
-              FlatButton(
-                child: const Text('ADD'),
-                onPressed: () {
-                  //_addAlarmTime(_textFieldController.text, c);
-                  Get.back();
-                },
-              ),
-              // cancel button
-              FlatButton(
-                child: const Text('CANCEL'),
-                onPressed: () {
-                  Get.back();
-                },
-              )
-            ],
-          );
-        });
-  }
+class _UseKickboardOverlayState extends State<UseKickboardOverlay> {
+  final KickboardUsageController c = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +215,11 @@ class UseKickboardOverlay extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              _displayTimeDialog(context, c);
+                              showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                    return LeaveReview();
+                                  });
                             },
                             child: Text(
                               "반납 완료하기",
@@ -352,6 +340,199 @@ class UseKickboardOverlay extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class LeaveReview extends StatefulWidget {
+  @override
+  _LeaveReviewState createState() => _LeaveReviewState();
+}
+
+class _LeaveReviewState extends State<LeaveReview> {
+  final TextEditingController _textFieldController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text("운행이 만족스러우셨나요?",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontFamily: "IBM Plex Sans",
+            fontWeight: FontWeight.w700,
+          )),
+      content: Container(
+        height: 200,
+        child: Column(
+          children: [
+            Test(),
+            SizedBox(height: 30,),
+            TextField(
+              maxLines: 4,
+              controller: _textFieldController,
+              style: TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: '당신의 경험을 공유해 주세요.(선택)'),
+            )
+
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        //다음에 할래요
+        Container(
+          width: 154,
+          height: 57,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:[
+              Container(
+                width: 154,
+                height: 57,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:[
+                    Container(
+                      width: 154,
+                      height: 57,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x282c2738),
+                            blurRadius: 48,
+                            offset: Offset(0, 24),
+                          ),
+                          BoxShadow(
+                            color: Color(0x142c2738),
+                            blurRadius: 24,
+                            offset: Offset(0, 12),
+                          ),
+                        ],
+                        color: Color(0xffbbbbbb),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 13, ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:[
+                          InkWell(
+                            onTap:(){Get.off(()=>MarkerMapPage());},
+                            child: SizedBox(
+                              width: 154,
+                              child: Text(
+                                "다음에 할래요",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xffeaf4f8),
+                                  fontSize: 24,
+                                  fontFamily: "IBM Plex Sans",
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        //제출하기
+        Container(
+          width: 154,
+          height: 57,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:[
+              Container(
+                width: 154,
+                height: 57,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children:[
+                    Container(
+                      width: 154,
+                      height: 57,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x282c2738),
+                            blurRadius: 48,
+                            offset: Offset(0, 24),
+                          ),
+                          BoxShadow(
+                            color: Color(0x142c2738),
+                            blurRadius: 24,
+                            offset: Offset(0, 12),
+                          ),
+                        ],
+                        color: Color(0xffb63927),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 13, ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:[
+                          InkWell(
+                            onTap:(){Get.off(()=>MarkerMapPage());},
+                            child: SizedBox(
+                              width: 154,
+                              child: Text(
+                                "제출하기",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xffeaf4f8),
+                                  fontSize: 24,
+                                  fontFamily: "IBM Plex Sans",
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class Test extends StatefulWidget {
+  @override
+  _TestState createState() => new _TestState();
+}
+
+class _TestState extends State<Test> {
+  double rating = 3.5;
+
+  @override
+  Widget build(BuildContext context) {
+    return new StarRating(
+      rating: rating,
+      onRatingChanged: (rating) => setState(() => this.rating = rating),
     );
   }
 }

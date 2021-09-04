@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class UseButton extends StatelessWidget {
@@ -144,6 +145,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                         margin: EdgeInsets.all(8),
                         child: RaisedButton(
                             onPressed: () async {
+                              Get.off(()=>KickboardUsageScreen());
                               await controller?.toggleFlash();
                               setState(() {});
                             },

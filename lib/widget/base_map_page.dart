@@ -87,6 +87,7 @@ class _BaseMapPageState extends State<BaseMapPage> {
             child: _mapTypeSelector(),
           ),
           _trackingModeSelector(),
+
         ],
       ),
     );

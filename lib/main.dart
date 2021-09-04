@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primaryColor: Colors.white,
               ),
-              home: KickboardUsageScreen(),
+              home: //KickboardUsageScreen(),
+              NewLoginPage(),
             );
           }
         });

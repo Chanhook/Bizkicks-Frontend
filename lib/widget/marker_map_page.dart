@@ -178,13 +178,49 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                 children: [
                   SearchBox(scaffoldKey: _scaffoldKey),
                   SizedBox(height: 430,),
-                  UseKickboardOverlay(),
-
+                  if(_detailed)UseKickboardOverlay(),
                 ],
               ),
+
             ],
           ),
-
+          Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: 40,
+                height: 40,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        border: Border.all(
+                          color: Color(0x7fb7b7b7),
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                        color: Colors.white,
+                      ),
+                      child: IconButton(
+                          onPressed: () {
+                            _onTapLocation();
+                          },
+                          icon: Icon(
+                            Icons.location_on_rounded,
+                            color: Color(0xff4246b0),
+                          )),
+                    ),
+                  ],
+                ),
+              )),
         ]),
       ),
     );
@@ -280,12 +316,12 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               target: LatLng(37.55326969115973, 126.97238587375881),
               zoom: 15,
             ),
-            onMapCreated: _onMapCreated,
+            onMapCreated: onMapCreated,
             onCameraChange: _onCameraChange,
             onMapTap: _onMapTap,
             markers: _markers,
             initLocationTrackingMode: LocationTrackingMode.Follow,
-            locationButtonEnable: true,
+            locationButtonEnable: false,
           ),
         ],
       ),
@@ -322,6 +358,16 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       _detailed = false;
     });
   }
+  /// 지도 생성 완료시
+  void onMapCreated(NaverMapController controller) {
+    if (_controller.isCompleted) _controller = Completer();
+    _controller.complete(controller);
+  }
+
+  void _onTapLocation() async {
+    final controller = await _controller.future;
+    controller.setLocationTrackingMode(LocationTrackingMode.Follow);
+  }
 
   Future<void> _markerCreated(Kickboard kickboard) async {
     var img = map[kickboard.company_name];
@@ -339,9 +385,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     print(_markers.length);
   }
 
-  void _onMapCreated(NaverMapController controller) {
-    _controller.complete(controller);
-  }
 
   Future<void> _onMapTap(LatLng latLng) async {
     if (_currentMode == MODE_ADD) {

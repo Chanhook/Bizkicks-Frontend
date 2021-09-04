@@ -279,7 +279,7 @@ class UseKickboardOverlay extends StatelessWidget {
                                 onTap: () {
                                   c.stop();
                                   c.getDistance();
-                                  Get.off(()=>AfterUsingScreen());
+                                  Get.to(()=>AfterUsingScreen());
 
                                 },
                                 child: Text(
