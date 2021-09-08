@@ -25,13 +25,13 @@ class KickboardUsageController extends GetxController{
   }
   getLocation(){
     location_list.forEach((position) {print(position);});
-    print(cycle);
+    print("cycle: ${cycle.value}");
   }
   getDistance(){
     if(cycle.value==1){
       return;
     }
-    for(var i=0;i<cycle.value-2;i++) {
+    for(var i=0;i<cycle.value-1;i++) {
         distanceInMeters.value += GeolocatorPlatform.instance.distanceBetween(
           location_list[i][0],
           location_list[i][1],
@@ -39,7 +39,7 @@ class KickboardUsageController extends GetxController{
           location_list[i+1][1],
         );
     }
-    print(distanceInMeters.value);
+    print("이동거리: ${distanceInMeters.value}");
   }
 
 

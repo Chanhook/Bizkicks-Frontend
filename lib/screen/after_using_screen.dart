@@ -23,7 +23,7 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
   void initState() {
     super.initState();
     getCoordinates();
-    print(coordinates.length);
+    print("좌표 개수: ${coordinates.length}");
   }
 
   void getCoordinates() {
