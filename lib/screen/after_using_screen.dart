@@ -441,7 +441,7 @@ class _LeaveReviewState extends State<LeaveReview> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.off(() => MarkerMapPage());
+                              Get.offAll(() => MarkerMapPage());
                               Get.delete<KickboardUsageController>();
                             },
                             child: SizedBox(
@@ -513,7 +513,7 @@ class _LeaveReviewState extends State<LeaveReview> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.off(() => MarkerMapPage());
+                              Get.offAll(() => MarkerMapPage());
                               Get.delete<KickboardUsageController>();
                             },
                             child: SizedBox(

@@ -21,7 +21,7 @@ class Step4 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Obx(()=>SingleChildScrollView(
       child: Column(
         children: [
           Container(
@@ -397,6 +397,6 @@ class Step4 extends StatelessWidget {
 
         ],
       ),
-    );
+    ));
   }
 }

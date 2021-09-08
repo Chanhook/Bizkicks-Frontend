@@ -9,6 +9,8 @@ import 'package:login/widget/search_box.dart';
 import 'package:login/widget/useKickboardOverlay.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
+import '../main.dart';
+
 class MarkerMapPage extends StatefulWidget {
   @override
   _MarkerMapPageState createState() => _MarkerMapPageState();
@@ -132,7 +134,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               thickness: 2,
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {Get.offAll(NewLoginPage());},
               title: Text(
                 "로그아웃",
                 style: TextStyle(
