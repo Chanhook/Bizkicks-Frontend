@@ -23,7 +23,7 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
   void initState() {
     super.initState();
     getCoordinates();
-    _onTapLocation();
+    print(coordinates.length);
   }
 
   void getCoordinates() {

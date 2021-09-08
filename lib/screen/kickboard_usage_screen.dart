@@ -24,19 +24,26 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   double _currentLng = 0.0;
   var _loading = true;
 
+
+
   @override
   void initState() {
     super.initState();
     _onTapLocation();
     _loading = true;
-    //getPosition();
     positionStream;
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    positionStream.cancel();
   }
 
   StreamSubscription<Position> positionStream =
       Geolocator.getPositionStream(desiredAccuracy: LocationAccuracy.best)
           .listen((Position position) {
     final KickboardUsageController c = Get.put(KickboardUsageController());
+    print('working');
     print(position == null
         ? 'Unknown'
         : position.latitude.toString() + ', ' + position.longitude.toString());
@@ -49,23 +56,6 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
     c.cycle.value++;
   });
 
-  getPosition() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    try {
-      if (this.mounted) {
-        setState(() {
-          _currentLng = position.longitude;
-          _currentLat = position.latitude;
-          _loading = false;
-        });
-      }
-    } on PlatformException catch (e) {
-      print(e);
-    }
-    print("현재 위도 ${_currentLat}");
-    print("현재 경도 ${_currentLng}");
-  }
 
   @override
   Widget build(BuildContext context) {

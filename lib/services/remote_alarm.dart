@@ -28,4 +28,5 @@ class RemoteAlarm{
       return null;
     }
   }
+  //에러코드를 출력하자 정보가 없는 팝업창을 띄우든 재로딩을 하거나 사용자가 알수 있게끔
 }

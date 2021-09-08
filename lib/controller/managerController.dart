@@ -24,7 +24,7 @@ class ManagerController extends GetxController {
     ContractSecond(),
     ContractThird(),
   ];
-
+  //리스트니까 alarms로 바꾸자
   final List<int> timeAlarm = <int>[].obs;
   final List<int> priceAlarm = <int>[].obs;
 

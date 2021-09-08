@@ -55,6 +55,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       });
     });
     super.initState();
+    _onTapLocation();
     _get();
   }
 
@@ -134,7 +135,9 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               thickness: 2,
             ),
             ListTile(
-              onTap: () {Get.offAll(NewLoginPage());},
+              onTap: () {
+                Get.offAll(NewLoginPage());
+              },
               title: Text(
                 "로그아웃",
                 style: TextStyle(
@@ -163,7 +166,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
             ),
             ListTile(
               onTap: () {
-                Get.to(()=>ManagerPage());
+                Get.to(() => ManagerPage());
               },
               title: Text(
                 "관리자페이지",
@@ -197,20 +200,74 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               Column(
                 children: [
                   SearchBox(scaffoldKey: _scaffoldKey),
-                  SizedBox(height: 430,),
-                  if(_detailed)UseKickboardOverlay(),
+                  SizedBox(
+                    height: 430,
+                  ),
+                  if (_detailed) UseKickboardOverlay(),
                 ],
               ),
-
             ],
           ),
           Align(
               alignment: Alignment.centerRight,
               child: Container(
                 width: 40,
-                height: 40,
-                child: Stack(
+                height: 160,
+                child: Column(
                   children: [
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        border: Border.all(
+                          color: Color(0x7fb7b7b7),
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                        color: Colors.white,
+                      ),
+                      child: IconButton(
+                          onPressed: () {
+                          },
+                          icon: Icon(
+                            Icons.add,
+                            color: Color(0xff4246b0),
+                          )),
+                    ),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(3),
+                        border: Border.all(
+                          color: Color(0x7fb7b7b7),
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                        color: Colors.white,
+                      ),
+                      child: IconButton(
+                          onPressed: () {
+                          },
+                          icon: Icon(
+                            Icons.remove,
+                            color: Color(0xff4246b0),
+                          )),
+                    ),
+                    SizedBox(height: 40,),
                     Container(
                       width: 40,
                       height: 40,
@@ -241,6 +298,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                   ],
                 ),
               )),
+
         ]),
       ),
     );
@@ -334,7 +392,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
           NaverMap(
             initialCameraPosition: CameraPosition(
               target: LatLng(37.55326969115973, 126.97238587375881),
-              zoom: 15,
+              zoom: 16,
             ),
             onMapCreated: onMapCreated,
             onCameraChange: _onCameraChange,
@@ -378,6 +436,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       _detailed = false;
     });
   }
+
   /// 지도 생성 완료시
   void onMapCreated(NaverMapController controller) {
     if (_controller.isCompleted) _controller = Completer();
@@ -404,7 +463,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     print(_markers);
     print(_markers.length);
   }
-
 
   Future<void> _onMapTap(LatLng latLng) async {
     if (_currentMode == MODE_ADD) {

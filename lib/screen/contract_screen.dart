@@ -133,6 +133,7 @@ class Contract extends StatelessWidget {
 
 //계약하기 종량제 모델 - 1단계 - 종량제 모델 설명
 class MeasuredModelContract extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
