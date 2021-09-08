@@ -28,6 +28,9 @@ class KickboardUsageController extends GetxController{
     print(cycle);
   }
   getDistance(){
+    if(cycle.value==1){
+      return;
+    }
     for(var i=0;i<cycle.value-2;i++) {
         distanceInMeters.value += GeolocatorPlatform.instance.distanceBetween(
           location_list[i][0],
@@ -42,8 +45,19 @@ class KickboardUsageController extends GetxController{
 
   @override
   void onInit() {
+    timer=0.obs;
+    run=true;
+
+    brand="".obs;
+    latitude=0.0.obs;
+    longitude=0.0.obs;
+    cycle=0.obs;
+    location_list=[].obs;
+
+    distanceInMeters=0.0.obs;
+    coordinates = [].obs;
     Timer.periodic(Duration(seconds: 1), (_) => (run)?callIncrement():stop());
-    distanceInMeters.value=0.0;
     super.onInit();
   }
+
 }

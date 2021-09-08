@@ -27,6 +27,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   @override
   void initState() {
     super.initState();
+    _onTapLocation();
     _loading = true;
     //getPosition();
     positionStream;

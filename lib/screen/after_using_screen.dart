@@ -23,6 +23,7 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
   void initState() {
     super.initState();
     getCoordinates();
+    _onTapLocation();
   }
 
   void getCoordinates() {
@@ -109,25 +110,37 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
     return Expanded(
       child: Stack(
         children: <Widget>[
-          NaverMap(
-            pathOverlays: {
-              PathOverlay(
-                PathOverlayId('path'),
-                coordinates,
-                width: 10,
-                color: Color(0xff6d61c9),
-                outlineColor: Colors.white,
-              )
-            },
-            initialCameraPosition: CameraPosition(
-              target: LatLng(37.55326969115973, 126.97238587375881),
-              zoom: 15,
+          if (coordinates.length > 1)
+            NaverMap(
+              pathOverlays: {
+                PathOverlay(
+                  PathOverlayId('path'),
+                  coordinates,
+                  width: 10,
+                  color: Color(0xff6d61c9),
+                  outlineColor: Colors.white,
+                )
+              },
+              initialCameraPosition: CameraPosition(
+                target: LatLng(37.55326969115973, 126.97238587375881),
+                zoom: 15,
+              ),
+              initLocationTrackingMode: LocationTrackingMode.Follow,
+              locationButtonEnable: false,
+              onMapCreated: onMapCreated,
+              //onCameraIdle: _onCameraIdle,
             ),
-            initLocationTrackingMode: LocationTrackingMode.Follow,
-            locationButtonEnable: false,
-            onMapCreated: onMapCreated,
-            //onCameraIdle: _onCameraIdle,
-          ),
+          if (coordinates.length <= 1)
+            NaverMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(37.55326969115973, 126.97238587375881),
+                zoom: 15,
+              ),
+              initLocationTrackingMode: LocationTrackingMode.Follow,
+              locationButtonEnable: false,
+              onMapCreated: onMapCreated,
+              //onCameraIdle: _onCameraIdle,
+            ),
         ],
       ),
     );
@@ -367,7 +380,9 @@ class _LeaveReviewState extends State<LeaveReview> {
         child: Column(
           children: [
             Test(),
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             TextField(
               maxLines: 4,
               controller: _textFieldController,
@@ -376,7 +391,6 @@ class _LeaveReviewState extends State<LeaveReview> {
                   border: OutlineInputBorder(),
                   hintText: '당신의 경험을 공유해 주세요.(선택)'),
             )
-
           ],
         ),
       ),
@@ -389,7 +403,7 @@ class _LeaveReviewState extends State<LeaveReview> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
+            children: [
               Container(
                 width: 154,
                 height: 57,
@@ -397,7 +411,7 @@ class _LeaveReviewState extends State<LeaveReview> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children:[
+                  children: [
                     Container(
                       width: 154,
                       height: 57,
@@ -417,14 +431,19 @@ class _LeaveReviewState extends State<LeaveReview> {
                         ],
                         color: Color(0xffbbbbbb),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 13, ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 13,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children:[
+                        children: [
                           InkWell(
-                            onTap:(){Get.off(()=>MarkerMapPage());},
+                            onTap: () {
+                              Get.off(() => MarkerMapPage());
+                              Get.delete<KickboardUsageController>();
+                            },
                             child: SizedBox(
                               width: 154,
                               child: Text(
@@ -456,7 +475,7 @@ class _LeaveReviewState extends State<LeaveReview> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
+            children: [
               Container(
                 width: 154,
                 height: 57,
@@ -464,7 +483,7 @@ class _LeaveReviewState extends State<LeaveReview> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children:[
+                  children: [
                     Container(
                       width: 154,
                       height: 57,
@@ -484,14 +503,19 @@ class _LeaveReviewState extends State<LeaveReview> {
                         ],
                         color: Color(0xffb63927),
                       ),
-                      padding: const EdgeInsets.symmetric(vertical: 13, ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 13,
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children:[
+                        children: [
                           InkWell(
-                            onTap:(){Get.off(()=>MarkerMapPage());},
+                            onTap: () {
+                              Get.off(() => MarkerMapPage());
+                              Get.delete<KickboardUsageController>();
+                            },
                             child: SizedBox(
                               width: 154,
                               child: Text(

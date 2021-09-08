@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primaryColor: Colors.white,
               ),
-              home: ManagerPage(),
-              //NewLoginPage(),
+              home: //ManagerPage(),
+              NewLoginPage(),
             );
           }
         });
