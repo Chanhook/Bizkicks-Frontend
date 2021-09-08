@@ -65,8 +65,8 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
                 alignment: Alignment.centerRight,
                 child: Container(
                   width: 40,
-                  height: 40,
-                  child: Stack(
+                  height: 160,
+                  child: Column(
                     children: [
                       Container(
                         width: 40,
@@ -88,9 +88,60 @@ class _AfterUsingScreenState extends State<AfterUsingScreen> {
                         ),
                         child: IconButton(
                             onPressed: () {
+                            },
+                            icon: Icon(
+                              Icons.add,
+                              color: Color(0xff4246b0),
+                            )),
+                      ),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all(
+                            color: Color(0x7fb7b7b7),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3f000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: Colors.white,
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                            },
+                            icon: Icon(
+                              Icons.remove,
+                              color: Color(0xff4246b0),
+                            )),
+                      ),
+                      SizedBox(height: 40,),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all(
+                            color: Color(0x7fb7b7b7),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3f000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: Colors.white,
+                        ),
+                        child: IconButton(
+                            onPressed: () {
                               _onTapLocation();
-                              print(1);
-                              c.getLocation();
                             },
                             icon: Icon(
                               Icons.location_on_rounded,

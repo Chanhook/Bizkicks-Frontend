@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:login/controller/kickboardUsageController.dart';
@@ -20,8 +17,6 @@ class KickboardUsageScreen extends StatefulWidget {
 class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   Completer<NaverMapController> _controller = Completer();
   Position position;
-  double _currentLat = 0.0;
-  double _currentLng = 0.0;
   var _loading = true;
 
 
@@ -43,7 +38,6 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
       Geolocator.getPositionStream(desiredAccuracy: LocationAccuracy.best)
           .listen((Position position) {
     final KickboardUsageController c = Get.put(KickboardUsageController());
-    print('working');
     print(position == null
         ? 'Unknown'
         : position.latitude.toString() + ', ' + position.longitude.toString());
@@ -88,8 +82,8 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
                 alignment: Alignment.centerRight,
                 child: Container(
                   width: 40,
-                  height: 40,
-                  child: Stack(
+                  height: 160,
+                  child: Column(
                     children: [
                       Container(
                         width: 40,
@@ -111,12 +105,65 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
                         ),
                         child: IconButton(
                             onPressed: () {
-                              _onTapLocation();
-                              print(1);
-                              c.getLocation();
                             },
-                            icon: Icon(Icons.location_on_rounded,color: Color(0xff4246b0),)
+                            icon: Icon(
+                              Icons.add,
+                              color: Color(0xff4246b0),
+                            )),
+                      ),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all(
+                            color: Color(0x7fb7b7b7),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3f000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: Colors.white,
                         ),
+                        child: IconButton(
+                            onPressed: () {
+                            },
+                            icon: Icon(
+                              Icons.remove,
+                              color: Color(0xff4246b0),
+                            )),
+                      ),
+                      SizedBox(height: 40,),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          border: Border.all(
+                            color: Color(0x7fb7b7b7),
+                            width: 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x3f000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                          color: Colors.white,
+                        ),
+                        child: IconButton(
+                            onPressed: () {
+                              _onTapLocation();
+                            },
+                            icon: Icon(
+                              Icons.location_on_rounded,
+                              color: Color(0xff4246b0),
+                            )),
                       ),
                     ],
                   ),
