@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:login/model/kickboard.dart';
 import 'package:login/screen/manager_page.dart';
+import 'package:login/urls/url.dart';
 import 'package:login/widget/search_box.dart';
 import 'package:login/widget/useKickboardOverlay.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
@@ -187,7 +188,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         child: Stack(children: <Widget>[
           Column(
             children: <Widget>[
-              _controlPanel(),
+              //_controlPanel(),
               _naverMap(),
             ],
           ),
@@ -408,25 +409,25 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   // ================== method ==========================
   void _get() async {
-    String url = "http://13.125.192.78:8080/kickboard/location";
+    String url = kickboardsLocationUrl;
     var response = await http.get(Uri.parse(url));
     var statusCode = response.statusCode;
     var responseHeaders = response.headers;
     var responseBody = utf8.decode(response.bodyBytes);
-    /*
+
     print("statusCode: ${statusCode}");
     print("responseHeaders: ${responseHeaders}");
     print("responseBody: ${responseBody}");
-    */
-    List list = jsonDecode(responseBody);
+    print("-----");
 
-    for (var i in list) {
+    Map<String, dynamic> result = jsonDecode(responseBody);
+
+    print(result["list"][0]);
+    for (var i in result["list"]) {
       var kickboard = Kickboard.fromJson(i);
       print(kickboard.company_name);
       _markerCreated(kickboard);
-      var img = map[kickboard.company_name];
     }
-    print(_markers);
   }
 
   void _onCameraChange(
@@ -460,8 +461,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         width: 45,
         height: 45,
         onMarkerTab: _onMarkerTap));
-    print(_markers);
-    print(_markers.length);
   }
 
   Future<void> _onMapTap(LatLng latLng) async {
@@ -482,7 +481,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   void _onMarkerTap(Marker marker, Map<String, int> iconSize) {
     int pos = _markers.indexWhere((m) => m.markerId == marker.markerId);
     setState(() {
-      _markers[pos].captionText = '선택됨';
       print(_markers[pos]);
       _detailed = true;
     });
