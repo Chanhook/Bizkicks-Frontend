@@ -6,3 +6,6 @@ var productsUrl="http://34.132.212.36:8080/manage/products";
 var contractsUrl="http://34.132.212.36:8080/manage/contracts";
 //8) 알림 확인
 var alarmUrl="http://34.132.212.36:8080/manage/alarms";
+
+// 회원가입
+var signUpUrl="http://34.132.212.36:8080/members";

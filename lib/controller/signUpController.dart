@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
+import 'package:login/services/remote_signUp.dart';
 
 class SignUpController extends GetxController {
+  var isLoading=true.obs;
   var step = 0.obs;
   var phoneNumber = "".obs;
   var authenticationNumber = "".obs;
@@ -110,4 +112,18 @@ class SignUpController extends GetxController {
   void checkCompanyCode() {
     if (isRightCompanyCode.value = false) isRightCompanyCode.value = true;
   }
+
+
+  //api
+  void postSignUP(body) async{
+    try{
+      isLoading(true);
+      var result=await RemoteSignUp.postSignUp(body);
+      print("post: ${result}");
+    }finally{
+      isLoading(false);
+    }
+  }
+
+
 }
