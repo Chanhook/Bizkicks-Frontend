@@ -352,7 +352,7 @@ class UseKickboardOverlay extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Image.asset(
-                          "images/Xingxing.png",
+                          "${c.image.value}",
                         )),
                   ],
                 )),
@@ -364,7 +364,7 @@ class UseKickboardOverlay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "AAAAA",
+                    "${c.model.value}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xffb0b0b0),
@@ -379,7 +379,7 @@ class UseKickboardOverlay extends StatelessWidget {
                           width: 10,
                         ),
                         Text(
-                          "100% 충전",
+                          "${c.battery.value}% 충전",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.black,

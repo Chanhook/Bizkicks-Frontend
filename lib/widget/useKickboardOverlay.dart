@@ -6,6 +6,17 @@ import 'package:login/widget/use_button.dart';
 import 'detailScreen.dart';
 
 class UseKickboardOverlay extends StatelessWidget {
+  const UseKickboardOverlay({
+    Key key,
+    @required String image,
+    @required String model,
+    @required int battery,
+  }) : _image = image, _model = model, _battery = battery, super(key: key);
+
+  final String _image;
+  final String _model;
+  final int _battery;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -34,7 +45,7 @@ class UseKickboardOverlay extends StatelessWidget {
                   SizedBox(
                     height: 130,
                   ),
-                  UseButton(),
+                  UseButton(image: _image,model: _model,battery: _battery,),
                 ],
               ),
             ),
@@ -52,10 +63,10 @@ class UseKickboardOverlay extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Image.asset(
-                      "images/Xingxing.png",
+                      "${_image}",
                     )),
                 Text(
-                  "AAAAA",
+                  "${_model}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xffb0b0b0),
@@ -65,7 +76,7 @@ class UseKickboardOverlay extends StatelessWidget {
                 SizedBox(
                   width: 140,
                   child: Text(
-                    "100% 충전",
+                    "${_battery}% 충전",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -95,11 +106,11 @@ class UseKickboardOverlay extends StatelessWidget {
                         width: 50.0,
                         height: 50.0,
                         decoration: new BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: new DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage("images/afterUsingKickboard.png"),
-                            ),
+                          shape: BoxShape.circle,
+                          image: new DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("images/afterUsingKickboard.png"),
+                          ),
                         ),
                       ),
                     ),

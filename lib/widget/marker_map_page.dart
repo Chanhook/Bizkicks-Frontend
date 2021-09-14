@@ -9,9 +9,11 @@ import 'package:login/screen/manager_page.dart';
 import 'package:login/urls/url.dart';
 import 'package:login/widget/search_box.dart';
 import 'package:login/widget/useKickboardOverlay.dart';
+import 'package:login/widget/use_button.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
 import '../main.dart';
+import 'detailScreen.dart';
 
 class MarkerMapPage extends StatefulWidget {
   @override
@@ -25,9 +27,13 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   static const MODE_REMOVE = 0xF2;
   static const MODE_NONE = 0xF3;
   int _currentMode = MODE_NONE;
-  LatLng _latLng;
   var _detailed = false;
   var map = {'씽씽': 'Xingxing.png', '라임': 'Lime.png', '킥고잉': 'Kickgoing.png'};
+
+  List<Kickboard> kickboardList = [];
+  var _image = "";
+  var _model = "";
+  var _battery = 0;
 
   Completer<NaverMapController> _controller = Completer();
   List<Marker> _markers = [];
@@ -206,7 +212,9 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                   SizedBox(
                     height: 430,
                   ),
-                  if (_detailed) UseKickboardOverlay(),
+                  if (_detailed)
+                    UseKickboardOverlay(
+                        image: _image, model: _model, battery: _battery),
                 ],
               ),
             ],
@@ -237,8 +245,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                         color: Colors.white,
                       ),
                       child: IconButton(
-                          onPressed: () {
-                          },
+                          onPressed: () {},
                           icon: Icon(
                             Icons.add,
                             color: Color(0xff4246b0),
@@ -263,14 +270,15 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                         color: Colors.white,
                       ),
                       child: IconButton(
-                          onPressed: () {
-                          },
+                          onPressed: () {},
                           icon: Icon(
                             Icons.remove,
                             color: Color(0xff4246b0),
                           )),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(
+                      height: 40,
+                    ),
                     Container(
                       width: 40,
                       height: 40,
@@ -301,7 +309,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                   ],
                 ),
               )),
-
         ]),
       ),
     );
@@ -421,17 +428,17 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     // print("responseHeaders: ${responseHeaders}");
     // print("responseBody: ${responseBody}");
     // print("-----");
-    if(statusCode==200) {
+    if (statusCode == 200) {
       Map<String, dynamic> result = jsonDecode(responseBody);
 
-      print(result["list"][0]);
       for (var i in result["list"]) {
         var kickboard = Kickboard.fromJson(i);
+        kickboardList.add(kickboard);
         print(kickboard.company_name);
         _markerCreated(kickboard);
       }
-    }else{
-      var result=Error.fromJson(jsonDecode(responseBody));
+    } else {
+      var result = Error.fromJson(jsonDecode(responseBody));
       print(result.timestamp);
       print(result.status);
       print(result.error);
@@ -443,7 +450,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   void _onCameraChange(
       LatLng latLng, CameraChangeReason reason, bool isAnimated) {
     setState(() {
-      _latLng = latLng;
       _detailed = false;
     });
   }
@@ -462,7 +468,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   Future<void> _markerCreated(Kickboard kickboard) async {
     var img = map[kickboard.company_name];
     _markers.add(Marker(
-        markerId: DateTime.now().toIso8601String(),
+        markerId: DateTime.now().toIso8601String() + kickboard.company_name,
         position: LatLng(kickboard.lat, kickboard.lng),
         alpha: 0.8,
         icon: await OverlayImage.fromAssetImage(
@@ -492,6 +498,13 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     int pos = _markers.indexWhere((m) => m.markerId == marker.markerId);
     setState(() {
       print(_markers[pos]);
+      _image = "images/${map[_markers[pos].markerId.substring(26)]}";
+      print(_image);
+      _model = kickboardList[pos].model;
+      _battery = kickboardList[pos].battery;
+
+      print(_model);
+      print(_battery);
       _detailed = true;
     });
     if (_currentMode == MODE_REMOVE) {

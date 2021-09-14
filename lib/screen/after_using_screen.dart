@@ -317,7 +317,7 @@ class _UseKickboardOverlayState extends State<UseKickboardOverlay> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Image.asset(
-                      "images/Xingxing.png",
+                      "${c.image.value}",
                     )),
               ],
             )),
@@ -329,7 +329,7 @@ class _UseKickboardOverlayState extends State<UseKickboardOverlay> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "AAAAA",
+                "${c.model.value}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Color(0xffb0b0b0),

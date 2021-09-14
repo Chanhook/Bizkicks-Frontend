@@ -2,15 +2,35 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login/controller/kickboardUsageController.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class UseButton extends StatelessWidget {
+  const UseButton({
+    Key key,
+    @required String image,
+    @required String model,
+    @required int battery,
+  })  : _image = image,
+        _model = model,
+        _battery = battery,
+        super(key: key);
+
+  final String _image;
+  final String _model;
+  final int _battery;
 
   @override
   Widget build(BuildContext context) {
+    final KickboardUsageController c = Get.put(KickboardUsageController());
     return GestureDetector(
-      onTap: (){Get.to(()=>QRViewExample());},
+      onTap: () {
+        c.image.value = _image;
+        c.battery.value = _battery;
+        c.model.value = _model;
+        Get.to(() => QRViewExample());
+      },
       child: Container(
         width: 147,
         height: 50,
@@ -23,14 +43,21 @@ class UseButton extends StatelessWidget {
               offset: Offset(1, 5),
             ),
           ],
-          gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [Color(0xff25349f), Color(0xff826ed5), Color(0xff826ed5)], ),
+          gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [Color(0xff25349f), Color(0xff826ed5), Color(0xff826ed5)],
+          ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 44, vertical: 15, ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 44,
+          vertical: 15,
+        ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
+          children: [
             Text(
               " 이용하기",
               textAlign: TextAlign.center,
@@ -47,7 +74,6 @@ class UseButton extends StatelessWidget {
     );
   }
 }
-
 
 class QRViewExample extends StatefulWidget {
   const QRViewExample({
@@ -109,7 +135,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 2,),
+                      SizedBox(
+                        width: 2,
+                      ),
                       Container(
                         width: 140,
                         height: 40,
@@ -145,7 +173,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                         margin: EdgeInsets.all(8),
                         child: RaisedButton(
                             onPressed: () async {
-                              Get.off(()=>KickboardUsageScreen());
+                              Get.off(() => KickboardUsageScreen());
                               await controller?.toggleFlash();
                               setState(() {});
                             },
@@ -177,7 +205,6 @@ class _QRViewExampleState extends State<QRViewExample> {
                       )
                     ],
                   ),
-
                 ],
               ),
             ),
@@ -190,7 +217,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
-        MediaQuery.of(context).size.height < 400)
+            MediaQuery.of(context).size.height < 400)
         ? 150.0
         : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
@@ -244,7 +271,7 @@ class Announcement extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:[
+        children: [
           Container(
             width: 286,
             height: 27,
@@ -256,7 +283,7 @@ class Announcement extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
+              children: [
                 SizedBox(
                   width: 286,
                   height: 27,
@@ -280,7 +307,3 @@ class Announcement extends StatelessWidget {
     );
   }
 }
-
-
-
-

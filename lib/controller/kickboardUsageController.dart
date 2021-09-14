@@ -17,6 +17,10 @@ class KickboardUsageController extends GetxController{
   var distanceInMeters=0.0.obs;
   var coordinates = [].obs;
 
+  var image="".obs;
+  var model="".obs;
+  var battery=0.obs;
+
   callIncrement() {
     timer.value += 1;
   }

@@ -76,7 +76,6 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final KickboardUsageHistoryController c = Get.put(KickboardUsageHistoryController());
     return SingleChildScrollView(
       child: Row(
         mainAxisSize: MainAxisSize.min,
