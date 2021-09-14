@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:login/controller/kickboardUsageHistoryController.dart';
 import 'package:login/screen/after_using_screen.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:login/screen/manager_page.dart';
@@ -75,6 +76,7 @@ class Test extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final KickboardUsageHistoryController c = Get.put(KickboardUsageHistoryController());
     return SingleChildScrollView(
       child: Row(
         mainAxisSize: MainAxisSize.min,
