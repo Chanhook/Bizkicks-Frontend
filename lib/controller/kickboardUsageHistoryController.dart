@@ -15,7 +15,6 @@ class KickboardUsageHistoryController extends GetxController{
   void onInit(){
     super.onInit();
     getHistory();
-    postHistory();
   }
 
   void getHistory() async{
@@ -36,17 +35,7 @@ class KickboardUsageHistoryController extends GetxController{
 
   }
 
-  void postHistory() async{
-    try{
-      isLoading(false);
-      var result= await RemoteKickboardUsageHistory.postHistory(body);
-      if(result!=null){
-        print("msg: ${result["msg"]}");
-      }
-    }finally{
-      isLoading(true);
-    }
-  }
+
 
 
 

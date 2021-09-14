@@ -54,6 +54,7 @@ class _KickboardUsageScreenState extends State<KickboardUsageScreen> {
   @override
   Widget build(BuildContext context) {
     final KickboardUsageController c = Get.put(KickboardUsageController());
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -317,6 +318,8 @@ class UseKickboardOverlay extends StatelessWidget {
                                 onTap: () {
                                   c.stop();
                                   c.getDistance();
+                                  c.arrive_time=DateTime.now();
+                                  c.postHistory();
                                   Get.to(()=>AfterUsingScreen());
 
                                 },

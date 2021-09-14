@@ -8,14 +8,17 @@ import 'detailScreen.dart';
 class UseKickboardOverlay extends StatelessWidget {
   const UseKickboardOverlay({
     Key key,
+    @required String brand,
     @required String image,
     @required String model,
     @required int battery,
-  }) : _image = image, _model = model, _battery = battery, super(key: key);
+  }) : _brand=brand,_image = image, _model = model, _battery = battery, super(key: key);
 
+  final String _brand;
   final String _image;
   final String _model;
   final int _battery;
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class UseKickboardOverlay extends StatelessWidget {
                   SizedBox(
                     height: 130,
                   ),
-                  UseButton(image: _image,model: _model,battery: _battery,),
+                  UseButton(brand:_brand,image: _image,model: _model,battery: _battery,),
                 ],
               ),
             ),

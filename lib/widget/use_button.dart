@@ -9,14 +9,17 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class UseButton extends StatelessWidget {
   const UseButton({
     Key key,
+    @required String brand,
     @required String image,
     @required String model,
     @required int battery,
-  })  : _image = image,
+  })  : _brand = brand,
+        _image = image,
         _model = model,
         _battery = battery,
         super(key: key);
 
+  final String _brand;
   final String _image;
   final String _model;
   final int _battery;
@@ -26,9 +29,11 @@ class UseButton extends StatelessWidget {
     final KickboardUsageController c = Get.put(KickboardUsageController());
     return GestureDetector(
       onTap: () {
+        c.brand.value = _brand;
         c.image.value = _image;
         c.battery.value = _battery;
         c.model.value = _model;
+
         Get.to(() => QRViewExample());
       },
       child: Container(

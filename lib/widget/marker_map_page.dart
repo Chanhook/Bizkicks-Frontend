@@ -31,6 +31,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   var map = {'씽씽': 'Xingxing.png', '라임': 'Lime.png', '킥고잉': 'Kickgoing.png'};
 
   List<Kickboard> kickboardList = [];
+  var _brand="";
   var _image = "";
   var _model = "";
   var _battery = 0;
@@ -214,7 +215,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                   ),
                   if (_detailed)
                     UseKickboardOverlay(
-                        image: _image, model: _model, battery: _battery),
+                        brand:_brand, image: _image, model: _model, battery: _battery),
                 ],
               ),
             ],
@@ -502,7 +503,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       print(_image);
       _model = kickboardList[pos].model;
       _battery = kickboardList[pos].battery;
-
+      _brand=kickboardList[pos].company_name;
       print(_model);
       print(_battery);
       _detailed = true;
