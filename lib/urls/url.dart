@@ -16,3 +16,5 @@ var signUpUrl="http://34.132.212.36:8080/members";
 var kickboardsLocationUrl="http://34.132.212.36:8080/kickboard/location";
 
 var kickboardUsageHistoryUrl='http://34.132.212.36:8080/kickboard/usages';
+
+var kickboardConsumptionAddUrl='http://34.132.212.36:8080/kickboard/consumption';
