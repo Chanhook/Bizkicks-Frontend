@@ -20,5 +20,20 @@ class RemoteSignUp{
       print(response.body);
     }
   }
+
+  static Future<Map<String,dynamic>> postLicense(body) async{
+    var response = await client.post(Uri.parse(licenseUrl),body: body);
+    print(response.statusCode);
+    if(response.statusCode==200){
+      var jsonString = response.body;
+      var result = jsonDecode(jsonString);
+      return result;
+    }else{
+      var jsonString = response.body;
+      var error = jsonDecode(jsonString);
+      print(error);
+    }
+  }
+
 //에러코드를 출력하자 정보가 없는 팝업창을 띄우든 재로딩을 하거나 사용자가 알수 있게끔
 }

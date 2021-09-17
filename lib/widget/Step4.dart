@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -372,6 +374,11 @@ class Step4 extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
+                          List data=[mySignUpController.dateBirth.value.replaceAll("-", ""),mySignUpController.name.value,mySignUpController.licenseNumber.value,mySignUpController.identificationNumber.value];
+                          var jsonString = '{"date_of_birth" : "${data[0]}","name" : "${data[1]}","license_number" : "${data[2]}","identify_number" : "${data[3]}"}';
+                          print(jsonString);
+                          mySignUpController.postLicense(jsonEncode(jsonString));
+
                           mySignUpController.next();
                         },
                         child: SizedBox(

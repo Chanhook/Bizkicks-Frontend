@@ -124,6 +124,15 @@ class SignUpController extends GetxController {
       isLoading(false);
     }
   }
+  void postLicense(body) async{
+    try{
+      isLoading(true);
+      var result=await RemoteSignUp.postLicense(body);
+      print("post: ${result}");
+    }finally{
+      isLoading(false);
+    }
+  }
 
 
 }
