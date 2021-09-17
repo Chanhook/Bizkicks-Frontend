@@ -14,7 +14,7 @@ class RemoteSignUp{
       var jsonString = response.body;
       var result = signUpFromJson(jsonString);
       return result;
-    }else if(response.statusCode==409){
+    }else{
       var jsonString = response.body;
       Map<String, dynamic> error = jsonDecode(jsonString);
       print(response.body);

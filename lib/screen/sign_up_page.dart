@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/controller/signUpController.dart';
 import 'package:login/main.dart';
+import 'package:login/model/register.dart';
 import 'package:login/widget/Step1.dart';
 import 'package:login/widget/Step2.dart';
 import 'package:login/widget/Step3.dart';
@@ -290,7 +291,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
+                                  Register myRegister=new Register(id: mySignUpController.id.value,password: mySignUpController.pw2.value,
+                                  phoneNumber: mySignUpController.phoneNumber.value,companyCode: mySignUpController.companyCode.value);
+                                  var body=registerToJson(myRegister);
+                                  await mySignUpController.postSignUP(body);
                                   Get.offAll(NewLoginPage());
                                   Get.delete<SignUpController>();
                                 },

@@ -6,9 +6,10 @@ import 'package:login/screen/after_using_screen.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:login/screen/manager_page.dart';
 import 'package:login/screen/sign_up_page.dart';
+import 'package:login/urls/url.dart';
 import 'package:login/widget/LoginButton.dart';
 import 'package:login/widget/marker_map_page.dart';
-
+import 'package:http/http.dart' as http;
 void main() {
   runApp(MyApp());
 }
@@ -70,9 +71,29 @@ class Init {
   }
 }
 
-class Test extends StatelessWidget {
+class Test extends StatefulWidget {
+  @override
+  _TestState createState() => _TestState();
+}
+
+class _TestState extends State<Test> {
   final TextEditingController _idFieldController = TextEditingController();
+
   final TextEditingController _pwFieldController = TextEditingController();
+
+  bool _loading=false;
+
+  Future _login() async{
+    var url=loginUrl;
+    final response=await http.post(Uri.parse(url),body: {
+      "id":_idFieldController.text,"password":_pwFieldController.text
+    });
+    if(response.statusCode==200){
+      print(response.body);
+    }else{
+      print(response.body);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +235,69 @@ class Test extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 23.79),
-                LoginButton(
-                  idFieldController: _idFieldController,
-                  pwFieldController: _pwFieldController,
-                ),
+                !_loading?Material(
+                  borderRadius: BorderRadius.circular(80),
+                  color: Colors.white.withOpacity(0.0),
+                  child: InkWell(
+                    onTap: () async {
+                      print(_idFieldController.text);
+                      print(_pwFieldController.text);
+                      setState(() {
+                        _loading=true;
+                      });
+                      await _login();
+                      setState(() {
+                        _loading=false;
+                      });
+                      Get.off(()=>MarkerMapPage());
+
+                    },
+                    child: Container(
+                      width: 298,
+                      height: 60,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 298,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(80),
+                              color: Color(0xb282e3f8),
+                            ),
+                            padding: const EdgeInsets.only(
+                              left: 108,
+                              right: 109,
+                              top: 15,
+                              bottom: 14,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 81,
+                                  child: Text(
+                                    "로그인",
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.ibmPlexSans(
+                                      color: Color(0xfff4f4f4),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ):Center(child: CircularProgressIndicator(),),
                 SizedBox(height: 23.79),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -303,4 +383,6 @@ class Test extends StatelessWidget {
       ),
     );
   }
+
+
 }

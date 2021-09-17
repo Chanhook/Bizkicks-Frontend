@@ -23,6 +23,7 @@ class LoginButton extends StatelessWidget {
         onTap: () {
           print(idFieldController.text);
           print(pwFieldController.text);
+
           Get.off(()=>MarkerMapPage());
 
         },

@@ -10,6 +10,9 @@ var alarmUrl="http://34.132.212.36:8080/manage/alarms";
 // 회원가입
 var signUpUrl="http://34.132.212.36:8080/members";
 
+//로그인
+var loginUrl="http://34.132.212.36:8080/members/login";
+
 
 // 킥보드 위치목록
 // 뒤에 법인코드 붙여야
