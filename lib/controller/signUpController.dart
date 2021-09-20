@@ -16,6 +16,9 @@ class SignUpController extends GetxController {
   var dateBirth = "".obs;
   var licenseNumber = "".obs;
   var identificationNumber = "".obs;
+  var type=["ROLE_USER","ROLE_MANAGER"];
+  var license=true;
+
 
   var phonecolorIndex = 0.obs;
   var authenticationColorIndex = 0.obs;

@@ -292,9 +292,18 @@ class _SignUpPageState extends State<SignUpPage> {
                             children: [
                               InkWell(
                                 onTap: () async {
-                                  Register myRegister=new Register(id: mySignUpController.id.value,password: mySignUpController.pw2.value,
-                                  phoneNumber: mySignUpController.phoneNumber.value,companyCode: mySignUpController.companyCode.value);
-                                  var body=registerToJson(myRegister);
+                                  Register myRegister = new Register(
+                                      id: mySignUpController.id.value,
+                                      name: mySignUpController.name.value,
+                                      password: mySignUpController.pw2.value,
+                                      phoneNumber:
+                                          mySignUpController.phoneNumber.value,
+                                      license: true,
+                                    companyCode: mySignUpController.companyCode.value,
+                                    userRole:mySignUpController.type[0]
+                                  );
+                                  var body = registerToJson(myRegister);
+                                  print(body);
                                   await mySignUpController.postSignUP(body);
                                   Get.offAll(NewLoginPage());
                                   Get.delete<SignUpController>();

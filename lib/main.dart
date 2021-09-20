@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +12,7 @@ import 'package:login/urls/url.dart';
 import 'package:login/widget/LoginButton.dart';
 import 'package:login/widget/marker_map_page.dart';
 import 'package:http/http.dart' as http;
+
 void main() {
   runApp(MyApp());
 }
@@ -32,7 +35,7 @@ class MyApp extends StatelessWidget {
                 primaryColor: Colors.white,
               ),
               home: //ManagerPage(),
-              NewLoginPage(),
+                  NewLoginPage(),
             );
           }
         });
@@ -81,16 +84,21 @@ class _TestState extends State<Test> {
 
   final TextEditingController _pwFieldController = TextEditingController();
 
-  bool _loading=false;
+  bool _loading = false;
 
-  Future _login() async{
-    var url=loginUrl;
-    final response=await http.post(Uri.parse(url),body: {
-      "id":_idFieldController.text,"password":_pwFieldController.text
+  Future _login() async {
+    var url = loginUrl;
+    final msg=jsonEncode({
+      "id": _idFieldController.text,
+      "password": _pwFieldController.text
     });
-    if(response.statusCode==200){
+    final response = await http.post(Uri.parse(url), body: msg, headers: {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    });
+    if (response.statusCode == 200) {
       print(response.body);
-    }else{
+    } else {
       print(response.body);
     }
   }
@@ -161,7 +169,9 @@ class _TestState extends State<Test> {
                             SizedBox(
                               width: 94,
                               child: TextField(
-                                onSubmitted: (value){print(value);},
+                                onSubmitted: (value) {
+                                  print(value);
+                                },
                                 controller: _idFieldController,
                                 decoration: const InputDecoration(
                                     hintText: "이용자아이디",
@@ -212,7 +222,9 @@ class _TestState extends State<Test> {
                             SizedBox(
                               width: 94,
                               child: TextField(
-                                onSubmitted: (value){print(value);},
+                                onSubmitted: (value) {
+                                  print(value);
+                                },
                                 obscureText: true,
                                 enableSuggestions: false,
                                 autocorrect: false,
@@ -235,69 +247,73 @@ class _TestState extends State<Test> {
                   ),
                 ),
                 SizedBox(height: 23.79),
-                !_loading?Material(
-                  borderRadius: BorderRadius.circular(80),
-                  color: Colors.white.withOpacity(0.0),
-                  child: InkWell(
-                    onTap: () async {
-                      print(_idFieldController.text);
-                      print(_pwFieldController.text);
-                      setState(() {
-                        _loading=true;
-                      });
-                      await _login();
-                      setState(() {
-                        _loading=false;
-                      });
-                      Get.off(()=>MarkerMapPage());
-
-                    },
-                    child: Container(
-                      width: 298,
-                      height: 60,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
+                !_loading
+                    ? Material(
+                        borderRadius: BorderRadius.circular(80),
+                        color: Colors.white.withOpacity(0.0),
+                        child: InkWell(
+                          onTap: () async {
+                            print(_idFieldController.text);
+                            print(_pwFieldController.text);
+                            setState(() {
+                              _loading = true;
+                            });
+                            await _login();
+                            setState(() {
+                              _loading = false;
+                            });
+                            Get.off(() => MarkerMapPage());
+                          },
+                          child: Container(
                             width: 298,
                             height: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80),
-                              color: Color(0xb282e3f8),
-                            ),
-                            padding: const EdgeInsets.only(
-                              left: 108,
-                              right: 109,
-                              top: 15,
-                              bottom: 14,
-                            ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  width: 81,
-                                  child: Text(
-                                    "로그인",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.ibmPlexSans(
-                                      color: Color(0xfff4f4f4),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                Container(
+                                  width: 298,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(80),
+                                    color: Color(0xb282e3f8),
+                                  ),
+                                  padding: const EdgeInsets.only(
+                                    left: 108,
+                                    right: 109,
+                                    top: 15,
+                                    bottom: 14,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 81,
+                                        child: Text(
+                                          "로그인",
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.ibmPlexSans(
+                                            color: Color(0xfff4f4f4),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
+                      )
+                    : Center(
+                        child: CircularProgressIndicator(),
                       ),
-                    ),
-                  ),
-                ):Center(child: CircularProgressIndicator(),),
                 SizedBox(height: 23.79),
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -338,7 +354,9 @@ class _TestState extends State<Test> {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: () {Get.to(()=>SignUpPage());},
+                        onTap: () {
+                          Get.to(() => SignUpPage());
+                        },
                         child: Text(
                           "회원가입",
                           textAlign: TextAlign.center,
@@ -365,15 +383,33 @@ class _TestState extends State<Test> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset("images/google.png",width: 50,height: 50,),
-                    Image.asset("images/kakao.png",width: 50,height: 50,),
-                    Image.asset("images/naver.png",width: 50,height: 50,),
-                    Image.asset("images/facebook.png",width: 50,height: 50,),
+                    Image.asset(
+                      "images/google.png",
+                      width: 50,
+                      height: 50,
+                    ),
+                    Image.asset(
+                      "images/kakao.png",
+                      width: 50,
+                      height: 50,
+                    ),
+                    Image.asset(
+                      "images/naver.png",
+                      width: 50,
+                      height: 50,
+                    ),
+                    Image.asset(
+                      "images/facebook.png",
+                      width: 50,
+                      height: 50,
+                    ),
                   ],
                 ),
               ],
@@ -383,6 +419,4 @@ class _TestState extends State<Test> {
       ),
     );
   }
-
-
 }

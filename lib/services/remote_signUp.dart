@@ -4,34 +4,43 @@ import 'package:http/http.dart' as http;
 import 'package:login/model/signUp.dart';
 import 'package:login/urls/url.dart';
 
-class RemoteSignUp{
-  static var client =http.Client();
+class RemoteSignUp {
+  static var client = http.Client();
 
-  static Future<SignUp> postSignUp(body) async{
-    var response = await client.post(Uri.parse(signUpUrl),body: body);
+  static Future<SignUp> postSignUp(body) async {
+    var response = await client.post(Uri.parse(signUpUrl),
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "content-type": "application/json"
+        });
     print(response.statusCode);
-    if(response.statusCode==201){
+    if (response.statusCode == 201) {
       var jsonString = response.body;
       var result = signUpFromJson(jsonString);
       return result;
-    }else{
+    } else {
       var jsonString = response.body;
       Map<String, dynamic> error = jsonDecode(jsonString);
       print(response.body);
+      return null;
     }
   }
 
-  static Future<Map<String,dynamic>> postLicense(body) async{
-    var response = await client.post(Uri.parse(licenseUrl),body: body);
+  static Future<Map<String, dynamic>> postLicense(body) async {
+    var response = await client.post(Uri.parse(licenseUrl), body: body,headers: {
+      "Accept": "application/json",
+      "content-type": "application/json"
+    });
     print(response.statusCode);
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
       var jsonString = response.body;
       var result = jsonDecode(jsonString);
       return result;
-    }else{
+    } else {
       var jsonString = response.body;
       var error = jsonDecode(jsonString);
-      print(error);
+      return error;
     }
   }
 

@@ -440,6 +440,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       }
     } else {
       var result = Error.fromJson(jsonDecode(responseBody));
+      print("킥보드위치 안뜰때:");
       print(result.timestamp);
       print(result.status);
       print(result.error);
