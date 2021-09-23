@@ -10,6 +10,10 @@ import '../screen/mypage_screen.dart';
 class ManagerController extends GetxController {
   var title = "계약 목록".obs;
   dynamic selectedIndex = 0.obs;
+
+  var startDate = DateTime.now();
+  var endDate = DateTime.now();
+
   final RxMap<dynamic, dynamic> ui = {
     0: ContractListBackground(),
     1: Contract(),
@@ -23,7 +27,9 @@ class ManagerController extends GetxController {
     Contractfirst(),
     ContractSecond(),
     ContractThird(),
+    ContractFourth()
   ];
+
   //리스트니까 alarms로 바꾸자
   final List<int> timeAlarm = <int>[].obs;
   final List<int> priceAlarm = <int>[].obs;
@@ -42,5 +48,10 @@ class ManagerController extends GetxController {
   void addPriceAlarm(price) {
     priceAlarm.add(int.parse(price));
     priceAlarm.sort();
+  }
+
+  void setDeadline() {
+    startDate = DateTime.now();
+    endDate = new DateTime(startDate.year,startDate.month+1,startDate.day,startDate.hour,startDate.minute,startDate.second);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../controller/managerController.dart';
 
@@ -133,7 +134,6 @@ class Contract extends StatelessWidget {
 
 //계약하기 종량제 모델 - 1단계 - 종량제 모델 설명
 class MeasuredModelContract extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
@@ -160,10 +160,96 @@ class ContractFourth extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final ManagerController mc = Get.put(ManagerController());
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(child: Image.asset("images/check_icon.png")),
+          SizedBox(
+            width: 264,
+            child: Text(
+              "계약이 완료되었습니다. ",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xff3e44ae),
+                fontSize: 21,
+                fontFamily: "IBM Plex Sans",
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 304,
+            height: 63,
+            child: Text(
+              "이용기한:  ${DateFormat('yyyy-MM-dd').format(mc.startDate)} ~ ${DateFormat('yyyy-MM-dd').format(mc.endDate)}",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xff858585),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 304,
+            height: 63,
+            child: Text(
+              "직원들을 초대해주세요 !\n아래 다양한 킥보드를 이용하실 수 있습니다.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color(0xff988cc8),
+                fontSize: 12,
+                fontFamily: "IBM Plex Sans",
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Center(child: Image.asset("images/usable_kickboards.png")),
+          SizedBox(
+            height: 50,
+          ),
+          ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                // elevation: MaterialStateProperty.all(3),
+                shadowColor: MaterialStateProperty.all(Colors.transparent),
+              ),
+              onPressed: () {},
+              child: Container(
+                width: 298,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0x3f000000),
+                      blurRadius: 5,
+                      offset: Offset(1, 5),
+                    ),
+                  ],
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Color(0xff25349f),
+                      Color(0xff826ed5),
+                      Color(0xff826ed5)
+                    ],
+                  ),
+                ),
+                child: Center(child: Text("계약목록 보러가기")),
+              ))
+        ],
+      ),
+    );
   }
 }
-
 
 //계약하기 공용 - 3단계 - 계약서
 class ContractThird extends StatelessWidget {
@@ -292,7 +378,9 @@ class ContractSecond extends StatelessWidget {
                                 )
                               ],
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             mc.timeAlarm.length != 0
                                 ? Container(
                                     height: 200,
@@ -335,7 +423,9 @@ class ContractSecond extends StatelessWidget {
                                               trailing: IconButton(
                                                 iconSize: 24,
                                                 icon: Icon(Icons.delete),
-                                                onPressed: (){mc.timeAlarm.removeAt(index);},
+                                                onPressed: () {
+                                                  mc.timeAlarm.removeAt(index);
+                                                },
                                               ),
                                             ),
                                           ),
@@ -430,7 +520,9 @@ class ContractSecond extends StatelessWidget {
                                 )
                               ],
                             ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             mc.priceAlarm.length != 0
                                 ? Container(
                                     height: 200,
@@ -447,7 +539,7 @@ class ContractSecond extends StatelessWidget {
                                             height: 54,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                              BorderRadius.circular(80),
+                                                  BorderRadius.circular(80),
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Color(0x19000000),
@@ -473,7 +565,9 @@ class ContractSecond extends StatelessWidget {
                                               trailing: IconButton(
                                                 iconSize: 24,
                                                 icon: Icon(Icons.delete),
-                                                onPressed: (){mc.priceAlarm.removeAt(index);},
+                                                onPressed: () {
+                                                  mc.priceAlarm.removeAt(index);
+                                                },
                                               ),
                                             ),
                                           ),
@@ -642,6 +736,9 @@ class PrevNextBtns extends StatelessWidget {
         InkWell(
             onTap: () {
               mc.nextStep();
+              if (mc.step.value == 3) {
+                mc.setDeadline();
+              }
             },
             child: NextBtn()),
       ],
