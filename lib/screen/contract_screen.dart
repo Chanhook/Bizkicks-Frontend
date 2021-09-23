@@ -155,6 +155,16 @@ class MeasuredModelContract extends StatelessWidget {
   }
 }
 
+class ContractFourth extends StatelessWidget {
+  const ContractFourth({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+
 //계약하기 공용 - 3단계 - 계약서
 class ContractThird extends StatelessWidget {
   @override
@@ -566,6 +576,7 @@ class ContractSecond extends StatelessWidget {
   }
 }
 
+//계약하기 설명 - 1단
 class Contractfirst extends StatelessWidget {
   const Contractfirst({
     Key key,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login/controller/kickboardUsageHistoryController.dart';
+import 'package:login/controller/tokenController.dart';
 import 'package:login/screen/after_using_screen.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:login/screen/manager_page.dart';
@@ -86,20 +87,28 @@ class _TestState extends State<Test> {
 
   bool _loading = false;
 
-  Future _login() async {
+  final TokenController tc = Get.put(TokenController());
+
+  Future<bool> _login() async {
     var url = loginUrl;
-    final msg=jsonEncode({
-      "id": _idFieldController.text,
-      "password": _pwFieldController.text
-    });
+    final msg = jsonEncode(
+        {"id": _idFieldController.text, "password": _pwFieldController.text});
     final response = await http.post(Uri.parse(url), body: msg, headers: {
       "Accept": "application/json",
       "content-type": "application/json"
     });
     if (response.statusCode == 200) {
-      print(response.body);
+      Map<String, dynamic> result = jsonDecode(response.body);
+      tc.grantType = result["grantType"];
+      tc.accessToken = result["accessToken"];
+      tc.accessTokenExpiresIn = result["accessTokenExpiresIn"];
+      tc.refreshToken = result["refreshToken"];
+
+      print(tc.grantType);
+      return true;
     } else {
       print(response.body);
+      return false;
     }
   }
 
@@ -258,11 +267,11 @@ class _TestState extends State<Test> {
                             setState(() {
                               _loading = true;
                             });
-                            await _login();
+                            var isLogin = await _login();
                             setState(() {
                               _loading = false;
                             });
-                            Get.off(() => MarkerMapPage());
+                            if (isLogin) Get.off(() => MarkerMapPage());
                           },
                           child: Container(
                             width: 298,
