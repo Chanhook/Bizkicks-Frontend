@@ -13,19 +13,23 @@ class RemoteAlarm{
       var jsonString = response.body;
       return alarmFromJson(jsonString);
     }else{
+      var error = response.body;
+      print("getAlarm");
+      print(error);
       return null;
     }
   }
 
   static Future<Map<String, dynamic>> postAlarm(body) async{
     var response = await client.post(Uri.parse(alarmUrl),body: body);
-    print(response.statusCode);
     if(response.statusCode==200){
       var jsonString = response.body;
       Map<String, dynamic> user = jsonDecode(jsonString);
       return user;
     }else{
-      return null;
+      var jsonString = response.body;
+      Map<String, dynamic> error = jsonDecode(jsonString);
+      return error;
     }
   }
   //에러코드를 출력하자 정보가 없는 팝업창을 띄우든 재로딩을 하거나 사용자가 알수 있게끔

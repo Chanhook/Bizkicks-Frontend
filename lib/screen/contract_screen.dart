@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../controller/managerController.dart';
+import 'manager_page.dart';
 
 class Contract extends StatelessWidget {
   @override
@@ -220,7 +221,11 @@ class ContractFourth extends StatelessWidget {
                 // elevation: MaterialStateProperty.all(3),
                 shadowColor: MaterialStateProperty.all(Colors.transparent),
               ),
-              onPressed: () {},
+              onPressed: () {
+                mc.postAlarm();
+                Get.off(()=>ManagerPage());
+
+                },
               child: Container(
                 width: 298,
                 height: 50,

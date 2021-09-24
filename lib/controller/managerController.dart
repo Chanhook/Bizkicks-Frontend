@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/state_manager.dart';
+import 'package:login/model/alarm.dart';
 import 'package:login/screen/measured_rate_page.dart';
+import 'package:login/services/remote_alarm.dart';
 
 import '../screen/contract_screen.dart';
 import '../screen/dashboard_screen.dart';
@@ -8,11 +10,24 @@ import '../screen/manager_page.dart';
 import '../screen/mypage_screen.dart';
 
 class ManagerController extends GetxController {
+  var isLoading=true.obs;
+
   var title = "계약 목록".obs;
   dynamic selectedIndex = 0.obs;
 
   var startDate = DateTime.now();
   var endDate = DateTime.now();
+
+
+  @override
+  void onInit(){
+    super.onInit();
+    selectedIndex = 0.obs;
+    step = 0.obs;
+    timeAlarm.clear();
+    priceAlarm.clear();
+    getAlarm();
+  }
 
   final RxMap<dynamic, dynamic> ui = {
     0: ContractListBackground(),
@@ -54,4 +69,47 @@ class ManagerController extends GetxController {
     startDate = DateTime.now();
     endDate = new DateTime(startDate.year,startDate.month+1,startDate.day,startDate.hour,startDate.minute,startDate.second);
   }
+
+  String initBody(){
+    Alarm obj=new Alarm();
+    List<ListElement> lst=[];
+    for(var i=0;i<timeAlarm.length;i++){
+      ListElement myListElement=new ListElement(type: "time",value: timeAlarm[i]);
+      lst.add(myListElement);
+    }
+    for(var i=0;i<priceAlarm.length;i++){
+      ListElement myListElement=new ListElement(type: "cost",value: priceAlarm[i]);
+      lst.add(myListElement);
+    }
+    obj.list=lst;
+
+    return alarmToJson(obj);
+  }
+
+  void postAlarm() async{
+    var body=initBody();
+    print(body);
+    try{
+      isLoading(false);
+      var result= await RemoteAlarm.postAlarm(body);
+      print(result);
+    }finally{
+      isLoading(true);
+    }
+
+  }
+
+  void getAlarm() async{
+    try{
+      isLoading(false);
+      var result = await RemoteAlarm.fetchAlarm();
+      if(result!=null){
+        print(result.list);
+      }
+    }finally{
+      isLoading(true);
+    }
+  }
+
+
 }
