@@ -92,7 +92,7 @@ class ManagerController extends GetxController {
     try{
       isLoading(false);
       var result= await RemoteAlarm.postAlarm(headers,body);
-      print(result);
+      print("postAlarm: ${result}");
     }finally{
       isLoading(true);
     }

@@ -19,15 +19,17 @@ class RemoteCheckContract{
   }
 
 
-  static Future<Map<String, dynamic>> postContract(body) async{
-    var response = await client.post(Uri.parse(contractsUrl),body: body);
-    print(response.statusCode);
-    if(response.statusCode==201){
+  static Future<Map<String, dynamic>> postContract(header,body) async{
+    var response = await client.post(Uri.parse(contractsUrl),body: body,headers: header);
+    print("postContract: ${response.statusCode}");
+    if(response.statusCode==200){
       var jsonString = response.body;
       Map<String, dynamic> result = jsonDecode(jsonString);
       return result;
     }else{
-      return null;
+      var jsonString = response.body;
+      Map<String, dynamic> error = jsonDecode(jsonString);
+      return error;
     }
   }
 

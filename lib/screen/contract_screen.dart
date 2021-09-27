@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:login/controller/checkContractController.dart';
 import 'package:login/controller/userController.dart';
+import 'package:login/model/totalcontract.dart';
 
 import '../controller/managerController.dart';
 import 'manager_page.dart';
@@ -164,6 +168,7 @@ class ContractFourth extends StatelessWidget {
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
     final UserController uc=Get.put(UserController());
+    final CheckContractController cc=Get.put(CheckContractController());
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -229,7 +234,11 @@ class ContractFourth extends StatelessWidget {
                   "Accept": "application/json",
                   "content-type": "application/json"
                 };
-                mc.postAlarm(headers);
+                _postAlarm(uc, mc,headers);
+                _postContract(mc, cc, headers);
+
+
+
                 Navigator.pop(context);
 
                 },
@@ -260,6 +269,25 @@ class ContractFourth extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _postContract(ManagerController mc, CheckContractController cc, Map<String, String> headers) {
+    var body=jsonEncode({
+      "type" : "membership",
+      "duedate" : "${DateFormat('yyyy-MM-dd').format(mc.endDate)}",
+      "startdate" : "${DateFormat('yyyy-MM-dd').format(mc.startDate)}"
+    }
+    );
+    if(DateFormat('yyyy-MM-dd').format(mc.endDate) is String){
+      print("스트링임");
+    }else{
+      print('e');
+    }
+    cc.postContract(headers, body);
+  }
+
+  void _postAlarm(UserController uc, ManagerController mc,Map<String, String> headers) {
+    mc.postAlarm(headers);
   }
 }
 

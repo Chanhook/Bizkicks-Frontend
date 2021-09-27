@@ -11,7 +11,6 @@ class AlarmController extends GetxController{
   var body=jsonEncode('{"list" : [{"type" : "cost","value" : 2500},{"type" : "cost","value" : 2500}]}');
   @override
   void onInit(){
-    postAlarm(body);
     fetchAlarm();
     super.onInit();
   }
