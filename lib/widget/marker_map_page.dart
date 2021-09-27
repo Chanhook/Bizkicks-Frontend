@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:login/controller/tokenController.dart';
+import 'package:login/controller/userController.dart';
 import 'package:login/model/error.dart';
 import 'package:login/model/kickboard.dart';
 import 'package:login/screen/manager_page.dart';
@@ -39,6 +41,44 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   Completer<NaverMapController> _controller = Completer();
   List<Marker> _markers = [];
 
+  void FlutterDialog() {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: <Widget>[
+                new Text("권한 없음"),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "관리자 전용 페이지 입니다.",
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   void initState() {
     // 마커 생성
@@ -71,6 +111,12 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   @override
   Widget build(BuildContext context) {
+    final TokenController tc=Get.put(TokenController());
+    final UserController uc=Get.put(UserController());
+
+    uc.accessToken=tc.accessToken;
+    uc.getUserInfo();
+
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
       key: _scaffoldKey,
@@ -176,7 +222,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
             ),
             ListTile(
               onTap: () {
-                Get.to(() => ManagerPage());
+                uc.user_role=="ROLE_MANAGER"?Get.to(() => ManagerPage()):FlutterDialog();
               },
               title: Text(
                 "관리자페이지",

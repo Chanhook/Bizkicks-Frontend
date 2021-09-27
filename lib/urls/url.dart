@@ -16,6 +16,10 @@ var loginUrl="http://34.132.212.36:8080/member/login";
 //운전면허
 var licenseUrl="http://34.132.212.36:8080/member/license";
 
+var userInfoUrl="http://34.132.212.36:8080/member/me";
+
+
+
 // 킥보드 위치목록
 // 뒤에 법인코드 붙여야
 var kickboardsLocationUrl="http://34.132.212.36:8080/kickboard/location";
