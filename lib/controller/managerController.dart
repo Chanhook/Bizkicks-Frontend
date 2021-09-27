@@ -86,12 +86,12 @@ class ManagerController extends GetxController {
     return alarmToJson(obj);
   }
 
-  void postAlarm() async{
+  void postAlarm(headers) async{
     var body=initBody();
     print(body);
     try{
       isLoading(false);
-      var result= await RemoteAlarm.postAlarm(body);
+      var result= await RemoteAlarm.postAlarm(headers,body);
       print(result);
     }finally{
       isLoading(true);

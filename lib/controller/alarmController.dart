@@ -28,16 +28,4 @@ class AlarmController extends GetxController{
     }
   }
 
-  void postAlarm(body) async{
-    try{
-      isLoading(true);
-      var result=await RemoteAlarm.postAlarm(body);
-      print("post: ${result}");
-      if(result!=null){
-        print("post: ${result['msg']}");
-      }
-    }finally{
-      isLoading(false);
-    }
-  }
 }

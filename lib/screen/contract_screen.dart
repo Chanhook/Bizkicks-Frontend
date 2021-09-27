@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:login/controller/userController.dart';
 
 import '../controller/managerController.dart';
 import 'manager_page.dart';
@@ -162,6 +163,7 @@ class ContractFourth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
+    final UserController uc=Get.put(UserController());
     return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -222,8 +224,13 @@ class ContractFourth extends StatelessWidget {
                 shadowColor: MaterialStateProperty.all(Colors.transparent),
               ),
               onPressed: () {
-                mc.postAlarm();
-                Get.off(()=>ManagerPage());
+                Map<String,String> headers={
+                  "authorization" : "Bearer ${uc.accessToken}",
+                  "Accept": "application/json",
+                  "content-type": "application/json"
+                };
+                mc.postAlarm(headers);
+                Navigator.pop(context);
 
                 },
               child: Container(

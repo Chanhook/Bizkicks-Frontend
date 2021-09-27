@@ -26,10 +26,6 @@ class _ManagerPageState extends State<ManagerPage> {
   static int _selectedIndex = 0;
   final List<String> titles = ["계약목록", "계약하기", "대시보드", "마이페이지"];
 
-  final List<Widget> _contractList=[ContractListBackground()];
-  final List<Widget> _contracting=[];
-  final List<Widget> _dashboard=[];
-  final List<Widget> _myPage=[];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +35,7 @@ class _ManagerPageState extends State<ManagerPage> {
         Get.put(CheckContractController());
     //print(tcController.productList);
     final ManagerController mc = Get.put(ManagerController());
+
 
     return Obx(() => Scaffold(
           appBar: AppBar(

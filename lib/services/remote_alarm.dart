@@ -20,14 +20,16 @@ class RemoteAlarm{
     }
   }
 
-  static Future<Map<String, dynamic>> postAlarm(body) async{
-    var response = await client.post(Uri.parse(alarmUrl),body: body);
+  static Future<Map<String, dynamic>> postAlarm(headers,body) async{
+    var response = await client.post(Uri.parse(alarmUrl),body: body,headers: headers);
     if(response.statusCode==200){
       var jsonString = response.body;
+      print("200: ${jsonString}");
       Map<String, dynamic> user = jsonDecode(jsonString);
       return user;
     }else{
       var jsonString = response.body;
+      print("${response.statusCode}: ${jsonString}");
       Map<String, dynamic> error = jsonDecode(jsonString);
       return error;
     }
