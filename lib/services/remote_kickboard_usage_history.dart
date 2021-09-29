@@ -26,8 +26,8 @@ class RemoteKickboardUsageHistory{
   }
 
 
-  static Future<Map<String,dynamic>> postHistory(body) async{
-    var response = await client.post(Uri.parse(kickboardConsumptionAddUrl),body: body);
+  static Future<Map<String,dynamic>> postHistory(headers,body) async{
+    var response = await client.post(Uri.parse(kickboardConsumptionAddUrl),headers: headers,body: body);
     print(response.statusCode);
     if(response.statusCode==201){
       var jsonString=response.body;

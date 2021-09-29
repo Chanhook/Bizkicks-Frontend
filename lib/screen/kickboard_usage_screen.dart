@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:login/controller/kickboardUsageController.dart';
+import 'package:login/controller/userController.dart';
 import 'package:login/screen/after_using_screen.dart';
 import 'package:naver_map_plugin/naver_map_plugin.dart';
 
@@ -255,6 +256,8 @@ class UseKickboardOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserController uc = Get.put(UserController());
+
     return Obx(() => Stack(
           children: [
             Column(
@@ -319,7 +322,7 @@ class UseKickboardOverlay extends StatelessWidget {
                                   c.stop();
                                   c.getDistance();
                                   c.arrive_time=DateTime.now();
-                                  c.postHistory();
+                                  c.postHistory(uc.headers);
                                   Get.to(()=>AfterUsingScreen());
 
                                 },

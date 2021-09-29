@@ -92,11 +92,11 @@ class KickboardUsageController extends GetxController{
     return kickboardConsumptionToJson(obj);
   }
 
-  void postHistory() async{
+  void postHistory(headers) async{
     var body=initBody();
     try{
       isLoading(false);
-      var result= await RemoteKickboardUsageHistory.postHistory(body);
+      var result= await RemoteKickboardUsageHistory.postHistory(headers,body);
       if(result!=null){
         print("msg: ${result["msg"]}");
       }

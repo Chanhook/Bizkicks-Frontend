@@ -18,7 +18,7 @@ class UserController extends GetxController{
   var accessToken="";
   var accessTokenExpiresIn=0;
   var refreshToken="";
-
+  Map<String,String> headers={};
 
 
   @override
@@ -29,9 +29,10 @@ class UserController extends GetxController{
   Future<void> getUserInfo() async {
     try {
       isLoading(false);
-      Map<String,String> headers={
+      Map<String,String> _headers={
         "authorization" : "Bearer ${accessToken}"
       };
+      headers=_headers;
       var response = await http.get(Uri.parse(userInfoUrl), headers: headers);
       var jsonString=response.body;
       Map<String,dynamic> user=jsonDecode(jsonString);
