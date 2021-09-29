@@ -180,7 +180,7 @@ class ContractListBackground extends StatelessWidget {
                               contractController.myKickboards.value.list[index].helmet?"헬멧 제공":"헬멧 미제공",
                             ),
                             Text(
-                              contractController.myKickboards.value.list[index].insurance?"보험 제공":"보 미제공",
+                              contractController.myKickboards.value.list[index].insurance?"보험 제공":"보험 미제공",
                             ),
                           ],
                         ),
