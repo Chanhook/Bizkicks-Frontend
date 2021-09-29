@@ -11,55 +11,59 @@ String checkContractToJson(CheckContract data) => json.encode(data.toJson());
 class CheckContract {
   CheckContract({
     this.type,
-    this.duedate,
+    this.startdate,
     this.list,
+    this.duedate,
   });
 
   String type;
-  DateTime duedate;
+  DateTime startdate;
   List<ListElement> list;
+  DateTime duedate;
 
   factory CheckContract.fromJson(Map<String, dynamic> json) => CheckContract(
     type: json["type"],
-    duedate: DateTime.parse(json["duedate"]),
+    startdate: DateTime.parse(json["startdate"]),
     list: List<ListElement>.from(json["list"].map((x) => ListElement.fromJson(x))),
+    duedate: DateTime.parse(json["duedate"]),
   );
 
   Map<String, dynamic> toJson() => {
     "type": type,
-    "duedate": "${duedate.year.toString().padLeft(4, '0')}-${duedate.month.toString().padLeft(2, '0')}-${duedate.day.toString().padLeft(2, '0')}",
+    "startdate": "${startdate.year.toString().padLeft(4, '0')}-${startdate.month.toString().padLeft(2, '0')}-${startdate.day.toString().padLeft(2, '0')}",
     "list": List<dynamic>.from(list.map((x) => x.toJson())),
+    "duedate": "${duedate.year.toString().padLeft(4, '0')}-${duedate.month.toString().padLeft(2, '0')}-${duedate.day.toString().padLeft(2, '0')}",
   };
 }
 
 class ListElement {
   ListElement({
     this.companyName,
-    this.pricePerHour,
-    this.serviceLocation,
+    this.districts,
     this.insurance,
     this.helmet,
+    this.usedTime,
   });
 
   String companyName;
-  int pricePerHour;
-  List<String> serviceLocation;
+  List<dynamic> districts;
   bool insurance;
   bool helmet;
+  int usedTime;
 
   factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
     companyName: json["company_name"],
-    pricePerHour: json["price_per_hour"],
-    serviceLocation: List<String>.from(json["service_location"].map((x) => x)),
+    districts: List<dynamic>.from(json["districts"].map((x) => x)),
     insurance: json["insurance"],
     helmet: json["helmet"],
+    usedTime: json["used_time"],
   );
 
   Map<String, dynamic> toJson() => {
     "company_name": companyName,
-    "price_per_hour": pricePerHour,
-    "service_location": List<dynamic>.from(serviceLocation.map((x) => x)),
+    "districts": List<dynamic>.from(districts.map((x) => x)),
     "insurance": insurance,
     "helmet": helmet,
+    "used_time": usedTime,
   };
 }

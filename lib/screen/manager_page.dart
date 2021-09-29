@@ -37,6 +37,7 @@ class _ManagerPageState extends State<ManagerPage> {
     final ManagerController mc = Get.put(ManagerController());
 
 
+
     return Obx(() => Scaffold(
           appBar: AppBar(
             title: Text(
@@ -124,43 +125,54 @@ class ContractListBackground extends StatelessWidget {
           color: Color(0xe0ffffff),
         ),
       ),
-      Column(children: [
-        SizedBox(
-          height: 300,
+      NoContract()
+    ]);
+  }
+}
+
+class NoContract extends StatelessWidget {
+  const NoContract({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      SizedBox(
+        height: 300,
+      ),
+      Container(
+        child: Center(
+          child: Text("계약목록이 없습니다.",
+            style: GoogleFonts.roboto(
+              color: Color(0xff969696),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),),
         ),
-        Container(
-          child: Center(
-            child: Text("계약목록이 없습니다.",
-              style: GoogleFonts.roboto(
-                color: Color(0xff969696),
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),),
+      ),
+      SizedBox(
+        height: 250,
+      ),
+      SizedBox(
+        width: 290,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: () {_ManagerPageState._selectedIndex=1;},
+          child: Text(
+            "계약하러 가기",
+            style: GoogleFonts.ibmPlexSans(
+              color: Color(0xfff4f4f4),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: Color(0xff826ED5),
+            shape: StadiumBorder(),
           ),
         ),
-        SizedBox(
-          height: 250,
-        ),
-        SizedBox(
-          width: 290,
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () {_ManagerPageState._selectedIndex=1;},
-            child: Text(
-              "계약하러 가기",
-              style: GoogleFonts.ibmPlexSans(
-                color: Color(0xfff4f4f4),
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xff826ED5),
-              shape: StadiumBorder(),
-            ),
-          ),
-        )
-      ])
+      )
     ]);
   }
 }

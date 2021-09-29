@@ -19,10 +19,10 @@ class CheckContractController extends GetxController{
   void onInit(){
     super.onInit();
   }
-  void fetchCheckContract() async{
+  void fetchCheckContract(headers) async{
     try{
       isLoading(true);
-      var contracts= await RemoteCheckContract.fetchCheckContract();
+      var contracts= await RemoteCheckContract.fetchCheckContract(headers);
 
       if(contracts!=null){
         checkContract.value=(contracts);

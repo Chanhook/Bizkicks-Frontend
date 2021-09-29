@@ -7,13 +7,15 @@ import 'package:login/urls/url.dart';
 class RemoteCheckContract{
   static var client = http.Client();
 
-  static Future<CheckContract> fetchCheckContract() async {
-      var response = await client.get(Uri.parse(contractsUrl));
+  static Future<CheckContract> fetchCheckContract(headers) async {
+      var response = await client.get(Uri.parse(contractsUrl),headers: headers);
 
       if(response.statusCode==200){
         var jsonString = response.body;
         return checkContractFromJson(jsonString);
       }else{
+        var jsonString = response.body;
+        print(jsonString);
         return null;
       }
   }
