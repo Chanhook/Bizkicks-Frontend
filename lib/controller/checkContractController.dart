@@ -8,11 +8,12 @@ import 'package:login/services/remote_check_contract.dart';
 
 class CheckContractController extends GetxController{
   var isLoading=true.obs;
-  var checkContract=Rx<CheckContract>(null);
+  var myKickboards=Rx<CheckContract>(null);
 
   var type="measuredRate".obs;
   var company_list=["씽씽","킥고잉"].obs;
   var duedate=DateTime.now();
+
 
 
   @override
@@ -23,10 +24,12 @@ class CheckContractController extends GetxController{
     try{
       isLoading(true);
       var contracts= await RemoteCheckContract.fetchCheckContract(headers);
-
       if(contracts!=null){
-        checkContract.value=(contracts);
-        print(checkContract.value.type);
+        myKickboards.value=(contracts);
+        print(myKickboards.value.type);
+        myKickboards.value.list.forEach((element) {
+          print(element.companyName);
+        });
       }
     }finally{
       isLoading(false);

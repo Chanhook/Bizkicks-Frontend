@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
+import 'package:login/controller/userController.dart';
 import 'package:login/screen/contract_screen.dart';
 import 'package:login/controller/checkContractController.dart';
 import 'package:login/controller/managerController.dart';
@@ -27,6 +28,7 @@ class _ManagerPageState extends State<ManagerPage> {
   final List<String> titles = ["계약목록", "계약하기", "대시보드", "마이페이지"];
 
 
+
   @override
   Widget build(BuildContext context) {
     // final MRPriceController mrpController = Get.put(MRPriceController());
@@ -35,8 +37,8 @@ class _ManagerPageState extends State<ManagerPage> {
         Get.put(CheckContractController());
     //print(tcController.productList);
     final ManagerController mc = Get.put(ManagerController());
-
-
+    final UserController uc=Get.put(UserController());
+    ccController.fetchCheckContract(uc.headers);
 
     return Obx(() => Scaffold(
           appBar: AppBar(
@@ -98,13 +100,17 @@ class _ManagerPageState extends State<ManagerPage> {
 }
 
 class ContractListBackground extends StatelessWidget {
-  const ContractListBackground({
+  ContractListBackground({
     Key key,
   }) : super(key: key);
-
+  Map<String, String> kickboardImages={"씽씽":"images/Xingxing.png",
+    "라임":"images/Lime.png",
+    "킥고잉":"images/Kickgoing.png",
+  };
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
+    final CheckContractController contractController=Get.put(CheckContractController());
+    return Obx(()=>Stack(children: [
       Container(
         width: Get.width,
         height: Get.height,
@@ -125,8 +131,73 @@ class ContractListBackground extends StatelessWidget {
           color: Color(0xe0ffffff),
         ),
       ),
-      NoContract()
-    ]);
+      contractController.myKickboards.value==null?NoContract():SingleChildScrollView(
+        child: Container(
+          child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: contractController.myKickboards.value.list.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 341,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.circular(80),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x19000000),
+                          blurRadius: 2,
+                          offset: Offset(0, -1),
+                        ),
+                        BoxShadow(
+                          color: Color(0x19000000),
+                          blurRadius: 4,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: Center(
+                      child: ListTile(
+                        leading: Image.asset(kickboardImages[contractController.myKickboards.value.list[index].companyName],
+                        width: 50,height: 50,),
+                        title: Column(
+                          children: [
+                            Text(
+                              "${contractController.myKickboards.value.list[index].companyName}",
+                              style: GoogleFonts.roboto(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              "서비스 지역: ${contractController.myKickboards.value.list[index].districts}"
+                            ),
+                            Text(
+                              contractController.myKickboards.value.list[index].helmet?"헬멧 제공":"헬멧 미제공",
+                            ),
+                            Text(
+                              contractController.myKickboards.value.list[index].insurance?"보험 제공":"보 미제공",
+                            ),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          iconSize: 24,
+                          icon: Icon(Icons.arrow_forward_ios),
+                          onPressed: () {
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        ),
+      ),
+    ]));
   }
 }
 

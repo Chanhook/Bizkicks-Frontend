@@ -11,8 +11,7 @@ class RemoteCheckContract{
       var response = await client.get(Uri.parse(contractsUrl),headers: headers);
 
       if(response.statusCode==200){
-        var jsonString = response.body;
-        return checkContractFromJson(jsonString);
+        return checkContractFromJson(utf8.decode(response.bodyBytes));
       }else{
         var jsonString = response.body;
         print(jsonString);
