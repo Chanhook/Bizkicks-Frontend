@@ -81,6 +81,8 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   @override
   void initState() {
+    final UserController uc=Get.put(UserController());
+    final TokenController tc=Get.put(TokenController());
     // 마커 생성
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   OverlayImage.fromAssetImage(
@@ -107,6 +109,9 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     super.initState();
     _onTapLocation();
     _get();
+
+    uc.accessToken=tc.accessToken;
+    uc.getUserInfo();
   }
 
   @override
@@ -114,8 +119,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     final TokenController tc=Get.put(TokenController());
     final UserController uc=Get.put(UserController());
 
-    uc.accessToken=tc.accessToken;
-    uc.getUserInfo();
 
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
