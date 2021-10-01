@@ -108,7 +108,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     // });
     super.initState();
     _onTapLocation();
-    _get();
+    _get(uc.headers);
 
     uc.accessToken=tc.accessToken;
     uc.getUserInfo();
@@ -467,9 +467,9 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   }
 
   // ================== method ==========================
-  void _get() async {
+  void _get(headers) async {
     String url = kickboardsLocationUrl;
-    var response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url),headers: headers);
     var statusCode = response.statusCode;
     var responseHeaders = response.headers;
     var responseBody = utf8.decode(response.bodyBytes);

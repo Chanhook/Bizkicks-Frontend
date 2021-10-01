@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/controller/kickboardUsageHistoryController.dart';
 import 'package:login/controller/tokenController.dart';
 import 'package:login/screen/after_using_screen.dart';
+import 'package:login/screen/find_id_screen.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:login/screen/manager_page.dart';
 import 'package:login/screen/sign_up_page.dart';
@@ -36,7 +37,8 @@ class MyApp extends StatelessWidget {
                 primaryColor: Colors.white,
               ),
               home: //ManagerPage(),
-                  NewLoginPage(),
+                  //NewLoginPage(),
+              FindId(),
             );
           }
         });
@@ -333,7 +335,9 @@ class _TestState extends State<Test> {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => FindId());
+                        },
                         child: Text(
                           "아이디 찾기",
                           textAlign: TextAlign.center,
@@ -429,3 +433,4 @@ class _TestState extends State<Test> {
     );
   }
 }
+
