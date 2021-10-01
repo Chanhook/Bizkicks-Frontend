@@ -15,8 +15,9 @@ class Contract extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
+    final CheckContractController checkContractController=Get.find();
 
-    return Stack(children: [
+    return Obx(()=>Stack(children: [
       Container(
         width: Get.width,
         height: Get.height,
@@ -37,7 +38,7 @@ class Contract extends StatelessWidget {
           color: Color(0xe0ffffff),
         ),
       ),
-      Center(
+      !checkContractController.isContracted.value?Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,8 +134,12 @@ class Contract extends StatelessWidget {
             ),
           ],
         ),
+      ):Container(
+        child: Center(
+          child: Text("이미 계약 완료"),
+        ),
       ),
-    ]);
+    ]));
   }
 }
 

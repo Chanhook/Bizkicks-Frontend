@@ -14,6 +14,7 @@ class RemoteCheckContract{
         return checkContractFromJson(utf8.decode(response.bodyBytes));
       }else{
         var jsonString = response.body;
+        print("fetchCheckContract error:");
         print(jsonString);
         return null;
       }

@@ -9,6 +9,7 @@ import 'package:login/services/remote_check_contract.dart';
 class CheckContractController extends GetxController{
   var isLoading=true.obs;
   var myKickboards=Rx<CheckContract>(null);
+  var isContracted=false.obs;
 
   var type="measuredRate".obs;
   var company_list=["씽씽","킥고잉"].obs;
@@ -25,6 +26,7 @@ class CheckContractController extends GetxController{
       isLoading(true);
       var contracts= await RemoteCheckContract.fetchCheckContract(headers);
       if(contracts!=null){
+        isContracted.value=true;
         myKickboards.value=(contracts);
         print(myKickboards.value.type);
         myKickboards.value.list.forEach((element) {
