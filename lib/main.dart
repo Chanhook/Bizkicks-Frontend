@@ -7,6 +7,7 @@ import 'package:login/controller/kickboardUsageHistoryController.dart';
 import 'package:login/controller/tokenController.dart';
 import 'package:login/screen/after_using_screen.dart';
 import 'package:login/screen/find_id_screen.dart';
+import 'package:login/screen/find_password_page.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
 import 'package:login/screen/manager_page.dart';
 import 'package:login/screen/sign_up_page.dart';
@@ -37,8 +38,8 @@ class MyApp extends StatelessWidget {
                 primaryColor: Colors.white,
               ),
               home: //ManagerPage(),
-                  //NewLoginPage(),
-              FindId(),
+                  NewLoginPage(),
+
             );
           }
         });
@@ -352,7 +353,9 @@ class _TestState extends State<Test> {
                       width: 100,
                       height: 18,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(()=>FindPw());
+                        },
                         child: Text(
                           "비밀번호 찾기",
                           textAlign: TextAlign.center,
