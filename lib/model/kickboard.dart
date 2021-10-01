@@ -4,17 +4,17 @@ class Kickboard {
   final double lng;
   final int battery;
   final String model;
-  final String img_url;
+  final String past_picture;
 
   Kickboard(this.company_name, this.lat, this.lng, this.battery, this.model,
-      this.img_url);
+      this.past_picture);
   Kickboard.fromJson(Map<String, dynamic> json)
       : company_name = json['company_name'],
         lat = json['lat'],
         lng = json['lng'],
         battery = json['battery'],
         model = json['model'],
-        img_url = json['img_url'];
+        past_picture = json['past_picture'];
 
   Map<String, dynamic> toJson() =>
       {
@@ -23,7 +23,7 @@ class Kickboard {
         'lng' :lng,
         'battery' :battery,
         'model' :model,
-        'img_url':img_url
+        'past_picture':past_picture
       };
   }
 
