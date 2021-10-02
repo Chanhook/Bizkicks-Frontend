@@ -1,29 +1,32 @@
 class Kickboard {
+  final int id;
   final String company_name;
   final double lat;
   final double lng;
   final int battery;
   final String model;
-  final String past_picture;
+  final String pastPicture;
 
-  Kickboard(this.company_name, this.lat, this.lng, this.battery, this.model,
-      this.past_picture);
+  Kickboard(this.id,this.company_name, this.lat, this.lng, this.battery, this.model,
+      this.pastPicture);
   Kickboard.fromJson(Map<String, dynamic> json)
-      : company_name = json['company_name'],
+      : id=json['id'],
+        company_name = json['company_name'],
         lat = json['lat'],
         lng = json['lng'],
         battery = json['battery'],
         model = json['model'],
-        past_picture = json['past_picture'];
+        pastPicture = json['pastPicture'];
 
   Map<String, dynamic> toJson() =>
       {
+        'id':id,
         'company_name' : company_name,
         'lat' :lat,
         'lng' :lng,
         'battery' :battery,
         'model' :model,
-        'past_picture':past_picture
+        'pastPicture':pastPicture
       };
   }
 

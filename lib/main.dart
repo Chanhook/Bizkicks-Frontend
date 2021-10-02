@@ -39,12 +39,49 @@ class MyApp extends StatelessWidget {
               ),
               home: //ManagerPage(),
                   NewLoginPage(),
-
+            //ImageTest(),
             );
           }
         });
   }
 }
+
+class ImageTest extends StatefulWidget {
+  const ImageTest({Key key}) : super(key: key);
+
+  @override
+  _ImageTestState createState() => _ImageTestState();
+}
+
+class _ImageTestState extends State<ImageTest> {
+  
+  @override
+  void initState(){
+    super.initState();
+    post();
+    
+  }
+
+  Future<void> post() async {
+    Map<String,String> _headers={
+      "authorization" : "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IiwiYXV0aCI6IlJPTEVfTUFOQUdFUiIsImV4cCI6MTYzMzE1NDcxNn0.Cnjkm4VN2MMUqy-6CcWMDiqNX0ziheWBgvcF7N1HWxrE6rlerelz7SkULV_3tUWV58vxIIPOA0Uw5_MH31vsWA"
+    };
+    var response=await http.get(Uri.parse("${kickboardsLocationUrl}/1"),headers: _headers);
+    print(response.statusCode);
+    print(response.body);
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Base64를 이용한 이미지 내려받기"),
+      ),
+      body: Container(),
+    );
+  }
+}
+
 
 class NewLoginPage extends StatelessWidget {
   @override

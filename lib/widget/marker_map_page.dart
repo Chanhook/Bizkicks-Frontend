@@ -172,18 +172,18 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     //   });
     // });
     super.initState();
-    _onTapLocation();
-    _get(uc.headers);
 
     uc.accessToken=tc.accessToken;
     uc.getUserInfo();
+    _onTapLocation();
+    _get(uc.headers);
+
   }
 
   @override
   Widget build(BuildContext context) {
     final TokenController tc=Get.put(TokenController());
     final UserController uc=Get.put(UserController());
-
 
     //_markerCreated();       //컨트롤 바의 상태가 바뀌면서 재 빌드가 된거임!!!
     return Scaffold(
@@ -327,7 +327,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
                 children: [
                   SearchBox(scaffoldKey: _scaffoldKey),
                   SizedBox(
-                    height: 430,
+                    height: 400,
                   ),
                   if (_detailed)
                     UseKickboardOverlay(
@@ -538,7 +538,6 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
     String url = kickboardsLocationUrl;
     var response = await http.get(Uri.parse(url),headers: headers);
     var statusCode = response.statusCode;
-    var responseHeaders = response.headers;
     var responseBody = utf8.decode(response.bodyBytes);
 
     // print("statusCode: ${statusCode}");
@@ -551,9 +550,18 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
       for (var i in result["list"]) {
         var kickboard = Kickboard.fromJson(i);
         kickboardList.add(kickboard);
-        print(kickboard.company_name);
+        // print("--------------------");
+        // print(kickboard.id);
+        // print(kickboard.battery);
+        // print(kickboard.company_name);
+        // print(kickboard.lat);
+        // print(kickboard.lng);
+        // print(kickboard.model);
         _markerCreated(kickboard);
+
+
       }
+
     } else {
       var result = Error.fromJson(jsonDecode(responseBody));
       print("킥보드위치 안뜰때:");
@@ -590,7 +598,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
         position: LatLng(kickboard.lat, kickboard.lng),
         alpha: 0.8,
         icon: await OverlayImage.fromAssetImage(
-            assetName: 'images/${img}', context: context),
+            assetName: "images/${img}", context: context),
         anchor: AnchorPoint(0.5, 1),
         width: 45,
         height: 45,
