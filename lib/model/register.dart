@@ -17,6 +17,7 @@ class Register {
     this.companyCode,
     this.license,
     this.userRole,
+    this.email,
   });
 
   String id;
@@ -26,6 +27,7 @@ class Register {
   String companyCode;
   bool license;
   String userRole;
+  String email;
 
   factory Register.fromJson(Map<String, dynamic> json) => Register(
     id: json["id"],
@@ -35,6 +37,7 @@ class Register {
     companyCode: json["company_code"],
     license: json["license"],
     userRole: json["user_role"],
+    email: json["email"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -45,5 +48,6 @@ class Register {
     "company_code": companyCode,
     "license": license,
     "user_role": userRole,
+    "email":email,
   };
 }
