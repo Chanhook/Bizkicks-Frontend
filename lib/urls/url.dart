@@ -16,8 +16,11 @@ var loginUrl="http://34.132.212.36:8080/member/login";
 //운전면허
 var licenseUrl="http://34.132.212.36:8080/member/license";
 
+//유저정보
 var userInfoUrl="http://34.132.212.36:8080/member/me";
 
+//비밀번호 바꾸기
+var changePasswordUrl="http://34.132.212.36:8080/modify/password";
 
 
 // 킥보드 위치목록

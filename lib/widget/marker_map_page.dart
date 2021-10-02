@@ -8,6 +8,7 @@ import 'package:login/controller/userController.dart';
 import 'package:login/model/error.dart';
 import 'package:login/model/kickboard.dart';
 import 'package:login/screen/manager_page.dart';
+import 'package:login/services/remote_change_password.dart';
 import 'package:login/urls/url.dart';
 import 'package:login/widget/search_box.dart';
 import 'package:login/widget/useKickboardOverlay.dart';
@@ -71,6 +72,70 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               new FlatButton(
                 child: new Text("확인"),
                 onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+  void ChangePasswordDialog() {
+    showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          final UserController uc=Get.find();
+          final TextEditingController oldFieldController=new TextEditingController();
+          final TextEditingController newFieldController=new TextEditingController();
+          return AlertDialog(
+            // RoundedRectangleBorder - Dialog 화면 모서리 둥글게 조절
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            //Dialog Main Title
+            title: Column(
+              children: <Widget>[
+                new Text("비밀번호 바꾸기"),
+              ],
+            ),
+            //
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: "이전 비밀번호를 입력해 주세요",
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(
+                      color: Color(0xffb5b5b5),
+                      fontSize: 14,
+                    ),
+                  ),
+                  controller: oldFieldController,
+                ),
+                TextField(decoration: const InputDecoration(
+                  hintText: "새 비밀번호를 입력해 주세요",
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(
+                    color: Color(0xffb5b5b5),
+                    fontSize: 14,
+                  ),
+                ),
+                  controller: newFieldController,),
+              ],
+            ),
+            actions: <Widget>[
+              new ElevatedButton(
+                child: new Text("확인"),
+                onPressed: () async {
+                  var headers=uc.headers;
+                  var body=jsonEncode({
+                    "old_password": oldFieldController.text,
+                        "new_password":newFieldController.text
+                  });
+                  var result=await RemoteChangePassword.postChangePassword(headers, body);
+                  print(result);
                   Navigator.pop(context);
                 },
               ),
@@ -180,9 +245,11 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
               thickness: 2,
             ),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                ChangePasswordDialog();
+              },
               title: Text(
-                "안전교육",
+                "비밀번호 바꾸기",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 16,
