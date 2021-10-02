@@ -22,6 +22,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController authenticationFieldController =
       TextEditingController();
 
+  final TextEditingController emailFieldController=TextEditingController();
+
   final TextEditingController idFieldController = TextEditingController();
 
   final TextEditingController pwFieldController = TextEditingController();
@@ -60,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
     dateBirthFieldController.dispose();
     licenseNumberFieldController.dispose();
     identificationNumberFieldController.dispose();
+    emailFieldController.dispose();
     super.dispose();
   }
 
@@ -162,7 +165,10 @@ class _SignUpPageState extends State<SignUpPage> {
                               phoneNumberFieldController:
                                   phoneNumberFieldController,
                               authenticationFieldController:
-                                  authenticationFieldController),
+                                  authenticationFieldController,
+                              emailFieldController:
+                              emailFieldController
+                          ),
                         if (mySignUpController.step.value == 1)
                           Step2(
                               mySignUpController: mySignUpController,
@@ -300,12 +306,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                           mySignUpController.phoneNumber.value,
                                       license: true,
                                     companyCode: mySignUpController.companyCode.value,
-                                    userRole:mySignUpController.type[0]
+                                    userRole:mySignUpController.type[1],
+                                      email:mySignUpController.email.value
                                   );
                                   var body = registerToJson(myRegister);
                                   print(body);
                                   await mySignUpController.postSignUP(body);
-                                  Get.offAll(NewLoginPage());
+                                  Get.offAll(()=>NewLoginPage());
                                   Get.delete<SignUpController>();
                                 },
                                 child: Container(

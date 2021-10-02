@@ -9,12 +9,13 @@ class Step1 extends StatelessWidget {
     @required this.mySignUpController,
     @required this.phoneNumberFieldController,
     @required this.authenticationFieldController,
+    @required this.emailFieldController,
   }) : super(key: key);
 
   final SignUpController mySignUpController;
   final TextEditingController phoneNumberFieldController;
   final TextEditingController authenticationFieldController;
-
+  final TextEditingController emailFieldController;
   @override
   Widget build(BuildContext context) {
     return Obx(() => SingleChildScrollView(
@@ -316,7 +317,65 @@ class Step1 extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 58),
+          SizedBox(height: 25),
+          Container(
+            width: 299,
+            height: 50,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      width: 298,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(80),
+                        border: Border.all(
+                          color: mySignUpController.colorList[
+                          mySignUpController
+                              .authenticationColorIndex.value],
+                          width: 1.50,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 23,
+                  top: 26,
+                  child: SizedBox(
+                    width: 199,
+                    height: 18,
+                    child: TextField(
+                      onSubmitted: (value) {
+                        mySignUpController.email.value =
+                            value;
+                        mySignUpController.emailColorIndex.value =
+                            mySignUpController.changeColor(
+                                mySignUpController
+                                    .emailColorIndex.value);
+                      },
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                      ),
+                      controller: emailFieldController,
+                      decoration: const InputDecoration(
+                        hintText: "이메일을 입력해 주세요",
+                        border: InputBorder.none,
+                        hintStyle: TextStyle(
+                          color: Color(0xffb5b5b5),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 25),
           Container(
             width: 298,
             height: 50,
@@ -351,7 +410,7 @@ class Step1 extends StatelessWidget {
                         child: SizedBox(
                           width: 147,
                           child: Text(
-                            "휴대폰 번호 인증 완료",
+                            "인증 완료",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: mySignUpController.fontList[

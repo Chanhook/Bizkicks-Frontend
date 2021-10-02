@@ -195,7 +195,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
             ),
             ListTile(
               onTap: () {
-                Get.offAll(NewLoginPage());
+                Get.offAll(()=>NewLoginPage());
               },
               title: Text(
                 "로그아웃",

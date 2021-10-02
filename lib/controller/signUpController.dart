@@ -8,6 +8,7 @@ class SignUpController extends GetxController {
   var step = 0.obs;
   var phoneNumber = "".obs;
   var authenticationNumber = "".obs;
+  var email="".obs;
   var id = "".obs;
   var pw = "".obs;
   var pw2 = "".obs;
@@ -22,6 +23,7 @@ class SignUpController extends GetxController {
 
   var phonecolorIndex = 0.obs;
   var authenticationColorIndex = 0.obs;
+  var emailColorIndex=0.obs;
   var successColorIndex = 0.obs;
   var idColorIndex = 0.obs;
   var pwColorIndex = 0.obs;
@@ -43,13 +45,14 @@ class SignUpController extends GetxController {
 
   List<dynamic> colorList = [Color(0x5982e3f8), Color(0xb282e3f8)];
   List<dynamic> fontList = [Color(0xffb5b5b5), Color(0xf4f4f4f4)];
-  List<String> title = ["휴대폰 번호 인증하기", "계정 설정하기", "회사 코드 입력하기", "운전면허증 등록하기"];
+  List<String> title = ["인증하기", "계정 설정하기", "회사 코드 입력하기", "운전면허증 등록하기"];
 
   @override
   void onInit() {
     step = 0.obs;
     phoneNumber = "".obs;
     authenticationNumber = "".obs;
+    email="".obs;
     id = "".obs;
     pw = "".obs;
     pw2 = "".obs;
