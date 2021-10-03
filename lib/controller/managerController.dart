@@ -10,7 +10,7 @@ import '../screen/manager_page.dart';
 import '../screen/mypage_screen.dart';
 
 class ManagerController extends GetxController {
-  var isLoading=true.obs;
+  var isLoading = true.obs;
 
   var title = "계약 목록".obs;
   dynamic selectedIndex = 0.obs;
@@ -18,9 +18,10 @@ class ManagerController extends GetxController {
   var startDate = DateTime.now();
   var endDate = DateTime.now();
 
+  var kickboard_companys = [{"씽씽": "Xingxing"}, {"킥고잉": "Kickgoing"}, {"라임": "Lime"}];
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
     selectedIndex = 0.obs;
     step = 0.obs;
@@ -39,18 +40,23 @@ class ManagerController extends GetxController {
 
   var step = 0.obs;
   final List<dynamic> stepList = [
-    Contractfirst(s: "멤버십 모델 설명",),
-    ContractSecond(type:"membership",),
+    Contractfirst(
+      s: "멤버십 모델 설명",
+    ),
+    ContractSecond(
+      type: "membership",
+    ),
     ContractThird(),
     ContractFourth()
   ];
   final List<dynamic> planStep = [
     Contractfirst(s: "플랜 모델 설명"),
-    ContractSecond(type:"plan",),
+    ContractSecond(
+      type: "plan",
+    ),
     ContractThird(),
     ContractFourth()
   ];
-
 
   //리스트니까 alarms로 바꾸자
   final List<int> timeAlarm = <int>[].obs;
@@ -74,49 +80,49 @@ class ManagerController extends GetxController {
 
   void setDeadline() {
     startDate = DateTime.now();
-    endDate = new DateTime(startDate.year,startDate.month+1,startDate.day,startDate.hour,startDate.minute,startDate.second);
+    endDate = new DateTime(startDate.year, startDate.month + 1, startDate.day,
+        startDate.hour, startDate.minute, startDate.second);
   }
 
-  String initBody(){
-    Alarm obj=new Alarm();
-    List<ListElement> lst=[];
-    for(var i=0;i<timeAlarm.length;i++){
-      ListElement myListElement=new ListElement(type: "time",value: timeAlarm[i]);
+  String initBody() {
+    Alarm obj = new Alarm();
+    List<ListElement> lst = [];
+    for (var i = 0; i < timeAlarm.length; i++) {
+      ListElement myListElement =
+          new ListElement(type: "time", value: timeAlarm[i]);
       lst.add(myListElement);
     }
-    for(var i=0;i<priceAlarm.length;i++){
-      ListElement myListElement=new ListElement(type: "cost",value: priceAlarm[i]);
+    for (var i = 0; i < priceAlarm.length; i++) {
+      ListElement myListElement =
+          new ListElement(type: "cost", value: priceAlarm[i]);
       lst.add(myListElement);
     }
-    obj.list=lst;
+    obj.list = lst;
 
     return alarmToJson(obj);
   }
 
-  void postAlarm(headers) async{
-    var body=initBody();
+  void postAlarm(headers) async {
+    var body = initBody();
     print(body);
-    try{
+    try {
       isLoading(false);
-      var result= await RemoteAlarm.postAlarm(headers,body);
+      var result = await RemoteAlarm.postAlarm(headers, body);
       print("postAlarm: ${result}");
-    }finally{
+    } finally {
       isLoading(true);
     }
-
   }
 
-  void getAlarm() async{
-    try{
+  void getAlarm() async {
+    try {
       isLoading(false);
       var result = await RemoteAlarm.fetchAlarm();
-      if(result!=null){
+      if (result != null) {
         print(result.list);
       }
-    }finally{
+    } finally {
       isLoading(true);
     }
   }
-
-
 }

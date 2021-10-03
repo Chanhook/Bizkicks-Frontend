@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:login/controller/kickboardUsageHistoryController.dart';
 import 'package:login/controller/tokenController.dart';
 import 'package:login/screen/after_using_screen.dart';
+import 'package:login/screen/contract_screen.dart';
 import 'package:login/screen/find_id_screen.dart';
 import 'package:login/screen/find_password_page.dart';
 import 'package:login/screen/kickboard_usage_screen.dart';
@@ -39,7 +40,6 @@ class MyApp extends StatelessWidget {
               ),
               home: //ManagerPage(),
                   NewLoginPage(),
-            //ImageTest(),
             );
           }
         });
@@ -87,7 +87,9 @@ class NewLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Test(),
+      body:
+      SafeArea(child: ContractSecond(type: "plan",)),  
+      //Test(),
     );
   }
 }
