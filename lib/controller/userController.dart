@@ -34,7 +34,7 @@ class UserController extends GetxController{
       };
       headers=_headers;
       var response = await http.get(Uri.parse(userInfoUrl), headers: headers);
-      var jsonString=response.body;
+      var jsonString=utf8.decode(response.bodyBytes);
       Map<String,dynamic> user=jsonDecode(jsonString);
       id.value=user["id"];
       name.value=user["name"];
@@ -42,8 +42,8 @@ class UserController extends GetxController{
       license.value=user["license"] as bool;
       phone_number.value=user["phone_number"];
       company_name.value=user["company_name"];
-      print("getUserInfo: ");
-      print(user_role.value);
+
+      print("getUserInfo: ${user}");
     } finally {
       isLoading(true);
     }

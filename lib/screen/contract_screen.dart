@@ -46,7 +46,7 @@ class Contract extends StatelessWidget {
             InkWell(
                 onTap: () {
                   mc.originalState();
-                  Get.to(MeasuredModelContract());
+                  Get.to(()=>MeasuredModelContract());
                 },
                 child: Container(
                   width: 290,
@@ -91,7 +91,10 @@ class Contract extends StatelessWidget {
               height: 60,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                mc.originalState();
+                Get.to(()=>PlanContract());
+              },
               child: Container(
                 width: 290,
                 height: 238,
@@ -142,6 +145,33 @@ class Contract extends StatelessWidget {
     ]));
   }
 }
+
+class PlanContract extends StatelessWidget {
+  const PlanContract({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ManagerController mc = Get.put(ManagerController());
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "계약하기",
+          textAlign: TextAlign.center,
+          style: GoogleFonts.ibmPlexSans(
+            color: Color(0xff4a50b3),
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      //종량제 1단계 2단계 3단계 보여줄 리스
+      body: Obx(() => mc.planStep[mc.step.value]),
+    );
+  }
+}
+
+
+
 
 //계약하기 종량제 모델 - 1단계 - 종량제 모델 설명
 class MeasuredModelContract extends StatelessWidget {
@@ -332,13 +362,17 @@ class ContractThird extends StatelessWidget {
 
 //계약하기 종량제 모델 - 2단계 - 알림 설정
 class ContractSecond extends StatelessWidget {
+  ContractSecond({
+    Key key,
+    @required this.type,
+  }) : super(key: key);
   final TextEditingController _textFieldController = TextEditingController();
-
+  final type;
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
 
-    return Obx(() => Container(
+    if(this.type=='membership')return Obx(() => Container(
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -636,6 +670,22 @@ class ContractSecond extends StatelessWidget {
             ),
           ),
         ));
+    else return Container(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            MyStepper(mc: mc),
+            Container(
+              height: 600,
+              width: Get.width - 60,
+            ),
+            PrevNextBtns(
+              mc: mc,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<AlertDialog> _displayTimeDialog(
@@ -713,13 +763,18 @@ class ContractSecond extends StatelessWidget {
     mc.addTimeAlarm(time);
     _textFieldController.clear();
   }
+
+
 }
 
 //계약하기 설명 - 1단
 class Contractfirst extends StatelessWidget {
   const Contractfirst({
     Key key,
+    @required this.s,
   }) : super(key: key);
+
+  final s;
 
   @override
   Widget build(BuildContext context) {
@@ -742,7 +797,7 @@ class Contractfirst extends StatelessWidget {
           Container(
             height: 600,
             child: Center(
-              child: Text("종량제 모델 설명"),
+              child: Text("${s}"),
             ),
           ),
           PrevNextBtns(mc: mc),

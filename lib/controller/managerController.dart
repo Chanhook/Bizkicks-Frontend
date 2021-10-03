@@ -39,11 +39,18 @@ class ManagerController extends GetxController {
 
   var step = 0.obs;
   final List<dynamic> stepList = [
-    Contractfirst(),
-    ContractSecond(),
+    Contractfirst(s: "멤버십 모델 설명",),
+    ContractSecond(type:"membership",),
     ContractThird(),
     ContractFourth()
   ];
+  final List<dynamic> planStep = [
+    Contractfirst(s: "플랜 모델 설명"),
+    ContractSecond(type:"plan",),
+    ContractThird(),
+    ContractFourth()
+  ];
+
 
   //리스트니까 alarms로 바꾸자
   final List<int> timeAlarm = <int>[].obs;
