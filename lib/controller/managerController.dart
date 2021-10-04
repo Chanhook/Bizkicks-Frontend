@@ -18,8 +18,11 @@ class ManagerController extends GetxController {
   var startDate = DateTime.now();
   var endDate = DateTime.now();
 
+  var type="";
+
 
   //plan
+  var kickboard_brand=["씽씽","킥고잉","라임"];
   var kickboard_companys = [{"씽씽": "Xingxing"}, {"킥고잉": "Kickgoing"}, {"라임": "Lime"}];
   var contract_times=[0,0,0].obs;
 

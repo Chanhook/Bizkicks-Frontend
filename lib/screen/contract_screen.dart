@@ -48,6 +48,7 @@ class Contract extends StatelessWidget {
                       InkWell(
                           onTap: () {
                             mc.originalState();
+                            mc.type = "membership";
                             Get.to(() => MeasuredModelContract());
                           },
                           child: Container(
@@ -95,6 +96,7 @@ class Contract extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           mc.originalState();
+                          mc.type = "plan";
                           Get.to(() => PlanContract());
                         },
                         child: Container(
@@ -269,9 +271,28 @@ class ContractFourth extends StatelessWidget {
                   "Accept": "application/json",
                   "content-type": "application/json"
                 };
-                _postAlarm(uc, mc, headers);
-                _postContract(mc, cc, headers);
-
+                if (mc.type == "membership") {
+                  _postAlarm(uc, mc, headers);
+                  _postContract(mc, cc, headers);
+                } else {
+                  var contracts = [];
+                  for (var i = 0; i < mc.kickboard_companys.length; i++) {
+                    if (mc.contract_times[i] != 0) {
+                      var obj = {};
+                      obj["brandname"] = mc.kickboard_brand[i];
+                      obj["totaltime"] = mc.contract_times[i];
+                      contracts.add(obj);
+                    }
+                  }
+                  var body = jsonEncode({
+                    "type": "type",
+                    "startdate":
+                        "${DateFormat('yyyy-MM-dd').format(mc.startDate)}",
+                    "list": contracts
+                  });
+                  print(body);
+                  cc.postContract(headers, body);
+                }
                 Navigator.pop(context);
               },
               child: Container(
@@ -764,9 +785,7 @@ class _ContractSecondState extends State<ContractSecond> {
                                                     if (!checked[index]) {
                                                       _setUsingTimeDialog(index,
                                                           checked, context, mc);
-
-
-                                                    }else {
+                                                    } else {
                                                       checked[index] =
                                                           !checked[index];
                                                       mc.contract_times[index] =
@@ -855,7 +874,7 @@ class _ContractSecondState extends State<ContractSecond> {
                   mc.contract_times[index] =
                       int.parse(_textFieldController.text);
                   setState(() {
-                    checked[index]=!checked[index];
+                    checked[index] = !checked[index];
                   });
                   _textFieldController.clear();
                   Get.back();

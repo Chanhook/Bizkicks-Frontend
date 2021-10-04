@@ -87,9 +87,7 @@ class NewLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      SafeArea(child: ContractSecond(type: "plan",)),  
-      //Test(),
+      body:Test(),
     );
   }
 }
