@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -358,20 +359,31 @@ class ContractThird extends StatelessWidget {
 }
 
 //계약하기 종량제 모델 - 2단계 - 알림 설정
-class ContractSecond extends StatelessWidget {
+class ContractSecond extends StatefulWidget {
   ContractSecond({
     Key key,
     @required this.type,
   }) : super(key: key);
-  final TextEditingController _textFieldController = TextEditingController();
   final type;
-  double product_width=358;
-  double product_height=122;
+
+  @override
+  _ContractSecondState createState() => _ContractSecondState();
+}
+
+class _ContractSecondState extends State<ContractSecond> {
+  final TextEditingController _textFieldController = TextEditingController();
+
+  double product_width = 358;
+
+  double product_height = 122;
+
+  List<bool> checked = [false, false, false];
+
   @override
   Widget build(BuildContext context) {
     final ManagerController mc = Get.put(ManagerController());
 
-    if (this.type == 'membership')
+    if (this.widget.type == 'membership')
       return Obx(() => Container(
             child: SingleChildScrollView(
               child: Column(
@@ -688,45 +700,128 @@ class ContractSecond extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: mc.kickboard_companys.length,
                     itemBuilder: (BuildContext context, int index) {
-                      var img=mc.kickboard_companys[index].values;
-                      var image=img.toString().replaceAll("(", "").replaceAll(")", "");
+                      var n = mc.kickboard_companys[index].keys;
+                      var name =
+                          n.toString().replaceAll("(", "").replaceAll(")", "");
+                      var img = mc.kickboard_companys[index].values;
+                      var image = img
+                          .toString()
+                          .replaceAll("(", "")
+                          .replaceAll(")", "");
                       return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: product_width,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3f000000),
-                                blurRadius: 6,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                            color: Colors.white,
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Center(
-                                  child: Image.asset("images/${image}.png",
-                                    width: 96,
-                                    height: 96,
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: product_width,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x3f000000),
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                              color: Colors.white,
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Center(
+                                    child: Image.asset(
+                                      "images/${image}.png",
+                                      width: 96,
+                                      height: 96,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Row(),
-                                  ],
+                                Container(
+                                  width: product_width - 150,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "${name}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontFamily: "IBM Plex Sans",
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          Container(
+                                              width: 22,
+                                              height: 22,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    if (!checked[index]) {
+                                                      _setUsingTimeDialog(index,
+                                                          checked, context, mc);
+
+
+                                                    }else {
+                                                      checked[index] =
+                                                          !checked[index];
+                                                      mc.contract_times[index] =
+                                                          0;
+                                                    }
+                                                    print(checked[index]);
+                                                  });
+                                                },
+                                                child: checked[index]
+                                                    ? Image.asset(
+                                                        "images/checkBox_on.png",
+                                                        width: 2,
+                                                        height: 2,
+                                                      )
+                                                    : Image.asset(
+                                                        "images/checkBox_off.png",
+                                                        width: 2,
+                                                        height: 2,
+                                                      ),
+                                              )),
+                                        ],
+                                      ),
+                                      Text(
+                                        "10000원/시간",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "서비스지역: ",
+                                        style: TextStyle(
+                                          color: Color(0xff969696),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        "최소시간 30시간",
+                                        style: TextStyle(
+                                          color: Color(0xff969696),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        "보험제공/헬멧제공",
+                                        style: TextStyle(
+                                          color: Color(0xff969696),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      );
+                              ],
+                            ),
+                          ));
                     }),
               ),
               PrevNextBtns(
@@ -736,6 +831,47 @@ class ContractSecond extends StatelessWidget {
           ),
         ),
       );
+  }
+
+  Future<AlertDialog> _setUsingTimeDialog(int index, List checked,
+      BuildContext context, ManagerController mc) async {
+    // alter the app state to show a dialog
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('시간을 설정하세요.'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: const InputDecoration(hintText: '숫자만 입력하세요'),
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+            actions: <Widget>[
+              // add button
+              FlatButton(
+                child: const Text('ADD'),
+                onPressed: () {
+                  mc.contract_times[index] =
+                      int.parse(_textFieldController.text);
+                  setState(() {
+                    checked[index]=!checked[index];
+                  });
+                  _textFieldController.clear();
+                  Get.back();
+                },
+              ),
+              // cancel button
+              FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  _textFieldController.clear();
+                  Get.back();
+                },
+              )
+            ],
+          );
+        });
   }
 
   Future<AlertDialog> _displayTimeDialog(
