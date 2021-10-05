@@ -285,7 +285,7 @@ class ContractFourth extends StatelessWidget {
                     }
                   }
                   var body = jsonEncode({
-                    "type": "type",
+                    "type": "plan",
                     "startdate":
                         "${DateFormat('yyyy-MM-dd').format(mc.startDate)}",
                     "list": contracts

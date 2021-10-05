@@ -38,6 +38,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
   var _image = "";
   var _model = "";
   var _battery = 0;
+  var _pastPicture="";
 
   Completer<NaverMapController> _controller = Completer();
   List<Marker> _markers = [];
@@ -622,6 +623,7 @@ class _MarkerMapPageState extends State<MarkerMapPage> {
 
   void _onMarkerTap(Marker marker, Map<String, int> iconSize) {
     int pos = _markers.indexWhere((m) => m.markerId == marker.markerId);
+
     setState(() {
       print(_markers[pos]);
       _image = "images/${map[_markers[pos].markerId.substring(26)]}";
