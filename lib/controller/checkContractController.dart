@@ -27,11 +27,15 @@ class CheckContractController extends GetxController{
       var contracts= await RemoteCheckContract.fetchCheckContract(headers);
       if(contracts!=null){
         isContracted.value=true;
-        myKickboards.value=(contracts);
-        print(myKickboards.value.type);
-        myKickboards.value.list.forEach((element) {
+        if(contracts.type=="membership"){
+          myKickboards.value=(contracts);
+          print(myKickboards.value.type);
+          myKickboards.value.list.forEach((element) {
           print(element.companyName);
-        });
+          });
+        }else{
+
+        }
       }
     }finally{
       isLoading(false);

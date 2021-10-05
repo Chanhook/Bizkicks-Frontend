@@ -151,6 +151,7 @@ class ContractListBackground extends StatelessWidget {
                       ),
                       Container(
                         child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             itemCount: contractController

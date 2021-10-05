@@ -24,7 +24,7 @@ class RemoteCheckContract{
   static Future<Map<String, dynamic>> postContract(header,body) async{
     var response = await client.post(Uri.parse(contractsUrl),body: body,headers: header);
     print("postContract: ${response.statusCode}");
-    if(response.statusCode==200){
+    if(response.statusCode==201){
       var jsonString = response.body;
       Map<String, dynamic> result = jsonDecode(jsonString);
       return result;

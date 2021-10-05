@@ -336,6 +336,7 @@ class ContractFourth extends StatelessWidget {
     } else {
       print('e');
     }
+    print(body);
     cc.postContract(headers, body);
   }
 
