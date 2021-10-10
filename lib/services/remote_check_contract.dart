@@ -11,7 +11,9 @@ class RemoteCheckContract{
       var response = await client.get(Uri.parse(contractsUrl),headers: headers);
 
       if(response.statusCode==200){
-        return checkContractFromJson(utf8.decode(response.bodyBytes));
+        var jsonString=utf8.decode(response.bodyBytes);
+        print(jsonString);
+        return checkContractFromJson(jsonString);
       }else{
         var jsonString = response.body;
         print("fetchCheckContract error:");
@@ -47,15 +49,16 @@ class RemoteCheckContract{
     }
   }
 
-  static Future<Map<String, dynamic>> deleteContract() async{
-    var response = await client.delete(Uri.parse(contractsUrl));
+  static Future<Map<String, dynamic>> deleteContract(headers) async{
+    var response = await client.delete(Uri.parse(contractsUrl),headers: headers);
     print(response.statusCode);
     if(response.statusCode!=204){
       var jsonString = response.body;
       Map<String, dynamic> result = jsonDecode(jsonString);
       return result;
     }else{
-      return null;
+      var jsonString = response.body;
+      print(jsonString);
     }
   }
 

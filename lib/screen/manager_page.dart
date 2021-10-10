@@ -137,6 +137,43 @@ class ContractListBackground extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
+                        width: 358,
+                        height: 30,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children:[
+                            Container(
+                              width: 358,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(topLeft: Radius.circular(5), topRight: Radius.circular(5), bottomLeft: Radius.circular(0), bottomRight: Radius.circular(0), ),
+                                gradient: LinearGradient(begin: Alignment.centerLeft, end: Alignment.centerRight, colors: [Color(0xff25349f), Color(0xff826ed5), Color(0xff826ed5)], ),
+                              ),
+                              padding: const EdgeInsets.only(left: 127, right: 126, top: 4, bottom: 5, ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children:[
+                                  Text(
+                                    "${contractController.myKickboards.value.type}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xfff9f9f9),
+                                      fontSize: 16,
+                                      fontFamily: "IBM Plex Sans",
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      if(contractController.myKickboards.value.type=="membership")Container(
                         child: Column(
                           children: [
                             Text(
@@ -161,7 +198,7 @@ class ContractListBackground extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Container(
                                   width: 341,
-                                  height: 80,
+                                  height: 100,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(80),
                                     boxShadow: [
@@ -190,27 +227,59 @@ class ContractListBackground extends StatelessWidget {
                                         height: 50,
                                       ),
                                       title: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Text(
-                                            "${contractController.myKickboards.value.list[index].companyName}",
-                                            style: GoogleFonts.roboto(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "${contractController.myKickboards.value.list[index].companyName}",
+                                                style: GoogleFonts.roboto(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          if(contractController.myKickboards.value.type=="plan")Row(
+                                            children: [
+                                              Text("${contractController.myKickboards.value.list[index].price_per_hour}원/시"),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                  "서비스 지역: ${contractController.myKickboards.value.list[index].districts}"),
+                                            ],
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  contractController.myKickboards
+                                                          .value.list[index].helmet
+                                                      ? "헬멧 제공 "
+                                                      : "헬멧 미제공 ",
+                                                ),
+                                                Text(
+                                                  contractController.myKickboards
+                                                          .value.list[index].insurance
+                                                      ? "보험 제공 "
+                                                      : "보험 미제공 ",
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Text(
-                                              "서비스 지역: ${contractController.myKickboards.value.list[index].districts}"),
-                                          Text(
-                                            contractController.myKickboards
-                                                    .value.list[index].helmet
-                                                ? "헬멧 제공"
-                                                : "헬멧 미제공",
-                                          ),
-                                          Text(
-                                            contractController.myKickboards
-                                                    .value.list[index].insurance
-                                                ? "보험 제공"
-                                                : "보험 미제공",
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "${contractController.myKickboards.value.list[index].totalTime} (사용중) / "
+                                                    ,style: TextStyle(fontSize: 10),
+                                              ),
+                                              Text(
+                                                  "${contractController.myKickboards.value.list[index].totalTime} (전체 사용 가능 시간)"
+                                                ,style: TextStyle(fontSize: 10),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),

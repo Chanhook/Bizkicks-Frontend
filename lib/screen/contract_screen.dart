@@ -144,7 +144,18 @@ class Contract extends StatelessWidget {
                 )
               : Container(
                   child: Center(
-                    child: Text("이미 계약 완료"),
+                    child: Column(
+                      children: [
+                        Container(
+                          child: ElevatedButton(child: Text("계약 삭제"),
+                            onPressed: (){},
+                          ),
+                        ),
+                        Container(child: ElevatedButton(child: Text("계약 수정"),
+                          onPressed: (){},
+                        ),)
+                      ],
+                    ),
                   ),
                 ),
         ]));

@@ -25,7 +25,9 @@ class CheckContractController extends GetxController{
     try{
       isLoading(true);
       var contracts= await RemoteCheckContract.fetchCheckContract(headers);
+      print(contracts);
       if(contracts!=null){
+        print(1);
         isContracted.value=true;
         if(contracts.type=="membership"){
           myKickboards.value=(contracts);
@@ -34,7 +36,11 @@ class CheckContractController extends GetxController{
           print(element.companyName);
           });
         }else{
-
+          myKickboards.value=(contracts);
+          print(myKickboards.value.type);
+          myKickboards.value.list.forEach((element) {
+            print(element.companyName);
+          });
         }
       }
     }finally{
@@ -66,13 +72,13 @@ class CheckContractController extends GetxController{
     }
   }
 
-  void deleteContract() async{
+  void deleteContract(headers) async{
     try{
       isLoading(true);
-      var result = await RemoteCheckContract.deleteContract();
-      if(result==null){
+      var result = await RemoteCheckContract.deleteContract(headers);
+
         print('delete success');
-      }
+
     }finally{
       isLoading(false);
     }

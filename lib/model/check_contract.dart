@@ -23,8 +23,10 @@ class CheckContract {
   DateTime duedate;
 
   factory CheckContract.fromJson(Map<String, dynamic> json) {
+    print("과연?");
+    print(json["type"]);
     if (json["type"] == "membership") {
-      CheckContract(
+      return CheckContract(
         type: json["type"],
         startdate: DateTime.parse(json["startdate"]),
         list: List<ListElement>.from(
@@ -32,12 +34,10 @@ class CheckContract {
         duedate: DateTime.parse(json["duedate"]),
       );
     }else{
-      CheckContract(
-        type: null,
-        startdate: DateTime.parse(json["startdate"]),
+      return CheckContract(
+        type: json["type"],
         list: List<ListElement>.from(
             json["list"].map((x) => ListElement.fromJson(x))),
-        duedate: null,
       );
     }
   }
@@ -60,6 +60,8 @@ class ListElement {
     this.helmet,
     this.usedTime,
     this.totalTime,
+    this.start_date,
+    this.price_per_hour,
   });
 
   String companyName;
@@ -68,6 +70,8 @@ class ListElement {
   bool helmet;
   int usedTime;
   int totalTime;
+  DateTime start_date;
+  int price_per_hour;
 
   factory ListElement.fromJson(Map<String, dynamic> json) => ListElement(
         companyName: json["company_name"],
@@ -76,6 +80,8 @@ class ListElement {
         helmet: json["helmet"],
         usedTime: json["used_time"],
         totalTime: json["total_time"],
+        start_date: DateTime.parse(json["start_date"]),
+    price_per_hour: json["price_per_hour"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -85,5 +91,7 @@ class ListElement {
         "helmet": helmet,
         "used_time": usedTime,
         "total_time": totalTime,
+    "start_date":start_date,
+    "price_per_hour":price_per_hour,
       };
 }
