@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.login">
    <application
-        android:label="login"
+       android:label="비즈킥스"
         android:icon="@mipmap/ic_launcher">
-        android:label="비즈킥스"
+
         android:usesCleartextTraffic="true"
         <activity
             android:name=".MainActivity"
