@@ -3,7 +3,7 @@
    <application
         android:label="login"
         android:icon="@mipmap/ic_launcher">
-        android:label="login"
+        android:label="비즈킥스"
         android:usesCleartextTraffic="true"
         <activity
             android:name=".MainActivity"
