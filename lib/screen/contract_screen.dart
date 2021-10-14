@@ -18,7 +18,8 @@ class Contract extends StatelessWidget {
     final ManagerController mc = Get.put(ManagerController());
     final CheckContractController checkContractController = Get.find();
 
-    return Obx(() => Stack(children: [
+    return Obx(() =>
+        Stack(children: [
           Container(
             width: Get.width,
             height: Get.height,
@@ -41,19 +42,256 @@ class Contract extends StatelessWidget {
           ),
           !checkContractController.isContracted.value
               ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            mc.originalState();
-                            mc.type = "membership";
-                            Get.to(() => MeasuredModelContract());
-                          },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                    onTap: () {
+                      mc.originalState();
+                      mc.type = "membership";
+                      Get.to(() => MeasuredModelContract());
+                    },
+                    child: Container(
+                      width: 290,
+                      height: 238,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 70,
+                          ),
+                          SizedBox(
+                            width: 164.26,
+                            height: 39.51,
+                            child: Text(
+                              "비즈킥스 멤버십",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.ibmPlexSans(
+                                color: Color(0xff715cc8),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            " 사용한 시간만큼\n결제하는 모델입니다.\n\n",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    )),
+                SizedBox(
+                  height: 60,
+                ),
+                InkWell(
+                  onTap: () {
+                    mc.originalState();
+                    mc.type = "plan";
+                    Get.to(() => PlanContract());
+                  },
+                  child: Container(
+                    width: 290,
+                    height: 238,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x3f000000),
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 70,
+                        ),
+                        SizedBox(
+                          width: 164.26,
+                          height: 39.51,
+                          child: Text(
+                            "비즈킥스 플랜",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.ibmPlexSans(
+                              color: Color(0xff715cc8),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "이용시간 * 업체별 금액만큼 \n결제하는 모델입니다.\n\n",
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+              : Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                InkWell(
+                    onTap: () {},
+                    child: Container(
+                      width: 290,
+                      height: 238,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3f000000),
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 70,
+                          ),
+                          SizedBox(
+                            width: 164.26,
+                            height: 39.51,
+                            child: Text(
+                              "계약 수정",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.ibmPlexSans(
+                                color: Color(0xff715cc8),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+
+                          Text(
+                            "킥보드계약을 수정합니다.\n\n",
+                            textAlign: TextAlign.center,
+                          )
+                        ],
+                      ),
+                    )),
+                SizedBox(
+                  height: 60,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(()=>DeleteContract());
+                  },
+                  child: Container(
+                    width: 290,
+                    height: 238,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x3f000000),
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 70,
+                        ),
+                        SizedBox(
+                          width: 164.26,
+                          height: 39.51,
+                          child: Text(
+                            "계약 삭제",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.ibmPlexSans(
+                              color: Color(0xff715cc8),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "킥보드계약을 종료합니다.\n\n",
+                          textAlign: TextAlign.center,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ]));
+  }
+}
+
+class DeleteContract extends StatefulWidget {
+  const DeleteContract({Key key}) : super(key: key);
+
+  @override
+  _DeleteContractState createState() => _DeleteContractState();
+}
+
+class _DeleteContractState extends State<DeleteContract> {
+
+  double product_width = 358;
+
+  double product_height = 122;
+
+  List<bool> checked = List.generate(3, (index) => false);
+  var kickboard_companys = {
+    "씽씽": "Xingxing",
+    "킥고잉": "Kickgoing",
+    "라임": "Lime"
+  };
+
+  var deletes=[];
+  @override
+  Widget build(BuildContext context) {
+    final CheckContractController c = Get.put(CheckContractController());
+    final UserController uc=Get.put(UserController());
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 600,
+                width: Get.width - 60,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: c.myKickboards.value.list.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var name = c.myKickboards.value.list[index].companyName;
+                      var image = kickboard_companys[name];
+                      return Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            width: 290,
-                            height: 238,
+                            width: product_width,
+                            height: 150,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               boxShadow: [
@@ -65,102 +303,114 @@ class Contract extends StatelessWidget {
                               ],
                               color: Colors.white,
                             ),
-                            child: Column(
+                            child: Row(
                               children: [
-                                SizedBox(
-                                  height: 70,
-                                ),
-                                SizedBox(
-                                  width: 164.26,
-                                  height: 39.51,
-                                  child: Text(
-                                    "비즈킥스 멤버십",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.ibmPlexSans(
-                                      color: Color(0xff715cc8),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
+                                Container(
+                                  child: Center(
+                                    child: Image.asset(
+                                      "images/${image}.png",
+                                      width: 96,
+                                      height: 96,
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  " 사용한 시간만큼\n결제하는 모델입니다.\n\n",
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
-                            ),
-                          )),
-                      SizedBox(
-                        height: 60,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          mc.originalState();
-                          mc.type = "plan";
-                          Get.to(() => PlanContract());
-                        },
-                        child: Container(
-                          width: 290,
-                          height: 238,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3f000000),
-                                blurRadius: 6,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 70,
-                              ),
-                              SizedBox(
-                                width: 164.26,
-                                height: 39.51,
-                                child: Text(
-                                  "비즈킥스 플랜",
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.ibmPlexSans(
-                                    color: Color(0xff715cc8),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700,
+                                Container(
+                                  width: product_width - 150,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "${name}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontFamily: "IBM Plex Sans",
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                          Container(
+                                              width: 22,
+                                              height: 22,
+                                              child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    if(!checked[index]) {
+                                                      deletes.add(name);
+                                                    }else{
+                                                      deletes.remove(name);
+                                                    }
+                                                    checked[index]=!checked[index];
+                                                  });
+                                                  print(deletes);
+                                                },
+                                                child: checked[index]
+                                                    ? Image.asset(
+                                                  "images/checkBox_on.png",
+                                                  width: 2,
+                                                  height: 2,
+                                                )
+                                                    : Image.asset(
+                                                  "images/checkBox_off.png",
+                                                  width: 2,
+                                                  height: 2,
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                      Text(
+                                        "10000원/시간",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        "서비스지역: ",
+                                        style: TextStyle(
+                                          color: Color(0xff969696),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        "최소시간 30시간",
+                                        style: TextStyle(
+                                          color: Color(0xff969696),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        "보험제공/헬멧제공",
+                                        style: TextStyle(
+                                          color: Color(0xff969696),
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Text(
-                                "이용시간 * 업체별 금액만큼 \n결제하는 모델입니다.\n\n",
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : Container(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: ElevatedButton(child: Text("계약 삭제"),
-                            onPressed: (){},
-                          ),
-                        ),
-                        Container(child: ElevatedButton(child: Text("계약 수정"),
-                          onPressed: (){},
-                        ),)
-                      ],
-                    ),
-                  ),
-                ),
-        ]));
+                              ],
+                            ),
+                          ));
+                    }),
+              ),
+              ElevatedButton(onPressed: (){
+                var headers = uc.headers;
+                var body=jsonEncode("{list:${deletes}}");
+                print(body);
+              }, child: Text("확인"))
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
+
 
 class PlanContract extends StatelessWidget {
   const PlanContract({Key key}) : super(key: key);
@@ -240,7 +490,9 @@ class ContractFourth extends StatelessWidget {
             width: 304,
             height: 63,
             child: Text(
-              "이용기한:  ${DateFormat('yyyy-MM-dd').format(mc.startDate)} ~ ${DateFormat('yyyy-MM-dd').format(mc.endDate)}",
+              "이용기한:  ${DateFormat('yyyy-MM-dd').format(
+                  mc.startDate)} ~ ${DateFormat('yyyy-MM-dd').format(
+                  mc.endDate)}",
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xff858585),
@@ -298,7 +550,7 @@ class ContractFourth extends StatelessWidget {
                   var body = jsonEncode({
                     "type": "plan",
                     "startdate":
-                        "${DateFormat('yyyy-MM-dd').format(mc.startDate)}",
+                    "${DateFormat('yyyy-MM-dd').format(mc.startDate)}",
                     "list": contracts
                   });
                   print(body);
@@ -351,8 +603,8 @@ class ContractFourth extends StatelessWidget {
     cc.postContract(headers, body);
   }
 
-  void _postAlarm(
-      UserController uc, ManagerController mc, Map<String, String> headers) {
+  void _postAlarm(UserController uc, ManagerController mc,
+      Map<String, String> headers) {
     mc.postAlarm(headers);
   }
 }
@@ -417,7 +669,8 @@ class _ContractSecondState extends State<ContractSecond> {
     final ManagerController mc = Get.put(ManagerController());
 
     if (this.widget.type == 'membership')
-      return Obx(() => Container(
+      return Obx(() =>
+          Container(
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -432,7 +685,7 @@ class _ContractSecondState extends State<ContractSecond> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 83,
@@ -441,7 +694,7 @@ class _ContractSecondState extends State<ContractSecond> {
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           width: 15,
@@ -480,7 +733,7 @@ class _ContractSecondState extends State<ContractSecond> {
                                             height: 34,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(80),
+                                              BorderRadius.circular(80),
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Color(0x1e000000),
@@ -508,60 +761,61 @@ class _ContractSecondState extends State<ContractSecond> {
                               ),
                               mc.timeAlarm.length != 0
                                   ? Container(
-                                      height: 200,
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount: mc.timeAlarm.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              width: 341,
-                                              height: 54,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(80),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color(0x19000000),
-                                                    blurRadius: 2,
-                                                    offset: Offset(0, -1),
-                                                  ),
-                                                  BoxShadow(
-                                                    color: Color(0x19000000),
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 4),
-                                                  ),
-                                                ],
-                                                color: Colors.white,
-                                              ),
-                                              child: ListTile(
-                                                title: Text(
-                                                  "${mc.timeAlarm[index]}시간 이상 도달 시 알림",
-                                                  style: GoogleFonts.roboto(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                                trailing: IconButton(
-                                                  iconSize: 24,
-                                                  icon: Icon(Icons.delete),
-                                                  onPressed: () {
-                                                    mc.timeAlarm
-                                                        .removeAt(index);
-                                                  },
-                                                ),
-                                              ),
+                                height: 200,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: mc.timeAlarm.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 341,
+                                        height: 54,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(80),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x19000000),
+                                              blurRadius: 2,
+                                              offset: Offset(0, -1),
                                             ),
-                                          );
-                                        },
+                                            BoxShadow(
+                                              color: Color(0x19000000),
+                                              blurRadius: 4,
+                                              offset: Offset(0, 4),
+                                            ),
+                                          ],
+                                          color: Colors.white,
+                                        ),
+                                        child: ListTile(
+                                          title: Text(
+                                            "${mc
+                                                .timeAlarm[index]}시간 이상 도달 시 알림",
+                                            style: GoogleFonts.roboto(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          trailing: IconButton(
+                                            iconSize: 24,
+                                            icon: Icon(Icons.delete),
+                                            onPressed: () {
+                                              mc.timeAlarm
+                                                  .removeAt(index);
+                                            },
+                                          ),
+                                        ),
                                       ),
-                                    )
+                                    );
+                                  },
+                                ),
+                              )
                                   : Container(
-                                      height: 150,
-                                    ),
+                                height: 150,
+                              ),
                             ],
                           ),
                         ),
@@ -575,7 +829,7 @@ class _ContractSecondState extends State<ContractSecond> {
                             children: [
                               Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 83,
@@ -584,7 +838,7 @@ class _ContractSecondState extends State<ContractSecond> {
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           width: 15,
@@ -624,7 +878,7 @@ class _ContractSecondState extends State<ContractSecond> {
                                             height: 34,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(80),
+                                              BorderRadius.circular(80),
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Color(0x1e000000),
@@ -652,60 +906,61 @@ class _ContractSecondState extends State<ContractSecond> {
                               ),
                               mc.priceAlarm.length != 0
                                   ? Container(
-                                      height: 200,
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        shrinkWrap: true,
-                                        itemCount: mc.priceAlarm.length,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              width: 341,
-                                              height: 54,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(80),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color(0x19000000),
-                                                    blurRadius: 2,
-                                                    offset: Offset(0, -1),
-                                                  ),
-                                                  BoxShadow(
-                                                    color: Color(0x19000000),
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 4),
-                                                  ),
-                                                ],
-                                                color: Colors.white,
-                                              ),
-                                              child: ListTile(
-                                                title: Text(
-                                                  "${mc.priceAlarm[index]}원 이상 도달 시 알림",
-                                                  style: GoogleFonts.roboto(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                                trailing: IconButton(
-                                                  iconSize: 24,
-                                                  icon: Icon(Icons.delete),
-                                                  onPressed: () {
-                                                    mc.priceAlarm
-                                                        .removeAt(index);
-                                                  },
-                                                ),
-                                              ),
+                                height: 200,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  itemCount: mc.priceAlarm.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 341,
+                                        height: 54,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(80),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Color(0x19000000),
+                                              blurRadius: 2,
+                                              offset: Offset(0, -1),
                                             ),
-                                          );
-                                        },
+                                            BoxShadow(
+                                              color: Color(0x19000000),
+                                              blurRadius: 4,
+                                              offset: Offset(0, 4),
+                                            ),
+                                          ],
+                                          color: Colors.white,
+                                        ),
+                                        child: ListTile(
+                                          title: Text(
+                                            "${mc
+                                                .priceAlarm[index]}원 이상 도달 시 알림",
+                                            style: GoogleFonts.roboto(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          trailing: IconButton(
+                                            iconSize: 24,
+                                            icon: Icon(Icons.delete),
+                                            onPressed: () {
+                                              mc.priceAlarm
+                                                  .removeAt(index);
+                                            },
+                                          ),
+                                        ),
                                       ),
-                                    )
+                                    );
+                                  },
+                                ),
+                              )
                                   : Container(
-                                      height: 150,
-                                    ),
+                                height: 150,
+                              ),
                             ],
                           ),
                         ),
@@ -735,7 +990,7 @@ class _ContractSecondState extends State<ContractSecond> {
                     itemBuilder: (BuildContext context, int index) {
                       var n = mc.kickboard_companys[index].keys;
                       var name =
-                          n.toString().replaceAll("(", "").replaceAll(")", "");
+                      n.toString().replaceAll("(", "").replaceAll(")", "");
                       var img = mc.kickboard_companys[index].values;
                       var image = img
                           .toString()
@@ -773,11 +1028,11 @@ class _ContractSecondState extends State<ContractSecond> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             "${name}",
@@ -799,24 +1054,24 @@ class _ContractSecondState extends State<ContractSecond> {
                                                           checked, context, mc);
                                                     } else {
                                                       checked[index] =
-                                                          !checked[index];
+                                                      !checked[index];
                                                       mc.contract_times[index] =
-                                                          0;
+                                                      0;
                                                     }
                                                     print(checked[index]);
                                                   });
                                                 },
                                                 child: checked[index]
                                                     ? Image.asset(
-                                                        "images/checkBox_on.png",
-                                                        width: 2,
-                                                        height: 2,
-                                                      )
+                                                  "images/checkBox_on.png",
+                                                  width: 2,
+                                                  height: 2,
+                                                )
                                                     : Image.asset(
-                                                        "images/checkBox_off.png",
-                                                        width: 2,
-                                                        height: 2,
-                                                      ),
+                                                  "images/checkBox_off.png",
+                                                  width: 2,
+                                                  height: 2,
+                                                ),
                                               )),
                                         ],
                                       ),
@@ -905,8 +1160,8 @@ class _ContractSecondState extends State<ContractSecond> {
         });
   }
 
-  Future<AlertDialog> _displayTimeDialog(
-      BuildContext context, ManagerController mc) async {
+  Future<AlertDialog> _displayTimeDialog(BuildContext context,
+      ManagerController mc) async {
     // alter the app state to show a dialog
     return showDialog(
         context: context,
@@ -938,8 +1193,8 @@ class _ContractSecondState extends State<ContractSecond> {
         });
   }
 
-  Future<AlertDialog> _displayPriceDialog(
-      BuildContext context, ManagerController mc) async {
+  Future<AlertDialog> _displayPriceDialog(BuildContext context,
+      ManagerController mc) async {
     // alter the app state to show a dialog
     return showDialog(
         context: context,
@@ -1223,7 +1478,7 @@ class MyStepper extends StatelessWidget {
             if (index == 1)
               Padding(
                 padding:
-                    const EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 0),
+                const EdgeInsets.only(left: 0, top: 0, right: 0, bottom: 0),
                 child: Container(
                   width: 18,
                   height: 18,

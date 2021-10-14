@@ -9,6 +9,7 @@ import 'package:login/services/remote_check_contract.dart';
 class CheckContractController extends GetxController{
   var isLoading=true.obs;
   var myKickboards=Rx<CheckContract>(null);
+  var l=0.obs;
   var isContracted=false.obs;
 
   var type="measuredRate".obs;
@@ -42,6 +43,7 @@ class CheckContractController extends GetxController{
             print(element.companyName);
           });
         }
+        l.value=myKickboards.value.list.length;
       }
     }finally{
       isLoading(false);
@@ -72,12 +74,11 @@ class CheckContractController extends GetxController{
     }
   }
 
-  void deleteContract(headers) async{
+  void deleteContract(headers,body) async{
     try{
       isLoading(true);
-      var result = await RemoteCheckContract.deleteContract(headers);
+      var result = await RemoteCheckContract.deleteContract(headers,body);
 
-        print('delete success');
 
     }finally{
       isLoading(false);

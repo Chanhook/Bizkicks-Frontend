@@ -49,8 +49,8 @@ class RemoteCheckContract{
     }
   }
 
-  static Future<Map<String, dynamic>> deleteContract(headers) async{
-    var response = await client.delete(Uri.parse(contractsUrl),headers: headers);
+  static Future<Map<String, dynamic>> deleteContract(headers,body) async{
+    var response = await client.delete(Uri.parse(contractsUrl),headers: headers,body: body);
     print(response.statusCode);
     if(response.statusCode!=204){
       var jsonString = response.body;
